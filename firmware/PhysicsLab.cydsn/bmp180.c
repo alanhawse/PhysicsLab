@@ -37,6 +37,11 @@ inline int BMP180isBroken()
     return BMP180BrokenFlag;
 }
 
+inline float BMP180GetAltitude()
+{
+    return BMP180Altitude;
+}
+
 uint32 BMP180test()
 {
     uint8 buff[2];
@@ -97,11 +102,7 @@ uint32 BMP180test()
     
 }
 
-void BMP180ReadSensor(void)
-{
-    (void)BMP180ReadUT();
-    (void)BMP180ReadUP();
-}
+
 
 void BMP180init(void)
 {
@@ -264,4 +265,11 @@ long BMP180CalculatePressure(unsigned long up)
 
     long temp = p;
     return temp;
+}
+
+void BMP180ReadSensor(void)
+{
+    (void)BMP180ReadUT();
+    (void)BMP180ReadUP();
+     BMP180Altitude = BMP180CalculateAltitude(BMP180GetPressure());
 }

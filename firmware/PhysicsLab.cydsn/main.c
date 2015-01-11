@@ -12,7 +12,7 @@ void GUIprocess();
 void SPIprocess();
 void QDprocess();
 
-uint32 systime=0;
+uint32 systime=0; // 1 ms
 
 CY_ISR(systimeISR)
 {

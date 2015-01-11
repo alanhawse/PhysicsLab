@@ -3,6 +3,8 @@
 #include "testFunctions.h"
 #include "main.h"
 #include "lsm9ds0.h"
+#include "bmp180.h"
+#include "htu21.h"
 
 // private variables
 CYBLE_CONN_HANDLE_T  connectionHandle;
@@ -33,6 +35,57 @@ void BLEenable()
 {
     CyBle_Start( BleCallBack );
 
+}
+
+void BLEupdateEnvironment()
+{
+    
+    if(!bleConnected)
+        return;
+    
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T 	tempHandle;
+    long tLong;
+    float tFloat;
+    
+    // temperature
+    
+    typedef struct tempValues
+    {
+        uint8 flag; 
+        float temperature;
+    } tempValues;
+    
+    tempValues tv;
+    
+    tempHandle.attrHandle = CYBLE_ENVIRONMENT_TEMPERATURE_MEASUREMENT_CHAR_HANDLE;
+    tempHandle.value.len = 5;    
+    tempHandle.value.val = (uint8 *)&tv;
+    CyBle_GattsReadAttributeValue(&tempHandle,&connectionHandle,CYBLE_GATT_DB_LOCALLY_INITIATED);
+    
+    tv.temperature = BMP180GetTemperature();
+  	CyBle_GattsWriteAttributeValue(&tempHandle,0,&connectionHandle,0);  
+    
+    // humidity
+    tFloat = HTU21GetHumidity();
+	tempHandle.attrHandle = CYBLE_ENVIRONMENT_RELATIVE_HUMIDITY_CHAR_HANDLE;
+	tempHandle.value.val = (uint8 *)&tFloat;
+    tempHandle.value.len = 4;
+  	CyBle_GattsWriteAttributeValue(&tempHandle,0,&connectionHandle,0);  
+    
+    // Pressure
+    tLong = BMP180GetPressure();
+	tempHandle.attrHandle = CYBLE_ENVIRONMENT_AIRPRESSURE_CHAR_HANDLE;
+	tempHandle.value.val = (uint8 *)&tLong;
+    tempHandle.value.len = 4;
+  	CyBle_GattsWriteAttributeValue(&tempHandle,0,&connectionHandle,0);  
+    
+    // Altitude
+    tFloat = BMP180GetAltitude();
+	tempHandle.attrHandle = CYBLE_ENVIRONMENT_ALTITUDE_CHAR_HANDLE;
+	tempHandle.value.val = (uint8 *)&tFloat;
+    tempHandle.value.len = 4;
+  	CyBle_GattsWriteAttributeValue(&tempHandle,0,&connectionHandle,0);  
+    
 }
 
 void BLEupdateTestAttribute(uint32 testStatus)
@@ -134,6 +187,8 @@ void BleCallBack(uint32 event, void* eventParam)
             bleConnected=1;
             BLEupdateTestAttribute(getTestStatus());
             BLEupdateButtonAttribute(LED2_Read() << 2 | LED1_Read() << 1 | LED0_Read());
+            BLEupdateEnvironment();
+            
             
 		break;
         
