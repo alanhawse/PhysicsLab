@@ -13,7 +13,7 @@
 #define LSM9DS0TESTXMFLAG (1<<1)
 #define LSM9DS0TESTGFLAG (1<<2)
 
-typedef struct LSM9DS0DATA {
+typedef struct __packed LSM9DS0DATA {
     int16 x;
     int16 y;
     int16 z;
@@ -22,6 +22,8 @@ typedef struct LSM9DS0DATA {
 LSM9DS0DATA *LSM9DS0GetAccel(void);
 LSM9DS0DATA *LSM9DS0GetGyro(void);
 LSM9DS0DATA *LSM9DS0GetMag(void);
+
+uint8 LSM9DS0GetSetting();
 
 int LSM9DS0Process();
 

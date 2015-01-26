@@ -271,5 +271,6 @@ void BMP180ReadSensor(void)
 {
     (void)BMP180ReadUT();
     (void)BMP180ReadUP();
+    
      BMP180Altitude = BMP180CalculateAltitude(BMP180GetPressure());
 }

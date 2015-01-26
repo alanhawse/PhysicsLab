@@ -23,6 +23,13 @@ inline int HTU21isBroken()
 
 float HTU21Temperature;
 float HTU21Humidity;
+float HTU21DewPoint;
+
+inline float HTU21GetDewPoint()
+{
+    return HTU21DewPoint;
+}
+
 
 inline float HTU21GetTemperature()
 {

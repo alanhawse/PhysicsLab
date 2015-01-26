@@ -119,7 +119,12 @@ LSM9DS0DATA LSM9DS0Accel;
 LSM9DS0DATA LSM9DS0Gyro;
 LSM9DS0DATA LSM9DS0Mag;
 
+uint8 LSM9DS0Setting;
 
+inline uint8 LSM9DS0GetSetting()
+{
+    return LSM9DS0Setting;
+}
 
 int LSM9DS0test()
 {
@@ -188,7 +193,7 @@ inline int LSM9DS0isBroken()
     return LSM9DS0BrokenFlag;
 }
 
-typedef union RVALS {
+typedef union __packed RVALS {
         uint8 rvalu[6];
         int16 rvali[3];
     } RVALS;
@@ -241,7 +246,9 @@ void LSM9DS0readRegEnd(uint8 result[],int count)
     
     SPI_SpiUartReadRxData();
     for(i=0;i<count;i++)
+    {
         result[i] = SPI_SpiUartReadRxData();
+    }
     
 }
 
@@ -251,10 +258,13 @@ void LSM9DS0enableReadings()
     if(LSM9DS0isBroken())
         return;
    
-    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG0_XM, 0x00);
-    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG1_XM, 0x57);
-    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG2_XM, 0x00);
     
+    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG0_XM, 0x00);
+    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG1_XM, 0x77);
+    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG2_XM, 0x00);
+    LSM9DS0writeReg(LSM9DS0SlaveAccel, LSM9DS0_CTRL_REG3_XM, 0x00); 
+
+        
     LSM9DS0writeReg(LSM9DS0SlaveGyro,LSM9DS0_CTRL_REG1_G, 0x0F); // Normal mode, enable all axes
 	
 	/* CTRL_REG2_G sets up the HPF
@@ -312,8 +322,9 @@ void LSM9DS0enableReadings()
 		0=interrupt request not latched, 1=interrupt request latched
 	LIR1 - Latch interrupt request on INT1_SRC (cleared by readging INT1_SRC)
 		0=irq not latched, 1=irq latched 									 */
-	LSM9DS0writeReg(LSM9DS0SlaveMag,LSM9DS0_CTRL_REG5_XM, 0x94); // Mag data rate - 100 Hz, enable temperature sensor
-	
+//	LSM9DS0writeReg(LSM9DS0SlaveMag,LSM9DS0_CTRL_REG5_XM, 0x94); // Mag data rate - 100 Hz, enable temperature sensor
+		LSM9DS0writeReg(LSM9DS0SlaveMag,LSM9DS0_CTRL_REG5_XM, 0xF4); // Mag data rate - 100 Hz, enable temperature sensor
+
 	/* CTRL_REG6_XM sets the magnetometer full-scale
 	Bits (7-0): 0 MFS1 MFS0 0 0 0 0 0
 	MFS[1:0] - Magnetic full-scale selection

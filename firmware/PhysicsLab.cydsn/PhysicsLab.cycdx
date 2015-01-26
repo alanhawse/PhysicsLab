@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="UA4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA6" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UA1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UA2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="Clock_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0INT2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0INTG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0DRDYG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0DENG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA7" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA9" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="SYSPWM" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -18,42 +28,6 @@
     <register name="PERIOD" address="0x40200154" bitWidth="32" desc="Period value" />
     <register name="PERIOD_BUF" address="0x40200158" bitWidth="32" desc="Period buffer value" />
   </block>
-  <block name="UA0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA7" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA9" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA6" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="systimeisr" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="CapSense" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="CapSense_IDAC1" BASE="0x0" SIZE="0x0" desc="IDAC" visible="true">
-      <block name="cy_psoc4_idac" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-      <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-      <register name="CSD_IDAC_POLARITY" address="0x40280004" bitWidth="32" desc=" CSD IDAC Polarity" />
-      <register name="CSD_IDAC" address="0x40280008" bitWidth="32" desc=" CSD IDAC register" />
-      <register name="CSD_TRIM1" address="0x4028FF00" bitWidth="32" desc=" CSD IDAC TRIM1" />
-      <register name="CSD_TRIM2" address="0x4028FF04" bitWidth="32" desc=" CSD IDAC TRIM2" />
-    </block>
-    <block name="ZeroTerminal_7" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="or_sclk2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="SenseClk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="Cmod" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="SampleClk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="CSD_FFB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="Sns" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="CapSense_IDAC2" BASE="0x0" SIZE="0x0" desc="IDAC" visible="true">
-      <block name="cy_psoc4_idac" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-      <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-      <register name="CSD_IDAC_POLARITY" address="0x40280004" bitWidth="32" desc=" CSD IDAC Polarity" />
-      <register name="CSD_IDAC" address="0x40280008" bitWidth="32" desc=" CSD IDAC register" />
-      <register name="CSD_TRIM1" address="0x4028FF00" bitWidth="32" desc=" CSD IDAC TRIM1" />
-      <register name="CSD_TRIM2" address="0x4028FF04" bitWidth="32" desc=" CSD IDAC TRIM2" />
-    </block>
-    <block name="ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  </block>
   <block name="enable5v" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="BLE" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <block name="or_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -62,12 +36,6 @@
     <block name="cy_m0s8_ble" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="bless_isr" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   </block>
-  <block name="LED0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LED1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LED2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="PA" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="PB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="Clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="SPI" BASE="0x0" SIZE="0x0" desc="Serial Communication Block" visible="true">
     <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="rx_wake_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -427,6 +395,41 @@
       <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" />
     </register>
   </block>
+  <block name="CapSense" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="CapSense_IDAC1" BASE="0x0" SIZE="0x0" desc="IDAC" visible="true">
+      <block name="cy_psoc4_idac" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <register name="CSD_IDAC_POLARITY" address="0x40280004" bitWidth="32" desc=" CSD IDAC Polarity" />
+      <register name="CSD_IDAC" address="0x40280008" bitWidth="32" desc=" CSD IDAC register" />
+      <register name="CSD_TRIM1" address="0x4028FF00" bitWidth="32" desc=" CSD IDAC TRIM1" />
+      <register name="CSD_TRIM2" address="0x4028FF04" bitWidth="32" desc=" CSD IDAC TRIM2" />
+    </block>
+    <block name="ZeroTerminal_7" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="or_sclk2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="SenseClk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Cmod" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="SampleClk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="CSD_FFB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="Sns" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="CapSense_IDAC2" BASE="0x0" SIZE="0x0" desc="IDAC" visible="true">
+      <block name="cy_psoc4_idac" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+      <register name="CSD_IDAC_POLARITY" address="0x40280004" bitWidth="32" desc=" CSD IDAC Polarity" />
+      <register name="CSD_IDAC" address="0x40280008" bitWidth="32" desc=" CSD IDAC register" />
+      <register name="CSD_TRIM1" address="0x4028FF00" bitWidth="32" desc=" CSD IDAC TRIM1" />
+      <register name="CSD_TRIM2" address="0x4028FF04" bitWidth="32" desc=" CSD IDAC TRIM2" />
+    </block>
+    <block name="ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  </block>
+  <block name="LED0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LED1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LED2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="systimeisr" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="Clock_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="PB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="I2C" BASE="0x0" SIZE="0x0" desc="Serial Communication Block" visible="true">
     <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="rx_wake_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -797,4 +800,5 @@
     <register name="PERIOD" address="0x40200114" bitWidth="32" desc="Period value" />
     <register name="PERIOD_BUF" address="0x40200118" bitWidth="32" desc="Period buffer value" />
   </block>
+  <block name="PA" BASE="0x0" SIZE="0x0" desc="" visible="true" />
 </blockRegMap>

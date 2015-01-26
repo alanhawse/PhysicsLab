@@ -10,6 +10,7 @@
     inline float HTU21GetTemperature(); // temperature in degrees c
     void HTU21ReadSensor(void);
     inline int HTU21isBroken();
+    inline float HTU21GetDewPoint();
     
 #endif
 
