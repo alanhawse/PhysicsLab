@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
-  <block name="UA4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA5" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA6" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UA3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LSM9DS0INT2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LSM9DS0INTG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LSM9DS0DRDYG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="LSM9DS0DENG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA6" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UA7" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="UA9" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="SYSPWM" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -28,6 +18,15 @@
     <register name="PERIOD" address="0x40200154" bitWidth="32" desc="Period value" />
     <register name="PERIOD_BUF" address="0x40200158" bitWidth="32" desc="Period buffer value" />
   </block>
+  <block name="UA0" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0INTG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0DRDYG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0INT1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0INT2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA8" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="UA9" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="LSM9DS0DENG" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="enable5v" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="BLE" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <block name="or_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" />
