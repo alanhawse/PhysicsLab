@@ -48,7 +48,8 @@ void QDprocess()
 void QDenable()
 {
     QD_Start();
-    enable5v_Write(1); // turn on the 5v supply
+    /*enable5v_Write(1); // turn on the 5v supply */
+    
     QD_TriggerCommand(QD_MASK, QD_CMD_RELOAD); // this line is complete bullshit
     CyDelay(1); // and this is even more complete bullshit
     QD_WriteCounter(QDZero);
@@ -172,7 +173,7 @@ void GUIprocess()
             if(buttonFlag)
             {
                 BLEupdateButtonAttribute(buttonState);
-             //   LED0_Write((buttonState & 0x01));  // the board has a broken connection
+                LED0_Write((buttonState & 0x01));  // the board has a broken connection
                 LED1_Write((buttonState & 0x02)>>1);
                 LED2_Write((buttonState & 0x04)>>2);
 

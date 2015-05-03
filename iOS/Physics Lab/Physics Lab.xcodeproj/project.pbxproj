@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3E4671C71AF69B96005BC851 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671C61AF69B96005BC851 /* AppDelegate.swift */; };
+		3E4671C91AF69B96005BC851 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671C81AF69B96005BC851 /* ViewController.swift */; };
+		3E4671CC1AF69B96005BC851 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CA1AF69B96005BC851 /* Main.storyboard */; };
+		3E4671CE1AF69B96005BC851 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CD1AF69B96005BC851 /* Images.xcassets */; };
+		3E4671D11AF69B96005BC851 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */; };
+		3E4671DD1AF69B96005BC851 /* Physics_LabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3E4671D71AF69B96005BC851 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E4671B91AF69B95005BC851 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3E4671C01AF69B96005BC851;
+			remoteInfo = "Physics Lab";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3E4671C11AF69B96005BC851 /* Physics Lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Physics Lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E4671C51AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E4671C61AF69B96005BC851 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3E4671C81AF69B96005BC851 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E4671CB1AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3E4671CD1AF69B96005BC851 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3E4671D01AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Physics LabTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E4671DB1AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Physics_LabTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3E4671BE1AF69B96005BC851 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E4671D31AF69B96005BC851 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3E4671B81AF69B95005BC851 = {
+			isa = PBXGroup;
+			children = (
+				3E4671C31AF69B96005BC851 /* Physics Lab */,
+				3E4671D91AF69B96005BC851 /* Physics LabTests */,
+				3E4671C21AF69B96005BC851 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3E4671C21AF69B96005BC851 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3E4671C11AF69B96005BC851 /* Physics Lab.app */,
+				3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3E4671C31AF69B96005BC851 /* Physics Lab */ = {
+			isa = PBXGroup;
+			children = (
+				3E4671C61AF69B96005BC851 /* AppDelegate.swift */,
+				3E4671C81AF69B96005BC851 /* ViewController.swift */,
+				3E4671CA1AF69B96005BC851 /* Main.storyboard */,
+				3E4671CD1AF69B96005BC851 /* Images.xcassets */,
+				3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */,
+				3E4671C41AF69B96005BC851 /* Supporting Files */,
+			);
+			path = "Physics Lab";
+			sourceTree = "<group>";
+		};
+		3E4671C41AF69B96005BC851 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3E4671C51AF69B96005BC851 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3E4671D91AF69B96005BC851 /* Physics LabTests */ = {
+			isa = PBXGroup;
+			children = (
+				3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */,
+				3E4671DA1AF69B96005BC851 /* Supporting Files */,
+			);
+			path = "Physics LabTests";
+			sourceTree = "<group>";
+		};
+		3E4671DA1AF69B96005BC851 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3E4671DB1AF69B96005BC851 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3E4671C01AF69B96005BC851 /* Physics Lab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics Lab" */;
+			buildPhases = (
+				3E4671BD1AF69B96005BC851 /* Sources */,
+				3E4671BE1AF69B96005BC851 /* Frameworks */,
+				3E4671BF1AF69B96005BC851 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Physics Lab";
+			productName = "Physics Lab";
+			productReference = 3E4671C11AF69B96005BC851 /* Physics Lab.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3E4671D51AF69B96005BC851 /* Physics LabTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics LabTests" */;
+			buildPhases = (
+				3E4671D21AF69B96005BC851 /* Sources */,
+				3E4671D31AF69B96005BC851 /* Frameworks */,
+				3E4671D41AF69B96005BC851 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3E4671D81AF69B96005BC851 /* PBXTargetDependency */,
+			);
+			name = "Physics LabTests";
+			productName = "Physics LabTests";
+			productReference = 3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3E4671B91AF69B95005BC851 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Elkhorn Creek Engineering";
+				TargetAttributes = {
+					3E4671C01AF69B96005BC851 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					3E4671D51AF69B96005BC851 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 3E4671C01AF69B96005BC851;
+					};
+				};
+			};
+			buildConfigurationList = 3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Physics Lab" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3E4671B81AF69B95005BC851;
+			productRefGroup = 3E4671C21AF69B96005BC851 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3E4671C01AF69B96005BC851 /* Physics Lab */,
+				3E4671D51AF69B96005BC851 /* Physics LabTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3E4671BF1AF69B96005BC851 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E4671CC1AF69B96005BC851 /* Main.storyboard in Resources */,
+				3E4671D11AF69B96005BC851 /* LaunchScreen.xib in Resources */,
+				3E4671CE1AF69B96005BC851 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E4671D41AF69B96005BC851 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3E4671BD1AF69B96005BC851 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E4671C91AF69B96005BC851 /* ViewController.swift in Sources */,
+				3E4671C71AF69B96005BC851 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E4671D21AF69B96005BC851 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E4671DD1AF69B96005BC851 /* Physics_LabTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3E4671D81AF69B96005BC851 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3E4671C01AF69B96005BC851 /* Physics Lab */;
+			targetProxy = 3E4671D71AF69B96005BC851 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3E4671CA1AF69B96005BC851 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3E4671CB1AF69B96005BC851 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3E4671D01AF69B96005BC851 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3E4671DE1AF69B96005BC851 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3E4671DF1AF69B96005BC851 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3E4671E11AF69B96005BC851 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Physics Lab/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3E4671E21AF69B96005BC851 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Physics Lab/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3E4671E41AF69B96005BC851 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Physics LabTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Physics Lab.app/Physics Lab";
+			};
+			name = Debug;
+		};
+		3E4671E51AF69B96005BC851 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Physics LabTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Physics Lab.app/Physics Lab";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Physics Lab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E4671DE1AF69B96005BC851 /* Debug */,
+				3E4671DF1AF69B96005BC851 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics Lab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E4671E11AF69B96005BC851 /* Debug */,
+				3E4671E21AF69B96005BC851 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics LabTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E4671E41AF69B96005BC851 /* Debug */,
+				3E4671E51AF69B96005BC851 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3E4671B91AF69B95005BC851 /* Project object */;
+}
