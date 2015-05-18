@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2111B61B00AF2400DB2AF8 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */; };
+		3E2111B81B06238500DB2AF8 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */; };
+		3E2111BA1B0623E600DB2AF8 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B91B0623E600DB2AF8 /* GaugeView.swift */; };
 		3E4671C71AF69B96005BC851 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671C61AF69B96005BC851 /* AppDelegate.swift */; };
-		3E4671C91AF69B96005BC851 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671C81AF69B96005BC851 /* ViewController.swift */; };
+		3E4671C91AF69B96005BC851 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671C81AF69B96005BC851 /* MainViewController.swift */; };
 		3E4671CC1AF69B96005BC851 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CA1AF69B96005BC851 /* Main.storyboard */; };
 		3E4671CE1AF69B96005BC851 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CD1AF69B96005BC851 /* Images.xcassets */; };
 		3E4671D11AF69B96005BC851 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */; };
 		3E4671DD1AF69B96005BC851 /* Physics_LabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */; };
+		3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E61AF69D94005BC851 /* PhysicsLab.swift */; };
+		3E4671E91AF69DE1005BC851 /* BlueToothNeighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */; };
+		3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671EE1AF8E56F005BC851 /* BleDevice.swift */; };
+		3E78120C1AFACA0C004B4AAA /* testclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78120B1AFACA0C004B4AAA /* testclass.swift */; };
+		3EB4BF771AFE37A8007F61FD /* EnviroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */; };
+		3EB4BF791AFF8A9B007F61FD /* PhysicsLabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */; };
+		3ECE54F91AFA358F0044275B /* PhysicsLabDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +36,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
+		3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		3E2111B91B0623E600DB2AF8 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		3E4671C11AF69B96005BC851 /* Physics Lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Physics Lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E4671C51AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E4671C61AF69B96005BC851 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E4671C81AF69B96005BC851 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E4671C81AF69B96005BC851 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3E4671CB1AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E4671CD1AF69B96005BC851 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3E4671D01AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Physics LabTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E4671DB1AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Physics_LabTests.swift; sourceTree = "<group>"; };
+		3E4671E61AF69D94005BC851 /* PhysicsLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLab.swift; sourceTree = "<group>"; };
+		3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueToothNeighborhood.swift; sourceTree = "<group>"; };
+		3E4671EE1AF8E56F005BC851 /* BleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleDevice.swift; sourceTree = "<group>"; };
+		3E78120B1AFACA0C004B4AAA /* testclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testclass.swift; sourceTree = "<group>"; };
+		3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnviroViewController.swift; sourceTree = "<group>"; };
+		3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabBarViewController.swift; sourceTree = "<group>"; };
+		3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabDataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +79,7 @@
 		3E4671B81AF69B95005BC851 = {
 			isa = PBXGroup;
 			children = (
+				3E78120B1AFACA0C004B4AAA /* testclass.swift */,
 				3E4671C31AF69B96005BC851 /* Physics Lab */,
 				3E4671D91AF69B96005BC851 /* Physics LabTests */,
 				3E4671C21AF69B96005BC851 /* Products */,
@@ -77,9 +98,17 @@
 		3E4671C31AF69B96005BC851 /* Physics Lab */ = {
 			isa = PBXGroup;
 			children = (
-				3E4671C61AF69B96005BC851 /* AppDelegate.swift */,
-				3E4671C81AF69B96005BC851 /* ViewController.swift */,
 				3E4671CA1AF69B96005BC851 /* Main.storyboard */,
+				3E2111B91B0623E600DB2AF8 /* GaugeView.swift */,
+				3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */,
+				3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */,
+				3E4671C81AF69B96005BC851 /* MainViewController.swift */,
+				3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */,
+				3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */,
+				3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */,
+				3E4671EE1AF8E56F005BC851 /* BleDevice.swift */,
+				3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */,
+				3E4671E61AF69D94005BC851 /* PhysicsLab.swift */,
 				3E4671CD1AF69B96005BC851 /* Images.xcassets */,
 				3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */,
 				3E4671C41AF69B96005BC851 /* Supporting Files */,
@@ -90,6 +119,7 @@
 		3E4671C41AF69B96005BC851 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3E4671C61AF69B96005BC851 /* AppDelegate.swift */,
 				3E4671C51AF69B96005BC851 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -212,8 +242,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E4671C91AF69B96005BC851 /* ViewController.swift in Sources */,
+				3E4671E91AF69DE1005BC851 /* BlueToothNeighborhood.swift in Sources */,
+				3E78120C1AFACA0C004B4AAA /* testclass.swift in Sources */,
+				3E4671C91AF69B96005BC851 /* MainViewController.swift in Sources */,
+				3ECE54F91AFA358F0044275B /* PhysicsLabDataViewController.swift in Sources */,
+				3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */,
+				3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */,
 				3E4671C71AF69B96005BC851 /* AppDelegate.swift in Sources */,
+				3EB4BF771AFE37A8007F61FD /* EnviroViewController.swift in Sources */,
+				3E2111B81B06238500DB2AF8 /* DashboardViewController.swift in Sources */,
+				3E2111B61B00AF2400DB2AF8 /* AdminViewController.swift in Sources */,
+				3E2111BA1B0623E600DB2AF8 /* GaugeView.swift in Sources */,
+				3EB4BF791AFF8A9B007F61FD /* PhysicsLabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +451,7 @@
 				3E4671E21AF69B96005BC851 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics LabTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +460,7 @@
 				3E4671E51AF69B96005BC851 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

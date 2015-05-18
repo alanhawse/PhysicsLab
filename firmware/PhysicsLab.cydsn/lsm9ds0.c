@@ -80,7 +80,8 @@ int LSM9DS0Process()
 
 inline uint8 LSM9DS0GetSetting()
 {
-    return LSM9DS0Setting;
+    //return LSM9DS0Setting;
+    return (LSM9DS0_aScale << 4) | (LSM9DS0_mScale << 2) | (LSM9DS0_gScale) ;
 }
 
 inline LSM9DS0DATA* LSM9DS0GetAccel()

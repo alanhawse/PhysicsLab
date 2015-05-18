@@ -104,6 +104,57 @@ void BLEupdateTestAttribute(uint32 testStatus)
   	CyBle_GattsWriteAttributeValue(&testHandle,0,&connectionHandle,0);  
 }
 
+void BLEupdateSettings()
+{
+    
+    if(!bleConnected)
+        return;
+    
+    uint8 setting;
+    
+	CYBLE_GATTS_HANDLE_VALUE_NTF_T 	settingsHandle;
+    
+    
+    // Update the accelerometer setting
+    setting = (LSM9DS0GetSetting() & 0b00110000)>>4;
+	settingsHandle.attrHandle = CYBLE_SETTINGS_LSM9DS0ACCELMODE_CHAR_HANDLE;
+	settingsHandle.value.val = (uint8 *)&setting;
+    settingsHandle.value.len = 1;
+  	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0);  
+    
+    // Update the mag setting
+    setting = (LSM9DS0GetSetting() & 0b00001100)>>2;
+	settingsHandle.attrHandle = CYBLE_SETTINGS_LSM9DS0MAGMODE_CHAR_HANDLE;
+	settingsHandle.value.val = (uint8 *)&setting;
+    settingsHandle.value.len = 1;
+  	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
+    
+    // Update the gyro setting
+    setting = (LSM9DS0GetSetting() & 0b00000011);
+	settingsHandle.attrHandle = CYBLE_SETTINGS_LSM9DS0GYROMODE_CHAR_HANDLE;
+	settingsHandle.value.val = (uint8 *)&setting;
+    settingsHandle.value.len = 1;
+  	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
+    
+    // update the cmsPerRotation zero
+    
+   
+    settingsHandle.attrHandle = CYBLE_SETTINGS_WHEELCIRCUMFRENCE_CHAR_HANDLE; 
+   	settingsHandle.value.val = (uint8 *)&wheelCircumfrence;
+
+    settingsHandle.value.len = 4;
+  	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
+
+    
+    // update the  quadrature zero
+    
+    settingsHandle.attrHandle = CYBLE_SETTINGS_ZEROPOSITION_CHAR_HANDLE;
+  	settingsHandle.value.val = (uint8 *)&QuadZero;
+
+    settingsHandle.value.len = 2;
+  	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
+    
+}
 
 void BLEupdateButtonAttribute(uint8 button)
 {
@@ -188,6 +239,7 @@ void BleCallBack(uint32 event, void* eventParam)
             BLEupdateTestAttribute(getTestStatus());
             BLEupdateButtonAttribute(LED2_Read() << 2 | LED1_Read() << 1 | LED0_Read());
             BLEupdateEnvironment();
+            BLEupdateSettings();
             
             
 		break;
@@ -244,6 +296,63 @@ void BleCallBack(uint32 event, void* eventParam)
                     BLEPositionNotify = wrReqParam->handleValPair.value.val[0];
                     BLEPositionIndicate = wrReqParam->handleValPair.value.val[1];
                 }
+            }
+          
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_LSM9DS0ACCELMODE_CHAR_HANDLE) // acceleromter
+            {
+                // if it is a legal LSM9DS0 mode 4 magic number of the enum of legal modes
+                if((wrReqParam->handleValPair.value.val[0] < 4)) {
+	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+                    // change the LSM9DS0 Setting
+                    LSM9DS0_setAccelScale(wrReqParam->handleValPair.value.val[0]);
+                }
+            }
+            
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_LSM9DS0MAGMODE_CHAR_HANDLE)
+            {
+                // if it is a legal LSM9DS0 mode 4 magic number of the enum of legal modes
+                if((wrReqParam->handleValPair.value.val[0] < 4)) {
+	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+                    // change the LSM9DS0 Setting
+                    LSM9DS0_setMagScale(wrReqParam->handleValPair.value.val[0]);
+                }
+            }
+            
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_LSM9DS0GYROMODE_CHAR_HANDLE)
+            {
+                // if it is a legal LSM9DS0 mode 4 magic number of the enum of legal modes
+                if((wrReqParam->handleValPair.value.val[0] < 4)) {
+	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+                    // change the LSM9DS0 Setting
+                    LSM9DS0_setGyroScale(wrReqParam->handleValPair.value.val[0]);
+                }
+            }
+           
+            
+            // Name
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_NAME_CHAR_HANDLE) 
+            {
+                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+            }
+            
+            // Wheel Circumfrence
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_WHEELCIRCUMFRENCE_CHAR_HANDLE) 
+            {
+                memcpy(&wheelCircumfrence, &wrReqParam->handleValPair.value.val[0], 4);
+                if (wheelCircumfrence > 30 )
+                LED1_Write(~LED1_Read());
+           
+                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+            }
+            
+            // Zero
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_ZEROPOSITION_CHAR_HANDLE) 
+            {
+                    // ARH test this       
+                    QuadZero = (wrReqParam->handleValPair.value.val[0] |  (wrReqParam->handleValPair.value.val[1]<<8)); 
+                    Quad_SetZero(QuadZero);
+                    
+	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
             }
             
             CyBle_GattsWriteRsp(connectionHandle);

@@ -34,7 +34,9 @@ void setupType0Adv()
     ap = (advPacket0 *)&cyBle_discoveryModeInfo.advData->advData[ADVINDEX];
     
     // packet type + LSM9Setting
-    ap->setup = ADVPACKET0 | (LSM9DS0GetSetting()<<6);
+  
+    
+    ap->setup = ADVPACKET0 | (LSM9DS0GetSetting()<<2);
     
     // fix this
     ap->tb0 =LO8(systime);
@@ -160,20 +162,55 @@ void setupType2Adv()
 
 }
 
+
+typedef struct __packed advPacket3 {
+    uint8 setup;
+    uint8 name[14];
+    float wheelCircumfrence;
+    uint16 zeroPos;
+    
+} advPacket3;
+
+
+void setupType3Adv()
+{
+    // packet type
+
+    advPacket3 *ap;
+    Types tempData;
+
+    ap = (advPacket3 *)&cyBle_discoveryModeInfo.advData->advData[ADVINDEX];
+    
+    // packet type + LSM9Setting
+    ap->setup = ADVPACKET3;
+    
+    ap->wheelCircumfrence = wheelCircumfrence;
+    ap->zeroPos = QuadZero;
+    
+    CyBle_GapUpdateAdvData(cyBle_discoveryModeInfo.advData, cyBle_discoveryModeInfo.scanRspData);
+    
+
+}
+
 extern CYBLE_GAPP_DISC_MODE_INFO_T  cyBle_discoveryModeInfo;
 
 
 void handleAdvertisingPacketChange()
 {
     typedef enum advStates {
-    ADVSTATEPACKET0,
-    ADVSTATEPACKET1,
-    ADVSTATEPACKET0NEXT,
-    ADVSTATEPACKET2,
-    ADVSTATEPACKET3
+      ADVSTATEPACKET0,
+       ADVSTATEINSERTPACKET,
+   
     } advStates;
 
+    typedef enum insertPacketStates {
+        ADVSTATEEPACKET1,
+        ADVSTATEEPACKET2,
+        ADVSTATEEPACKET3
+    } insertPacketStates;
+
     static advStates advState = ADVSTATEPACKET0;
+    static insertPacketStates insertState = ADVPACKET1;
     static int advTrigger = 0;
     static uint32 advTimer=0;
     
@@ -195,34 +232,33 @@ void handleAdvertisingPacketChange()
             {
                 case ADVSTATEPACKET0:
                     setupType0Adv();
-                    if(systime > advTimer + 1000)
-                        advState = ADVSTATEPACKET1;
+                    if(systime > advTimer + 500)
+                        advState = ADVSTATEINSERTPACKET;
                     
                 break;
                     
-                case ADVSTATEPACKET1:
-                    setupType1Adv();
-                    advState = ADVSTATEPACKET0NEXT;
+                case ADVSTATEINSERTPACKET:
+                    LED0_Write(~LED0_Read());
+                    if(insertState == ADVSTATEEPACKET1)
+                    {
+                        setupType1Adv();
+                        insertState = ADVSTATEEPACKET2;
+                    }
+                    else if (insertState == ADVSTATEEPACKET2)
+                    {
+                        setupType2Adv();
+                        insertState = ADVSTATEEPACKET3;
+                    }
+                    else 
+                    {
+                        setupType3Adv();
+                        insertState = ADVSTATEEPACKET1;
+                    }
+                    advState = ADVSTATEPACKET0;
                     advTimer = systime;
                 break;
             
-                case ADVSTATEPACKET0NEXT:
-                    setupType0Adv();
-                    if(systime > advTimer + 1000)
-                        advState = ADVSTATEPACKET2;
-                    
-                break;
-                    
-                case ADVSTATEPACKET2:
-                    setupType2Adv();
-                    advState = ADVSTATEPACKET0;
-                    advTimer = systime;
-                    
-                break;
-                case ADVSTATEPACKET3:
-                    advState = ADVPACKET0;
-                break;
-                    
+                
                 default:
                     setupType0Adv();
                 break;

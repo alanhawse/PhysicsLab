@@ -15,6 +15,8 @@ void GUIprocess();
 void SPIprocess();
 void QDprocess();
 
+float wheelCircumfrence ;
+
 uint32 systime=0; // 1 ms
 
 CY_ISR(systimeISR)
@@ -38,7 +40,19 @@ void SPIprocess()
     }
 }
 
-#define QDZero 1000
+uint16 QuadZero;
+
+inline void Quad_SetZero(uint16 zero)
+{
+    QuadZero = zero;
+}
+
+inline uint16 Quad_GetZero()
+{
+    return QuadZero;
+}
+
+
 void QDprocess()
 {
 
@@ -48,12 +62,17 @@ void QDprocess()
 void QDenable()
 {
     QD_Start();
-    /*enable5v_Write(1); // turn on the 5v supply */
     
     QD_TriggerCommand(QD_MASK, QD_CMD_RELOAD); // this line is complete bullshit
     CyDelay(1); // and this is even more complete bullshit
-    QD_WriteCounter(QDZero);
+    QD_WriteCounter(QuadZero);
 
+}
+
+void readFlashParams()
+{
+    wheelCircumfrence = 25.4;
+    QuadZero = 1000;
 }
 
 void mainLoop();
@@ -64,6 +83,10 @@ int main()
 
     
     CyGlobalIntEnable; 
+    
+    readFlashParams();
+    
+    
     SYSPWM_Start();
     systimeisr_StartEx(systimeISR);
     SPI_Start();
@@ -83,7 +106,7 @@ int main()
     
     runTest();
     
-    (void)LSM9DS0_begin(G_SCALE_245DPS,A_SCALE_2G,M_SCALE_2GS,G_ODR_95_BW_125,A_ODR_1600,M_ODR_100);
+    (void)LSM9DS0_begin(G_SCALE_245DPS,A_SCALE_4G,M_SCALE_2GS,G_ODR_95_BW_125,A_ODR_1600,M_ODR_100);
     
     
     if(!HTU21isBroken())
@@ -138,6 +161,8 @@ void GUIprocess()
                     buttonState ^= 0x01;
                     buttonFlag = 0x8;
                     p0=0;
+                    QD_WriteCounter(QuadZero);
+                    
                 }
             }
             else 
