@@ -56,6 +56,7 @@ class GaugeView: UIView {
     
     @IBInspectable
     var name : NSString = " "
+    var gaugeUnits : NSString = " "
     
     
     var needleWidth : CGFloat = 2.0
@@ -89,6 +90,7 @@ class GaugeView: UIView {
         drawTicksAndLabels()
         
         drawTitle()
+        drawUnits()
         
         drawNeedle(.Current)
         drawNeedle(.Min)
@@ -114,6 +116,27 @@ class GaugeView: UIView {
         let rect = CGRect(origin: pnt1, size: sizeV)
         
         name.drawInRect(rect, withAttributes: nil)
+        
+        
+    }
+    
+    private func drawUnits()
+    {
+        
+        
+        //let printString = NSString(string: strng)
+        
+        let start = Double(gaugeRadius) * 0.3 // ARH Guess
+        
+        let sizeV = gaugeUnits.sizeWithAttributes(nil)
+        
+        let pnt = radiansToRectangular(r: CGFloat(start), angle: 3*M_PI_2 , offset: gaugeCenter)
+        
+        let pnt1 = CGPoint(x: pnt.x - sizeV.width/2, y: pnt.y - sizeV.height/2)
+        
+        let rect = CGRect(origin: pnt1, size: sizeV)
+        
+        gaugeUnits.drawInRect(rect, withAttributes: nil)
         
         
     }
@@ -144,9 +167,7 @@ class GaugeView: UIView {
             x.maximumFractionDigits = 1
 
             if let printString = x.stringFromNumber(printval) {
-            
 
-            //let printString = NSString(string: strng)
             
             let sizeV = printString.sizeWithAttributes(nil)
            

@@ -6,15 +6,6 @@
 //  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
 //
 
-import Foundation
-
-//
-//  ViewController.swift
-//  PhysicsLab
-//
-//  Created by Alan Hawse on 3/21/15.
-//  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
-//
 
 import CoreBluetooth
 
@@ -113,6 +104,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             bleD.lastSeen = NSDate()
             if bleD.pl != nil {
                     bleD.pl?.addPacket(ar)
+                    delegate?.addedDevice() // /ARH might be a bad idea if it causes to many updates of the list	
             }
             
         }
@@ -142,7 +134,6 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager!) {
-        println("checking state\n")
         switch (central.state) {
         case .PoweredOff: break
             

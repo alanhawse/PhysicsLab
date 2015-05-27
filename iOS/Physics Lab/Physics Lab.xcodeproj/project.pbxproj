@@ -19,6 +19,9 @@
 		3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E61AF69D94005BC851 /* PhysicsLab.swift */; };
 		3E4671E91AF69DE1005BC851 /* BlueToothNeighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */; };
 		3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671EE1AF8E56F005BC851 /* BleDevice.swift */; };
+		3E48DED61B0F5BAF0021AE72 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */; };
+		3E48DED81B0F5D4F0021AE72 /* CartHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DED71B0F5D4F0021AE72 /* CartHistory.swift */; };
+		3E48DEDC1B0F93DE0021AE72 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DEDA1B0F93DE0021AE72 /* GraphView.swift */; };
 		3E78120C1AFACA0C004B4AAA /* testclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78120B1AFACA0C004B4AAA /* testclass.swift */; };
 		3EB4BF771AFE37A8007F61FD /* EnviroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */; };
 		3EB4BF791AFF8A9B007F61FD /* PhysicsLabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */; };
@@ -52,6 +55,9 @@
 		3E4671E61AF69D94005BC851 /* PhysicsLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLab.swift; sourceTree = "<group>"; };
 		3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueToothNeighborhood.swift; sourceTree = "<group>"; };
 		3E4671EE1AF8E56F005BC851 /* BleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleDevice.swift; sourceTree = "<group>"; };
+		3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		3E48DED71B0F5D4F0021AE72 /* CartHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHistory.swift; sourceTree = "<group>"; };
+		3E48DEDA1B0F93DE0021AE72 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		3E78120B1AFACA0C004B4AAA /* testclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testclass.swift; sourceTree = "<group>"; };
 		3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnviroViewController.swift; sourceTree = "<group>"; };
 		3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabBarViewController.swift; sourceTree = "<group>"; };
@@ -99,16 +105,19 @@
 			isa = PBXGroup;
 			children = (
 				3E4671CA1AF69B96005BC851 /* Main.storyboard */,
-				3E2111B91B0623E600DB2AF8 /* GaugeView.swift */,
+				3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */,
 				3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */,
 				3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */,
 				3E4671C81AF69B96005BC851 /* MainViewController.swift */,
 				3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */,
 				3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */,
 				3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */,
+				3E2111B91B0623E600DB2AF8 /* GaugeView.swift */,
 				3E4671EE1AF8E56F005BC851 /* BleDevice.swift */,
 				3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */,
 				3E4671E61AF69D94005BC851 /* PhysicsLab.swift */,
+				3E48DED71B0F5D4F0021AE72 /* CartHistory.swift */,
+				3E48DEDA1B0F93DE0021AE72 /* GraphView.swift */,
 				3E4671CD1AF69B96005BC851 /* Images.xcassets */,
 				3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */,
 				3E4671C41AF69B96005BC851 /* Supporting Files */,
@@ -248,9 +257,12 @@
 				3ECE54F91AFA358F0044275B /* PhysicsLabDataViewController.swift in Sources */,
 				3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */,
 				3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */,
+				3E48DEDC1B0F93DE0021AE72 /* GraphView.swift in Sources */,
 				3E4671C71AF69B96005BC851 /* AppDelegate.swift in Sources */,
+				3E48DED61B0F5BAF0021AE72 /* GraphViewController.swift in Sources */,
 				3EB4BF771AFE37A8007F61FD /* EnviroViewController.swift in Sources */,
 				3E2111B81B06238500DB2AF8 /* DashboardViewController.swift in Sources */,
+				3E48DED81B0F5D4F0021AE72 /* CartHistory.swift in Sources */,
 				3E2111B61B00AF2400DB2AF8 /* AdminViewController.swift in Sources */,
 				3E2111BA1B0623E600DB2AF8 /* GaugeView.swift in Sources */,
 				3EB4BF791AFF8A9B007F61FD /* PhysicsLabBarViewController.swift in Sources */,

@@ -27,7 +27,7 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
         
       updateGraph1Display()
         
-        gaugeView2.needleValue = (current: Double(bleD!.pl!.acceleration.y), min: Double(bleD!.pl!.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.y))
+        gaugeView2.needleValue = (current: Double(bleD!.pl!.acceleration.y), min: Double(bleD!.pl!.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.x))
         gaugeView3.needleValue = (current: Double(bleD!.pl!.acceleration.z), min: Double(bleD!.pl!.minAcceleration.z), max: Double(bleD!.pl!.maxAcceleration.z))
 
     }
@@ -37,11 +37,13 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
         bleD?.pl?.delegate = self
         graph1MakeSelection()
         
-        gaugeView2.name = "Acceleration Y"
+        gaugeView2.name = "Acceleration X"
+        gaugeView2.gaugeUnits = "g"
         gaugeView2.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 
     
         gaugeView3.name = "Acceleration Z"
+        gaugeView3.gaugeUnits = "g"
         gaugeView3.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
         
         
@@ -93,6 +95,7 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
         case 0:
             graph1 = .AccelX
             gaugeView.name = "Acceleration X"
+            gaugeView.gaugeUnits = "g"
             
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 
@@ -100,26 +103,27 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
         case 1:
             graph1 = .AccelY
             gaugeView.name = "Acceleration Y"
- 
+            gaugeView.gaugeUnits = "g"
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 
 
         case 2:
             graph1 = .AccelZ
             gaugeView.name = "Acceleration Z"
-  
+            gaugeView.gaugeUnits = "g"
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 
         case 3:
             graph1 = .Velocity
             gaugeView.name = "Velocity"
-      
+            gaugeView.gaugeUnits = "m/s"
             gaugeView.gaugeValueRange = (min: bleD!.pl!.velocityRange.min, max:bleD!.pl!.velocityRange.max)
 
             
         default:
             graph1 = .AccelZ
             gaugeView.name = "Acceleration Z"
+            gaugeView.gaugeUnits = "g"
 
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 

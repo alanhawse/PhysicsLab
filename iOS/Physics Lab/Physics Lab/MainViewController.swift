@@ -15,19 +15,22 @@ var bleLand = BlueToothNeighborhood?()
 class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
     
     
+    var tagToId = [Int: BleDevice]()
+    
     
     @IBOutlet var devicesTable: UITableView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         if bleLand == nil
         {
             bleLand = BlueToothNeighborhood()
             bleLand?.startUpCentralManager()
-            //bleLand?.discoverDevices()
         }
         
         bleLand?.delegate = self
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -59,25 +62,39 @@ class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
         if bleLand?.blePeripheralsPhysicsLab.count > 0 {
             if let bleD = bleLand?.blePeripheralsPhysicsLab[ip]
             {
-                cell.textLabel!.text = bleD.peripheral?.identifier.UUIDString
+                if let nm = bleD.pl?.name
+                {
+                    cell.textLabel!.text = nm
+                }
+                else
+                {
+                    cell.textLabel!.text = bleD.peripheral?.identifier.UUIDString
+                }
+                cell.tag = tagToId.count
+                tagToId[tagToId.count+1] = bleD
+            
             }
         }
         return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+               
         var destination = segue.destinationViewController as? UIViewController
         
         if let navCon = destination as? UINavigationController
         {
+            println("Navigation Controller")
             destination = navCon.visibleViewController
         }
         
         if let tbc = destination as? PhysicsLabBarViewController
         {
             if let tvc = sender as? UITableViewCell {
-                let i = devicesTable.indexPathForCell(tvc)!.row
-                tbc.bleD = bleLand?.blePeripheralsPhysicsLab[i]
+                //let i = devicesTable.indexPathForCell(tvc)!.row
+                tbc.bleD = tagToId[tvc.tag]
+               // tbc.bleD = bleLand?.blePeripheralsPhysicsLab[i]
             }
         }
         bleLand?.delegate = nil

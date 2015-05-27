@@ -23,6 +23,8 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         
         cmsPerRotation.delegate = self
         zeroPosTextField.delegate = self
+        nameTextField.delegate = self
+        actualPosition.delegate = self
 
     }
     
@@ -37,24 +39,75 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         switch bleD!.peripheral!.state {
         case .Connected:
             connectButton.setTitle("Disconnect", forState: .Normal)
+            
         case .Disconnected:
             connectButton.setTitle("Connect", forState: .Normal)
+            updateGui()
         default: break
         }
         
-       // println("changing editing \(sender.connectionComplete)")
         changeEditing(sender.connectionComplete)
+        
+        let x=NSNumberFormatter()
+        x.numberStyle = .DecimalStyle
+        x.minimumFractionDigits = 2
+        x.maximumFractionDigits = 2
+        currentPosition.text = x.stringFromNumber(sender.cartPosition)
+        
         
         
     }
     
+    @IBOutlet weak var currentPosition: UITextField!
+    
+    @IBOutlet weak var actualPosition: UITextField!
+    
+    @IBAction func actualPositionEnd(sender: UITextField) {
+        
+        let currentZero = bleD!.pl!.cartZero
+        let currentCmsPerRotation = bleD!.pl!.cmsPerRotation
+        
+        
+        if let enteredActual = NSNumberFormatter().numberFromString(actualPosition.text)
+        {
+            let scale =  (enteredActual.floatValue - currentZero) / (bleD!.pl!.cartPosition - currentZero)
+            
+            let newCmsPerRotation = currentCmsPerRotation * scale
+            
+            bleD!.pl!.cmsPerRotation = newCmsPerRotation
+            bleD!.pl!.cartZero = currentZero
+            
+            bleD!.pl!.cartPosition = Float(enteredActual)	
+            currentPosition.text = actualPosition.text
+            
+            
+        }
+    }
+    
+    @IBAction func actualPositionStart(sender: UITextField) {
+        tapGesture.enabled = true
+    }
+    
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBAction func nameAction(sender: UITextField) {
+        
+        bleD!.pl!.name = nameTextField.text
+        
+    }
+    @IBAction func nameTextStartEditing(sender: AnyObject) {
+        tapGesture.enabled = true
+    }
     
     @IBOutlet weak var cmsPerRotation: UITextField!
     @IBAction func finishedCmPerRotation(sender: AnyObject) {
         
+        
         if let rval = NSNumberFormatter().numberFromString(cmsPerRotation.text)
         {
+            let currentZero = bleD!.pl!.cartZero
             bleD!.pl!.cmsPerRotation = rval.floatValue
+            bleD!.pl!.cartZero = currentZero
         }
         else
         {
@@ -65,6 +118,13 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
     }
     func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
     {
+        
+        if textField == nameTextField {
+            var name :NSString = textField.text
+
+            return bleD!.pl!.isNameLegal(String(name.stringByReplacingCharactersInRange(range, withString: string)))
+        }
+        
         let countdots = textField.text.componentsSeparatedByString(".").count - 1
         
         if countdots > 0 && string == "."
@@ -109,6 +169,7 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
             x.minimumFractionDigits = 2
             x.maximumFractionDigits = 2
             zeroPosTextField.text = x.stringFromNumber(pl.cartZero)
+            nameTextField.text = pl.name
         }
     }
     
@@ -180,6 +241,11 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         cmsPerRotation.enabled = action
         zeroPosTextField.userInteractionEnabled = action
         zeroPosTextField.enabled = action
+        nameTextField.userInteractionEnabled = action
+        nameTextField.enabled = action
+        
+        actualPosition.userInteractionEnabled = action
+        actualPosition.enabled = action
 
         
     }
@@ -191,13 +257,19 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         tapGesture.enabled = false
         
         if cmsPerRotation.editing {
-            finishedCmPerRotation(cmsPerRotation)
             cmsPerRotation.resignFirstResponder()
         }
         
         if zeroPosTextField.editing {
-            zeroPosTextFieldAction(zeroPosTextField)
             zeroPosTextField.resignFirstResponder()
+        }
+        
+        if nameTextField.editing {
+            nameTextField.resignFirstResponder()
+        }
+        
+        if actualPosition.editing {
+            actualPosition.resignFirstResponder()
         }
 
         
@@ -220,7 +292,5 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         bleD?.pl?.LSM9DSOGyroMode = sender.selectedSegmentIndex
     }
     
-    
-
 
 }
