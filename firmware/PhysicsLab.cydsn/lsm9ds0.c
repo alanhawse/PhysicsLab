@@ -18,6 +18,7 @@ Distributed as-is; no warranty is given.
 ******************************************************************************/
 
 #include "LSM9DS0.h"
+#include "globaldefaults.h"
 
 // name of the component
 //#define LSM9DS0_I2C_INTERFACE I2C

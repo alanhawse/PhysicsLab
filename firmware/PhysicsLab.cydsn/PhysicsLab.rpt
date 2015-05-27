@@ -1,10 +1,10 @@
-Loading plugins phase: Elapsed time ==> 0s.140ms
+Loading plugins phase: Elapsed time ==> 0s.155ms
 Initializing data phase: Elapsed time ==> 0s.000ms
 <CYPRESSTAG name="CyDsfit arguments...">
 cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p \\vmware-host\Shared Folders\Documents\PhysicsLab\firmware\PhysicsLab.cydsn\PhysicsLab.cyprj -d CY8C4247LQI-BL483 -s \\vmware-host\Shared Folders\Documents\PhysicsLab\firmware\PhysicsLab.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 3s.182ms
+Elaboration phase: Elapsed time ==> 4s.305ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
 HDL generation phase: Elapsed time ==> 0s.109ms
@@ -41,7 +41,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=\\vmware-host\
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Sun May 17 08:54:27 2015
+Fri May 22 05:27:52 2015
 
 
 ======================================================================
@@ -51,7 +51,7 @@ Options  :    -yv2 -q10 PhysicsLab.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Sun May 17 08:54:27 2015
+Fri May 22 05:27:52 2015
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\OneTerminal\OneTerminal.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v'
@@ -85,7 +85,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=\\vmware-host\
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Sun May 17 08:54:28 2015
+Fri May 22 05:27:52 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -114,7 +114,7 @@ Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=\\vmware-host\
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Sun May 17 08:54:28 2015
+Fri May 22 05:27:53 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -319,10 +319,10 @@ CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\wa
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\bin/warp.exe
 Warp Arguments : -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya "-.fftprj=\\vmware-host\Shared Folders\Documents\PhysicsLab\firmware\PhysicsLab.cydsn\PhysicsLab.cyprj" -dcpsoc3 PhysicsLab.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 0s.873ms
+Warp synthesis phase: Elapsed time ==> 0s.889ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.1.0.2288, Family: PSoC3, Started at: Sunday, 17 May 2015 08:54:28
+cyp3fit: V3.1.0.2288, Family: PSoC3, Started at: Friday, 22 May 2015 05:27:53
 Options: -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=\\vmware-host\Shared Folders\Documents\PhysicsLab\firmware\PhysicsLab.cydsn\PhysicsLab.cyprj -d CY8C4247LQI-BL483 PhysicsLab.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
@@ -747,14 +747,14 @@ Design Equations
     Pin : Name = UA0(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -772,7 +772,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -785,14 +785,14 @@ Design Equations
     Pin : Name = UA1(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -810,7 +810,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -823,14 +823,14 @@ Design Equations
     Pin : Name = UA2(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -848,7 +848,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -861,14 +861,14 @@ Design Equations
     Pin : Name = UA3(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -886,7 +886,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -899,14 +899,14 @@ Design Equations
     Pin : Name = UA6(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -924,7 +924,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -934,14 +934,14 @@ Design Equations
     Pin : Name = UA7(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -959,7 +959,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -969,14 +969,14 @@ Design Equations
     Pin : Name = UA8(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -994,7 +994,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -1007,14 +1007,14 @@ Design Equations
     Pin : Name = UA9(0)
         Attributes:
             In Group/Port: True
-            In Sync Option: AUTO
-            Out Sync Option: NOSYNC
+            In Sync Option: SYNC
+            Out Sync Option: AUTO
             Interrupt generated: False
             Interrupt mode: NONE
-            Drive mode: CMOS_OUT
-            VTrip: EITHER
+            Drive mode: HI_Z_DIGITAL
+            VTrip: CMOS
             Slew: FAST
-            Input Sync needed: False
+            Input Sync needed: True
             Output Sync needed: False
             SC shield enabled: False
             POR State: ANY
@@ -1032,7 +1032,7 @@ Design Equations
             SIO Hyst: DISABLED
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
-            Required Capabilitites: DIGITAL
+            Required Capabilitites: DIGITAL, ROUTABLE
             Initial Value: 0
             IO Voltage: 0
         PORT MAP (
@@ -1543,7 +1543,7 @@ Design Equations
             SIO Vtrip: MULTIPLIER_0_5
             SIO RefSel: VCC_IO
             Required Capabilitites: DIGITAL
-            Initial Value: 0
+            Initial Value: 1
             IO Voltage: 0
         PORT MAP (
             pa_out => enable5v(0)__PA ,
@@ -1650,18 +1650,18 @@ Serial Communication Blocks   :    2 :    0 :    2 : 100.00%
 Segment LCD Blocks            :    0 :    1 :    1 :   0.00%
 Bluetooth Low Energy Blocks   :    1 :    0 :    1 : 100.00%
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.436ms
-Tech mapping phase: Elapsed time ==> 0s.483ms
+Technology Mapping: Elapsed time ==> 0s.374ms
+Tech mapping phase: Elapsed time ==> 0s.421ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 <CYPRESSTAG name="Analog Placement">
-Elapsed time ==> 0.0100668s
+Elapsed time ==> 0.0148528s
 </CYPRESSTAG>
 Analog Placement phase: Elapsed time ==> 0s.046ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 <CYPRESSTAG name="Analog Routing">
-Route success=True, Iterations=1 Elapsed=0.0023944 secs
+Route success=True, Iterations=1 Elapsed=0.0028096 secs
 </CYPRESSTAG>
 Analog Routing phase: Elapsed time ==> 0s.015ms
 </CYPRESSTAG>
@@ -1702,7 +1702,7 @@ Map of item to net {
 }
 Mux Info {
 }
-Analog Code Generation phase: Elapsed time ==> 0s.140ms
+Analog Code Generation phase: Elapsed time ==> 0s.124ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
@@ -1738,7 +1738,7 @@ PLD Packing: Elapsed time ==> 0s.000ms
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.031ms
+Partitioning: Elapsed time ==> 0s.015ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
 Annealing: Elapsed time ==> 0s.000ms
@@ -1903,14 +1903,14 @@ Pin : Name = \I2C:scl(0)\
 Pin : Name = UA6(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -1928,7 +1928,7 @@ Pin : Name = UA6(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -1942,14 +1942,14 @@ Pin : Name = UA6(0)
 Pin : Name = UA2(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -1967,7 +1967,7 @@ Pin : Name = UA2(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -1981,14 +1981,14 @@ Pin : Name = UA2(0)
 Pin : Name = UA0(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2006,7 +2006,7 @@ Pin : Name = UA0(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -2020,14 +2020,14 @@ Pin : Name = UA0(0)
 Pin : Name = UA1(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2045,7 +2045,7 @@ Pin : Name = UA1(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -2086,7 +2086,7 @@ Pin : Name = enable5v(0)
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
         Required Capabilitites: DIGITAL
-        Initial Value: 0
+        Initial Value: 1
         IO Voltage: 0
     PORT MAP (
         pa_out => enable5v(0)__PA ,
@@ -2139,14 +2139,14 @@ Pin : Name = PA(0)
 Pin : Name = UA7(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2164,7 +2164,7 @@ Pin : Name = UA7(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -2694,14 +2694,14 @@ Pin : Name = LSM9DS0INT1(0)
 Pin : Name = UA3(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2719,7 +2719,7 @@ Pin : Name = UA3(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -2774,14 +2774,14 @@ Pin : Name = \CapSense:Sns(1)\
 Pin : Name = UA9(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2799,7 +2799,7 @@ Pin : Name = UA9(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -2852,14 +2852,14 @@ Pin : Name = LED2(0)
 Pin : Name = UA8(0)
     Attributes:
         In Group/Port: True
-        In Sync Option: AUTO
-        Out Sync Option: NOSYNC
+        In Sync Option: SYNC
+        Out Sync Option: AUTO
         Interrupt generated: False
         Interrupt mode: NONE
-        Drive mode: CMOS_OUT
-        VTrip: EITHER
+        Drive mode: HI_Z_DIGITAL
+        VTrip: CMOS
         Slew: FAST
-        Input Sync needed: False
+        Input Sync needed: True
         Output Sync needed: False
         SC shield enabled: False
         POR State: ANY
@@ -2877,7 +2877,7 @@ Pin : Name = UA8(0)
         SIO Hyst: DISABLED
         SIO Vtrip: MULTIPLIER_0_5
         SIO RefSel: VCC_IO
-        Required Capabilitites: DIGITAL
+        Required Capabilitites: DIGITAL, ROUTABLE
         Initial Value: 0
         IO Voltage: 0
     PORT MAP (
@@ -3241,14 +3241,14 @@ Port | Pin | Fixed |      Type |       Drive Mode |               Name | Connect
 -----+-----+-------+-----------+------------------+--------------------+-----------------------------
    0 |   0 |     * |      NONE |    OPEN_DRAIN_LO |       \I2C:sda(0)\ | FB(\I2C:Net_581\)
      |   1 |     * |      NONE |    OPEN_DRAIN_LO |       \I2C:scl(0)\ | FB(\I2C:Net_580\)
-     |   2 |       |      NONE |         CMOS_OUT |             UA6(0) | 
-     |   3 |     * |      NONE |         CMOS_OUT |             UA2(0) | 
-     |   4 |     * |      NONE |         CMOS_OUT |             UA0(0) | 
-     |   5 |     * |      NONE |         CMOS_OUT |             UA1(0) | 
+     |   2 |       |      NONE |     HI_Z_DIGITAL |             UA6(0) | 
+     |   3 |     * |      NONE |     HI_Z_DIGITAL |             UA2(0) | 
+     |   4 |     * |      NONE |     HI_Z_DIGITAL |             UA0(0) | 
+     |   5 |     * |      NONE |     HI_Z_DIGITAL |             UA1(0) | 
 -----+-----+-------+-----------+------------------+--------------------+-----------------------------
    1 |   0 |     * |      NONE |    OPEN_DRAIN_LO |        enable5v(0) | 
      |   1 |     * |      NONE |     HI_Z_DIGITAL |              PA(0) | FB(Net_653)
-     |   2 |       |      NONE |         CMOS_OUT |             UA7(0) | 
+     |   2 |       |      NONE |     HI_Z_DIGITAL |             UA7(0) | 
      |   3 |     * |      NONE |     HI_Z_DIGITAL |              PB(0) | FB(Net_652)
      |   4 |     * |      NONE |         CMOS_OUT |    \SPI:mosi_m(0)\ | In(\SPI:Net_660\)
      |   5 |     * |      NONE |     HI_Z_DIGITAL |    \SPI:miso_m(0)\ | FB(\SPI:Net_663\)
@@ -3264,11 +3264,11 @@ Port | Pin | Fixed |      Type |       Drive Mode |               Name | Connect
 -----+-----+-------+-----------+------------------+--------------------+-----------------------------
    3 |   0 |     * |      NONE |     HI_Z_DIGITAL |     LSM9DS0INT2(0) | 
      |   1 |     * |      NONE |     HI_Z_DIGITAL |     LSM9DS0INT1(0) | 
-     |   2 |     * |      NONE |         CMOS_OUT |             UA3(0) | 
+     |   2 |     * |      NONE |     HI_Z_DIGITAL |             UA3(0) | 
      |   3 |     * |      NONE |      HI_Z_ANALOG |  \CapSense:Sns(1)\ | Analog(\CapSense:Net_245_0\)
-     |   4 |     * |      NONE |         CMOS_OUT |             UA9(0) | 
+     |   4 |     * |      NONE |     HI_Z_DIGITAL |             UA9(0) | 
      |   5 |     * |      NONE |         CMOS_OUT |            LED2(0) | 
-     |   6 |     * |      NONE |         CMOS_OUT |             UA8(0) | 
+     |   6 |     * |      NONE |     HI_Z_DIGITAL |             UA8(0) | 
      |   7 |     * |      NONE |      HI_Z_ANALOG |  \CapSense:Sns(2)\ | Analog(\CapSense:Net_245_0\)
 -----+-----+-------+-----------+------------------+--------------------+-----------------------------
    4 |   0 |     * |      NONE |      HI_Z_ANALOG | \CapSense:Cmod(0)\ | Analog(\CapSense:Net_398\)
@@ -3287,14 +3287,14 @@ Routing successful.
 Digital Routing phase: Elapsed time ==> 0s.405ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.155ms
+Bitstream and API generation phase: Elapsed time ==> 0s.171ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.031ms
+Bitstream verification phase: Elapsed time ==> 0s.015ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Timing report is in PhysicsLab_timing.html.
-Static timing analysis phase: Elapsed time ==> 0s.187ms
+Static timing analysis phase: Elapsed time ==> 0s.202ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
 Data reporting phase: Elapsed time ==> 0s.000ms
@@ -3302,9 +3302,9 @@ Data reporting phase: Elapsed time ==> 0s.000ms
 <CYPRESSTAG name="Database update...">
 Design database save phase: Elapsed time ==> 0s.140ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 2s.043ms
+cydsfit: Elapsed time ==> 1s.965ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 2s.105ms
-API generation phase: Elapsed time ==> 3s.431ms
-Dependency generation phase: Elapsed time ==> 0s.031ms
-Cleanup phase: Elapsed time ==> 0s.031ms
+Fitter phase: Elapsed time ==> 2s.027ms
+API generation phase: Elapsed time ==> 2s.979ms
+Dependency generation phase: Elapsed time ==> 0s.046ms
+Cleanup phase: Elapsed time ==> 0s.015ms

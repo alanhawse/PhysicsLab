@@ -4,6 +4,7 @@
 #include "lsm9ds0.h"
 #include "htu21.h"
 #include "bmp180.h"
+#include "globaldefaults.h"
 
 
 #define ADVINDEX (7)
@@ -177,15 +178,16 @@ void setupType3Adv()
     // packet type
 
     advPacket3 *ap;
-    Types tempData;
+    //Types tempData;
 
     ap = (advPacket3 *)&cyBle_discoveryModeInfo.advData->advData[ADVINDEX];
     
     // packet type + LSM9Setting
     ap->setup = ADVPACKET3;
     
-    ap->wheelCircumfrence = wheelCircumfrence;
-    ap->zeroPos = QuadZero;
+    ap->wheelCircumfrence = globalDefaults.cmsPerRotation;
+    ap->zeroPos = globalDefaults.zeroPos;
+    memcpy(&ap->name,globalDefaults.name,sizeof(globalDefaults.name)); 
     
     CyBle_GapUpdateAdvData(cyBle_discoveryModeInfo.advData, cyBle_discoveryModeInfo.scanRspData);
     

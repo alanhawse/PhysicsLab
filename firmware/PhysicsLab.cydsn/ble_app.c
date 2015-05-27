@@ -5,6 +5,7 @@
 #include "lsm9ds0.h"
 #include "bmp180.h"
 #include "htu21.h"
+#include "globaldefaults.h"
 
 // private variables
 CYBLE_CONN_HANDLE_T  connectionHandle;
@@ -140,7 +141,7 @@ void BLEupdateSettings()
     
    
     settingsHandle.attrHandle = CYBLE_SETTINGS_WHEELCIRCUMFRENCE_CHAR_HANDLE; 
-   	settingsHandle.value.val = (uint8 *)&wheelCircumfrence;
+   	settingsHandle.value.val = (uint8 *)&globalDefaults.cmsPerRotation;
 
     settingsHandle.value.len = 4;
   	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
@@ -149,7 +150,7 @@ void BLEupdateSettings()
     // update the  quadrature zero
     
     settingsHandle.attrHandle = CYBLE_SETTINGS_ZEROPOSITION_CHAR_HANDLE;
-  	settingsHandle.value.val = (uint8 *)&QuadZero;
+  	settingsHandle.value.val = (uint8 *)&globalDefaults.zeroPos;
 
     settingsHandle.value.len = 2;
   	CyBle_GattsWriteAttributeValue(&settingsHandle,0,&connectionHandle,0); 
@@ -222,8 +223,10 @@ void BleCallBack(uint32 event, void* eventParam)
     
     switch(event)
     {
-        case CYBLE_EVT_STACK_ON:
+        
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
+            GlobalWriteDefaults();
+        case CYBLE_EVT_STACK_ON:
             bleConnected = 0;
             CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
 
@@ -231,9 +234,7 @@ void BleCallBack(uint32 event, void* eventParam)
          
          
         case CYBLE_EVT_GATT_CONNECT_IND:
-			/* This event is received when device is connected over GATT level */
 			
-		
             connectionHandle = *(CYBLE_CONN_HANDLE_T  *)eventParam;
             bleConnected=1;
             BLEupdateTestAttribute(getTestStatus());
@@ -288,6 +289,13 @@ void BleCallBack(uint32 event, void* eventParam)
                 }
             }
             
+            // cart Position
+            if(wrReqParam->handleValPair.attrHandle == CYBLE_KINEMATIC_POSITION_CHAR_HANDLE) 
+            {
+                    QD_WriteCounter (wrReqParam->handleValPair.value.val[0] |  (wrReqParam->handleValPair.value.val[1]<<8)); 
+	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+            }
+            
             if(wrReqParam->handleValPair.attrHandle == CYBLE_KINEMATIC_POSITION_POSITIONCCCD_DESC_HANDLE) // CCCD for Position
             {
                 
@@ -297,6 +305,8 @@ void BleCallBack(uint32 event, void* eventParam)
                     BLEPositionIndicate = wrReqParam->handleValPair.value.val[1];
                 }
             }
+            
+            
           
             if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_LSM9DS0ACCELMODE_CHAR_HANDLE) // acceleromter
             {
@@ -304,6 +314,8 @@ void BleCallBack(uint32 event, void* eventParam)
                 if((wrReqParam->handleValPair.value.val[0] < 4)) {
 	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
                     // change the LSM9DS0 Setting
+                    globalDefaults.LSM9AccelMode = wrReqParam->handleValPair.value.val[0];
+
                     LSM9DS0_setAccelScale(wrReqParam->handleValPair.value.val[0]);
                 }
             }
@@ -314,6 +326,8 @@ void BleCallBack(uint32 event, void* eventParam)
                 if((wrReqParam->handleValPair.value.val[0] < 4)) {
 	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
                     // change the LSM9DS0 Setting
+                    globalDefaults.LSM9MagMode = wrReqParam->handleValPair.value.val[0];
+
                     LSM9DS0_setMagScale(wrReqParam->handleValPair.value.val[0]);
                 }
             }
@@ -324,6 +338,7 @@ void BleCallBack(uint32 event, void* eventParam)
                 if((wrReqParam->handleValPair.value.val[0] < 4)) {
 	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
                     // change the LSM9DS0 Setting
+                    globalDefaults.LSM9GyroMode = wrReqParam->handleValPair.value.val[0];
                     LSM9DS0_setGyroScale(wrReqParam->handleValPair.value.val[0]);
                 }
             }
@@ -332,28 +347,30 @@ void BleCallBack(uint32 event, void* eventParam)
             // Name
             if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_NAME_CHAR_HANDLE) 
             {
-                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+                if (wrReqParam->handleValPair.value.len <= sizeof(globalDefaults.name) )
+                {
+                    memcpy(globalDefaults.name, wrReqParam->handleValPair.value.val,wrReqParam->handleValPair.value.len );
+                    CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
+                }
             }
             
             // Wheel Circumfrence
             if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_WHEELCIRCUMFRENCE_CHAR_HANDLE) 
             {
-                memcpy(&wheelCircumfrence, &wrReqParam->handleValPair.value.val[0], 4);
-                if (wheelCircumfrence > 30 )
-                LED1_Write(~LED1_Read());
-           
+                float temp;
+                memcpy(&temp, wrReqParam->handleValPair.value.val, 4); // arh hardcode
+                globalDefaults.cmsPerRotation = temp;
                 CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
             }
             
             // Zero
             if(wrReqParam->handleValPair.attrHandle == CYBLE_SETTINGS_ZEROPOSITION_CHAR_HANDLE) 
             {
-                    // ARH test this       
-                    QuadZero = (wrReqParam->handleValPair.value.val[0] |  (wrReqParam->handleValPair.value.val[1]<<8)); 
-                    Quad_SetZero(QuadZero);
-                    
+                    globalDefaults.zeroPos = (wrReqParam->handleValPair.value.val[0] |  (wrReqParam->handleValPair.value.val[1]<<8)); 
 	                CyBle_GattsWriteAttributeValue(&wrReqParam->handleValPair, 0, &connectionHandle, CYBLE_GATT_DB_LOCALLY_INITIATED);
             }
+            
+    
             
             CyBle_GattsWriteRsp(connectionHandle);
            			
