@@ -15,10 +15,13 @@ class EmailViewController: MFMailComposeViewController, MFMailComposeViewControl
         mailComposeDelegate = self
     }
     
+    // if they send or cancel dismiss the view controller and go back
+    // to the file screen
     func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // create the attachments and attach them to the mail message
     func setupAttachments(#docsDir : String, fileNames : [String])
     {
         for i in fileNames {

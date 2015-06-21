@@ -231,12 +231,51 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
     var pressure :  Int = 0
     var temperature :  Float = 0.0
     var altitude :  Float = 0.0
-    var airDensity :  Float = 0.0
-    var dewPoint :  Float = 0.0
     
+    // http://www.gribble.org/cycling/air_density.html
+    var airDensity :  Float {
+        get {
+         
+            let eso = 6.1078
+            let c0 = 0.99999683
+            let c1 = -0.9082695e-2
+            let c2 = 0.78736169e-4
+            let c3 = -0.61117958e-6
+            let c4 = 0.43884187e-8
+            let c5 = -0.29883885e-10
+            let c6 = 0.21874425e-12
+            let c7 = -0.17892321e-14
+            let c8 = 0.11112018e-16
+            let c9 = -0.30994571e-19
+            let T = Double(dewPoint)
+            
+            let part8 = (c6 + T * (c7 + T * (c8 + T * c9)))
+            let p = c0 + T * (c1 + T * (c2 + T * (c3 + T * (c4 + T * (c5 + T * part8)))))
+            
+            let es = eso / (p*p*p*p*p*p*p*p) //8.0
+            let pv = es * Double(relativeHumdity)
+
+            // http://www.holsoft.nl/physics/ocmain.htm
+            let rho = 1.2929 * 273.15 / (Double(temperature) + 273.0531) * (Double(pressure) - 0.3783 * pv) / 1.013e5
+                        
+            return Float(rho)
+        }
+    }
     
-
-
+    var dewPoint :  Float {
+        get {
+            
+            let part1 = log(relativeHumdity/100)
+            let part2 = (17.625*temperature)
+            let part3 = (243.04+temperature)
+            let part4 = 17.625-log(relativeHumdity/100)
+            let part5 = (17.625*temperature)
+            let part6 = (243.04+temperature)
+            let rval = 243.04 * (part1 + (part2/part3))  / (part4-(part5/part6))
+            return Float(rval)
+        }
+    }
+    
 
     var LSM9DSOAccelMode = 0 {
         didSet {
@@ -686,14 +725,14 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
         bytes[2] = ar[12]
         bytes[3] = ar[13]
         
-        memcpy(&airDensity,bytes,4)
+  //      memcpy(&airDensity,bytes,4)
         
         bytes[0] = ar[14]
         bytes[1] = ar[15]
         bytes[2] = ar[16]
         bytes[3] = ar[17]
         
-        memcpy(&dewPoint,bytes,4)
+ //       memcpy(&dewPoint,bytes,4)
         
     //    packet2Count = packet2Count + 1
      //   println("packet2Count = \(packet2Count)")

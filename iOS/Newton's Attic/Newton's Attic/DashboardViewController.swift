@@ -21,14 +21,14 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
     func physicsLabDisplay(sender: PhysicsLab) {
         
         if view.bounds.height < view.bounds.width {
-            graph1Selection.selectedSegmentIndex = 3
+            graph1Selection?.selectedSegmentIndex = 3
             graph1MakeSelection()
         }
         
       updateGraph1Display()
         
-        gaugeView2.needleValue = (current: Double(bleD!.pl!.acceleration.y), min: Double(bleD!.pl!.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.x))
-        gaugeView3.needleValue = (current: Double(bleD!.pl!.acceleration.z), min: Double(bleD!.pl!.minAcceleration.z), max: Double(bleD!.pl!.maxAcceleration.z))
+        gaugeView2?.needleValue = (current: Double(bleD!.pl!.acceleration.y), min: Double(bleD!.pl!.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.x))
+        gaugeView3?.needleValue = (current: Double(bleD!.pl!.acceleration.z), min: Double(bleD!.pl!.minAcceleration.z), max: Double(bleD!.pl!.maxAcceleration.z))
 
     }
     
@@ -90,8 +90,11 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
     @IBOutlet weak var graph1Selection: UISegmentedControl!
     
     @IBAction func graph1MakeSelection() {
-          
-        switch graph1Selection.selectedSegmentIndex {
+        if graph1Selection == nil {
+            return
+        }
+        
+        switch graph1Selection!.selectedSegmentIndex {
         case 0:
             graph1 = .AccelX
             gaugeView.name = "Acceleration X"

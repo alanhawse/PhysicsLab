@@ -77,8 +77,7 @@ class GaugeView: UIView {
     
     private func updateGui()
     {
-        
-        
+                
         let bp = UIBezierPath()
         
         // draw the circle of the gauge

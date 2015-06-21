@@ -9,13 +9,16 @@
 import UIKit
 import MessageUI
 
-
 class FileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var fileNames = [String]()
-    var docsDir: String?
-    
-    var checkState = [UITableViewCellAccessoryType]()
+    private var fileNames = [String]()
+    private var docsDir : String {
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        return dirPaths[0] as! String
+    }
+    // checkstate keeps track of the user checkmarks even if they
+    // are off the screen.
+    private var checkState = [UITableViewCellAccessoryType]()
 
     @IBOutlet weak var fileListTable: UITableView!
 
@@ -26,16 +29,20 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         fileTable.delegate = self
     }
     
+    // if the user clicks the trash button then erase the currently
+    // selected files... then for easy programming read in the file
+    // list from the filesystem again
     @IBAction func trashAction(sender: UIButton) {
         trashFiles(getList())
         readFiles()
         fileListTable.reloadData()
     }
     
+    // When the user clicks the mark all action button the
+    // program will see how many files are checked.  If more than half are checked
+    // then it will check the rest... otherwise it will uncheck all of them
     @IBAction func markAll(sender: UIButton) {
-       
         var ip = NSIndexPath()
-        
         var count = 0
         
         // iterate over all of the cells
@@ -68,13 +75,17 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+   /* override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         println("Segue to email")
         
     }
+*/
     
     @IBOutlet weak var fileTable: UITableView!
-    
+  
+    // if the user clicks the email button then make a list of all of
+    // the files to mail.  the attach them.  then launch an email window
+    // so the user can send the email
     @IBAction func emailAction(sender: UIButton) {
         let emvc = EmailViewController()
         if MFMailComposeViewController.canSendMail()
@@ -85,7 +96,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     files.append(fileNames[i])
                 }
             }
-            emvc.setupAttachments(docsDir: docsDir!, fileNames: files)
+            emvc.setupAttachments(docsDir: docsDir, fileNames: files)
             presentViewController(emvc, animated: true, completion: nil)
         }
         
@@ -93,20 +104,13 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     // this function reads all of the files in the documents directory and adds them to the list of files that the program knows about
-    func readFiles() {
+    private func readFiles() {
         
         fileNames.removeAll(keepCapacity: true)
         checkState.removeAll(keepCapacity: true)
         
         let fileManager = NSFileManager.defaultManager()
-        //var docsDir: String?
-        
-        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        
-        docsDir = dirPaths[0] as? String
-        let enumerator = fileManager.enumeratorAtPath(docsDir!)
-        
-        var count = 0
+        let enumerator = fileManager.enumeratorAtPath(docsDir)
         
         while let element = enumerator?.nextObject() as? String {
             if element.hasSuffix(".csv") { // checks the extension
@@ -147,7 +151,9 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         flipCellState(cell!)
     }
     
-    func flipCellState(cell : UITableViewCell)
+    // if the cell is checked then you need to flip the state
+    // in the list as well.
+    private func flipCellState(cell : UITableViewCell)
     {
         for i in 0..<fileNames.count
         {
@@ -160,41 +166,35 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     checkState[i] = .None
                 }
                 cell.accessoryType = checkState[i]
+                return
             }
         }
     }
     
-    func getList() -> [String] {
+    // makes a filter list of all of the files that have a checkmar\
+    // used by trash and email
+    private func getList() -> [String] {
         var rval = [String]()
         
         var ip = NSIndexPath()
-        
-        // iterate over all of the cells
         for i in 0..<fileNames.count {
             if checkState[i] != .None {
                 rval.append(fileNames[i])
             }
-
         }
-        
-        
         return rval
     }
     
-    func trashFiles(fileList: [String]) {
+    // erase all of the files in a list
+    private func trashFiles(fileList: [String]) {
         let fileManager = NSFileManager.defaultManager()
         var docsDir: String?
         
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        
         docsDir = dirPaths[0] as? String
-        
         for i in fileList {
             let fname = docsDir! + "/" + i
             fileManager.removeItemAtPath(fname, error: nil)
         }
-        
     }
-
-
 }

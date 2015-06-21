@@ -35,7 +35,8 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
     
     func physicsLabDisplay(sender: PhysicsLab) {
         
-        switch bleD!.peripheral!.state {
+        switch bleD!.peripheral!.state
+        {
         case .Connected:
             connectButton.setTitle("Disconnect", forState: .Normal)
             
@@ -46,11 +47,7 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         }
         
         changeEditing(sender.connectionComplete)
-        
         currentPosition.text = format2(sender.cartPosition,digits:2)
-        
-        
-        
     }
     
     func format2 (val: Float, digits: Int) -> String? {
@@ -59,7 +56,6 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         x.minimumFractionDigits = digits
         x.maximumFractionDigits = digits
         return x.stringFromNumber(val)
-        
     }
     
     @IBOutlet weak var currentPosition: UITextField!
@@ -68,19 +64,25 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
     
     @IBAction func actualPositionEnd(sender: UITextField) {
         
+   
         let currentZero = bleD!.pl!.cartZero
         let currentCmsPerRotation = bleD!.pl!.cmsPerRotation
-        
-        
+   
+        if bleD!.pl!.cartPosition - currentZero < 0.1 {
+            return
+        }
         if let enteredActual = NSNumberFormatter().numberFromString(actualPosition.text)
         {
+            if enteredActual.floatValue < currentZero {
+                return
+            }
+            
             let scale =  (enteredActual.floatValue - currentZero) / (bleD!.pl!.cartPosition - currentZero)
             
             let newCmsPerRotation = currentCmsPerRotation * scale
             
             bleD!.pl!.cmsPerRotation = newCmsPerRotation
             bleD!.pl!.cartZero = currentZero
-            
             bleD!.pl!.cartPosition = Float(enteredActual)	
             currentPosition.text = actualPosition.text
         }

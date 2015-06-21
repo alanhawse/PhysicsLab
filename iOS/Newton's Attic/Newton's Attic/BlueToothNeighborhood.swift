@@ -44,7 +44,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     func connectToDevice(peripheral: CBPeripheral?)
     {
-
+    //    println("Connect to device \(peripheral!.identifier)")
         if peripheral != nil {
         centralManager?.connectPeripheral(peripheral, options: nil)
         }
@@ -64,6 +64,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
         if let bleD = blePeripherals[peripheral.identifier]
         {
+         //   println("Ble DisConnected")
             bleD.pl?.delegate?.physicsLabDisplay(bleD.pl!)
             
         }
@@ -74,6 +75,8 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         
         if let bleD = blePeripherals[peripheral.identifier]
         {
+        //    println("Ble Connected")
+
             peripheral.delegate = bleD.pl
             
             peripheral.discoverServices(nil)

@@ -7,12 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
-		3EDD3F751B2CA661007010A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F741B2CA661007010A3 /* ViewController.swift */; };
-		3EDD3F781B2CA661007010A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F761B2CA661007010A3 /* Main.storyboard */; };
 		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
 		3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */; };
 		3EDD3F891B2CA661007010A3 /* Newton_s_AtticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F881B2CA661007010A3 /* Newton_s_AtticTests.swift */; };
+		3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F921B2CA67A007010A3 /* EmailViewController.swift */; };
+		3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F931B2CA67A007010A3 /* FileViewController.swift */; };
+		3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */; };
+		3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */; };
+		3EDD3FA51B2CA67A007010A3 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */; };
+		3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F971B2CA67A007010A3 /* MainViewController.swift */; };
+		3EDD3FA71B2CA67A007010A3 /* EnviroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */; };
+		3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */; };
+		3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */; };
+		3EDD3FAA1B2CA67A007010A3 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9B1B2CA67A007010A3 /* GaugeView.swift */; };
+		3EDD3FAB1B2CA67A007010A3 /* BleDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */; };
+		3EDD3FAC1B2CA67A007010A3 /* BlueToothNeighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */; };
+		3EDD3FAD1B2CA67A007010A3 /* PhysicsLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */; };
+		3EDD3FAE1B2CA67A007010A3 /* CartHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */; };
+		3EDD3FAF1B2CA67A007010A3 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3FA01B2CA67A007010A3 /* GraphView.swift */; };
+		3EDD3FB11B2CA69C007010A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3FB01B2CA69C007010A3 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +41,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EDD3F721B2CA661007010A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3EDD3F741B2CA661007010A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3EDD3F771B2CA661007010A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EDD3F791B2CA661007010A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3EDD3F7C1B2CA661007010A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3EDD3F821B2CA661007010A3 /* Newton's AtticTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Newton's AtticTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F871B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EDD3F881B2CA661007010A3 /* Newton_s_AtticTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newton_s_AtticTests.swift; sourceTree = "<group>"; };
+		3EDD3F921B2CA67A007010A3 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		3EDD3F931B2CA67A007010A3 /* FileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
+		3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
+		3EDD3F971B2CA67A007010A3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnviroViewController.swift; sourceTree = "<group>"; };
+		3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabDataViewController.swift; sourceTree = "<group>"; };
+		3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabBarViewController.swift; sourceTree = "<group>"; };
+		3EDD3F9B1B2CA67A007010A3 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
+		3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleDevice.swift; sourceTree = "<group>"; };
+		3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueToothNeighborhood.swift; sourceTree = "<group>"; };
+		3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLab.swift; sourceTree = "<group>"; };
+		3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHistory.swift; sourceTree = "<group>"; };
+		3EDD3FA01B2CA67A007010A3 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		3EDD3FB01B2CA69C007010A3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +107,24 @@
 		3EDD3F6F1B2CA661007010A3 /* Newton's Attic */ = {
 			isa = PBXGroup;
 			children = (
-				3EDD3F721B2CA661007010A3 /* AppDelegate.swift */,
-				3EDD3F741B2CA661007010A3 /* ViewController.swift */,
-				3EDD3F761B2CA661007010A3 /* Main.storyboard */,
+				3EDD3FB01B2CA69C007010A3 /* Main.storyboard */,
+				3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */,
+				3EDD3F921B2CA67A007010A3 /* EmailViewController.swift */,
+				3EDD3F931B2CA67A007010A3 /* FileViewController.swift */,
+				3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */,
+				3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */,
+				3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */,
+				3EDD3F971B2CA67A007010A3 /* MainViewController.swift */,
+				3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */,
+				3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */,
+				3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */,
+				3EDD3F9B1B2CA67A007010A3 /* GaugeView.swift */,
+				3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */,
+				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
+				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
+				3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */,
+				3EDD3FA01B2CA67A007010A3 /* GraphView.swift */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
-				3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */,
 				3EDD3F701B2CA661007010A3 /* Supporting Files */,
 			);
 			path = "Newton's Attic";
@@ -90,6 +133,8 @@
 		3EDD3F701B2CA661007010A3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3EDD3F721B2CA661007010A3 /* AppDelegate.swift */,
+				3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */,
 				3EDD3F711B2CA661007010A3 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -192,7 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EDD3F781B2CA661007010A3 /* Main.storyboard in Resources */,
+				3EDD3FB11B2CA69C007010A3 /* Main.storyboard in Resources */,
 				3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */,
 				3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */,
 			);
@@ -212,8 +257,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EDD3F751B2CA661007010A3 /* ViewController.swift in Sources */,
+				3EDD3FAC1B2CA67A007010A3 /* BlueToothNeighborhood.swift in Sources */,
+				3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */,
+				3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */,
+				3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */,
+				3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */,
+				3EDD3FA51B2CA67A007010A3 /* AdminViewController.swift in Sources */,
+				3EDD3FAD1B2CA67A007010A3 /* PhysicsLab.swift in Sources */,
+				3EDD3FAE1B2CA67A007010A3 /* CartHistory.swift in Sources */,
+				3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */,
+				3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */,
 				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
+				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
+				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,
+				3EDD3FAF1B2CA67A007010A3 /* GraphView.swift in Sources */,
+				3EDD3FAA1B2CA67A007010A3 /* GaugeView.swift in Sources */,
+				3EDD3FAB1B2CA67A007010A3 /* BleDevice.swift in Sources */,
+				3EDD3FA71B2CA67A007010A3 /* EnviroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,14 +296,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3EDD3F761B2CA661007010A3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3EDD3F771B2CA661007010A3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,8 +394,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Newton's Attic/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"MTL_ENABLE_DEBUG_INFO[arch=*]" = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -352,8 +406,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Newton's Attic/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -411,6 +467,7 @@
 				3EDD3F8E1B2CA661007010A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EDD3F8F1B2CA661007010A3 /* Build configuration list for PBXNativeTarget "Newton's AtticTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +476,7 @@
 				3EDD3F911B2CA661007010A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
