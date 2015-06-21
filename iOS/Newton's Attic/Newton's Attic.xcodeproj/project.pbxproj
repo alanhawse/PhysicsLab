@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
+		3EDD3F751B2CA661007010A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F741B2CA661007010A3 /* ViewController.swift */; };
+		3EDD3F781B2CA661007010A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F761B2CA661007010A3 /* Main.storyboard */; };
+		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
+		3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */; };
+		3EDD3F891B2CA661007010A3 /* Newton_s_AtticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F881B2CA661007010A3 /* Newton_s_AtticTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3EDD3F831B2CA661007010A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3EDD3F651B2CA661007010A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3EDD3F6C1B2CA661007010A3;
+			remoteInfo = "Newton's Attic";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EDD3F721B2CA661007010A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3EDD3F741B2CA661007010A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3EDD3F771B2CA661007010A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3EDD3F791B2CA661007010A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3EDD3F7C1B2CA661007010A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		3EDD3F821B2CA661007010A3 /* Newton's AtticTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Newton's AtticTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EDD3F871B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EDD3F881B2CA661007010A3 /* Newton_s_AtticTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newton_s_AtticTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3EDD3F6A1B2CA661007010A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EDD3F7F1B2CA661007010A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3EDD3F641B2CA661007010A3 = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F6F1B2CA661007010A3 /* Newton's Attic */,
+				3EDD3F851B2CA661007010A3 /* Newton's AtticTests */,
+				3EDD3F6E1B2CA661007010A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3EDD3F6E1B2CA661007010A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */,
+				3EDD3F821B2CA661007010A3 /* Newton's AtticTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3EDD3F6F1B2CA661007010A3 /* Newton's Attic */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F721B2CA661007010A3 /* AppDelegate.swift */,
+				3EDD3F741B2CA661007010A3 /* ViewController.swift */,
+				3EDD3F761B2CA661007010A3 /* Main.storyboard */,
+				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
+				3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */,
+				3EDD3F701B2CA661007010A3 /* Supporting Files */,
+			);
+			path = "Newton's Attic";
+			sourceTree = "<group>";
+		};
+		3EDD3F701B2CA661007010A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F711B2CA661007010A3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3EDD3F851B2CA661007010A3 /* Newton's AtticTests */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F881B2CA661007010A3 /* Newton_s_AtticTests.swift */,
+				3EDD3F861B2CA661007010A3 /* Supporting Files */,
+			);
+			path = "Newton's AtticTests";
+			sourceTree = "<group>";
+		};
+		3EDD3F861B2CA661007010A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F871B2CA661007010A3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3EDD3F6C1B2CA661007010A3 /* Newton's Attic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EDD3F8C1B2CA661007010A3 /* Build configuration list for PBXNativeTarget "Newton's Attic" */;
+			buildPhases = (
+				3EDD3F691B2CA661007010A3 /* Sources */,
+				3EDD3F6A1B2CA661007010A3 /* Frameworks */,
+				3EDD3F6B1B2CA661007010A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Newton's Attic";
+			productName = "Newton's Attic";
+			productReference = 3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3EDD3F811B2CA661007010A3 /* Newton's AtticTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EDD3F8F1B2CA661007010A3 /* Build configuration list for PBXNativeTarget "Newton's AtticTests" */;
+			buildPhases = (
+				3EDD3F7E1B2CA661007010A3 /* Sources */,
+				3EDD3F7F1B2CA661007010A3 /* Frameworks */,
+				3EDD3F801B2CA661007010A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3EDD3F841B2CA661007010A3 /* PBXTargetDependency */,
+			);
+			name = "Newton's AtticTests";
+			productName = "Newton's AtticTests";
+			productReference = 3EDD3F821B2CA661007010A3 /* Newton's AtticTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3EDD3F651B2CA661007010A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Elkhorn Creek Engineering";
+				TargetAttributes = {
+					3EDD3F6C1B2CA661007010A3 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					3EDD3F811B2CA661007010A3 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 3EDD3F6C1B2CA661007010A3;
+					};
+				};
+			};
+			buildConfigurationList = 3EDD3F681B2CA661007010A3 /* Build configuration list for PBXProject "Newton's Attic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3EDD3F641B2CA661007010A3;
+			productRefGroup = 3EDD3F6E1B2CA661007010A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3EDD3F6C1B2CA661007010A3 /* Newton's Attic */,
+				3EDD3F811B2CA661007010A3 /* Newton's AtticTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3EDD3F6B1B2CA661007010A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EDD3F781B2CA661007010A3 /* Main.storyboard in Resources */,
+				3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */,
+				3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EDD3F801B2CA661007010A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3EDD3F691B2CA661007010A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EDD3F751B2CA661007010A3 /* ViewController.swift in Sources */,
+				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EDD3F7E1B2CA661007010A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EDD3F891B2CA661007010A3 /* Newton_s_AtticTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3EDD3F841B2CA661007010A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3EDD3F6C1B2CA661007010A3 /* Newton's Attic */;
+			targetProxy = 3EDD3F831B2CA661007010A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3EDD3F761B2CA661007010A3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EDD3F771B2CA661007010A3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3EDD3F7B1B2CA661007010A3 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EDD3F7C1B2CA661007010A3 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3EDD3F8A1B2CA661007010A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3EDD3F8B1B2CA661007010A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3EDD3F8D1B2CA661007010A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Newton's Attic/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3EDD3F8E1B2CA661007010A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Newton's Attic/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3EDD3F901B2CA661007010A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Newton's AtticTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newton's Attic.app/Newton's Attic";
+			};
+			name = Debug;
+		};
+		3EDD3F911B2CA661007010A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Newton's AtticTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newton's Attic.app/Newton's Attic";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3EDD3F681B2CA661007010A3 /* Build configuration list for PBXProject "Newton's Attic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EDD3F8A1B2CA661007010A3 /* Debug */,
+				3EDD3F8B1B2CA661007010A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EDD3F8C1B2CA661007010A3 /* Build configuration list for PBXNativeTarget "Newton's Attic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EDD3F8D1B2CA661007010A3 /* Debug */,
+				3EDD3F8E1B2CA661007010A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3EDD3F8F1B2CA661007010A3 /* Build configuration list for PBXNativeTarget "Newton's AtticTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EDD3F901B2CA661007010A3 /* Debug */,
+				3EDD3F911B2CA661007010A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3EDD3F651B2CA661007010A3 /* Project object */;
+}
