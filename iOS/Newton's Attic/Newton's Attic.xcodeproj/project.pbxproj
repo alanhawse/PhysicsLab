@@ -16,7 +16,6 @@
 		3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F931B2CA67A007010A3 /* FileViewController.swift */; };
 		3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */; };
 		3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */; };
-		3EDD3FA51B2CA67A007010A3 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */; };
 		3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F971B2CA67A007010A3 /* MainViewController.swift */; };
 		3EDD3FA71B2CA67A007010A3 /* EnviroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */; };
 		3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */; };
@@ -54,7 +53,6 @@
 		3EDD3F931B2CA67A007010A3 /* FileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		3EDD3F971B2CA67A007010A3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnviroViewController.swift; sourceTree = "<group>"; };
 		3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabDataViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				3EDD3F931B2CA67A007010A3 /* FileViewController.swift */,
 				3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */,
 				3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */,
-				3EDD3F961B2CA67A007010A3 /* AdminViewController.swift */,
 				3EDD3F971B2CA67A007010A3 /* MainViewController.swift */,
 				3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */,
 				3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */,
@@ -262,7 +259,6 @@
 				3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */,
 				3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */,
 				3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */,
-				3EDD3FA51B2CA67A007010A3 /* AdminViewController.swift in Sources */,
 				3EDD3FAD1B2CA67A007010A3 /* PhysicsLab.swift in Sources */,
 				3EDD3FAE1B2CA67A007010A3 /* CartHistory.swift in Sources */,
 				3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */,
