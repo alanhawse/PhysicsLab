@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hPd-LM-zLb">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -9,7 +10,7 @@
         <!--Detail Page-->
         <scene sceneID="uvO-N2-XS6">
             <objects>
-                <viewController id="7d1-wb-cSL" customClass="PhysicsLabDataViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7d1-wb-cSL" customClass="PhysicsLabDataViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U8L-OQ-PNU"/>
                         <viewControllerLayoutGuide type="bottom" id="TpO-tR-zli"/>
@@ -322,7 +323,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Data" id="wX9-ui-dZu"/>
+                    <tabBarItem key="tabBarItem" title="Data" image="datatable" id="wX9-ui-dZu"/>
                     <navigationItem key="navigationItem" title="Detail Page" id="CNb-Ed-OxX">
                         <barButtonItem key="rightBarButtonItem" title="Enviro" id="evH-wl-tlf"/>
                     </navigationItem>
@@ -348,7 +349,7 @@
         <!--Enviro-->
         <scene sceneID="1FD-EQ-94h">
             <objects>
-                <viewController id="in4-XH-t3V" customClass="EnviroViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="in4-XH-t3V" customClass="EnviroViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SQb-ck-YpZ"/>
                         <viewControllerLayoutGuide type="bottom" id="Btn-fz-HB5"/>
@@ -426,7 +427,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Variable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YD-mi-BCM">
                                 <rect key="frame" x="16" y="20" width="165" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.17590382900000001" green="0.158111893" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imI-WR-Kp7">
@@ -435,7 +436,7 @@
                                     <constraint firstAttribute="width" constant="100" id="mhn-Ci-J3w"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.17590382900000001" green="0.158111893" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude (m)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYN-nz-NyW">
@@ -502,7 +503,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Enviro" id="cO0-ob-coH"/>
+                    <tabBarItem key="tabBarItem" title="Enviro" image="thermometer" id="cO0-ob-coH"/>
                     <connections>
                         <outlet property="altitude" destination="vxs-Lp-DFq" id="BlA-cw-2BL"/>
                         <outlet property="density" destination="g5F-vb-BBE" id="tFa-QN-5tJ"/>
@@ -519,7 +520,7 @@
         <!--Physics Lab Bar View Controller-->
         <scene sceneID="pWD-xB-pH4">
             <objects>
-                <tabBarController id="DOm-Av-g5T" customClass="PhysicsLabBarViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="DOm-Av-g5T" customClass="PhysicsLabBarViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="f3b-mX-sJ1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -532,16 +533,132 @@
                         <segue destination="alN-ZH-RwM" kind="relationship" relationship="viewControllers" id="PyC-Rn-UsD"/>
                         <segue destination="Pmh-IC-Rsw" kind="relationship" relationship="viewControllers" id="Oh0-uX-oMp"/>
                         <segue destination="urg-lA-H9z" kind="relationship" relationship="viewControllers" id="mXR-4e-Fe1"/>
+                        <segue destination="6Xn-T3-xMG" kind="show" identifier="fileViewController" id="Chx-Wn-YJt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zec-E7-g6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="835" y="1982"/>
         </scene>
+        <!--File View Controller-->
+        <scene sceneID="UCA-q6-t4G">
+            <objects>
+                <viewController id="6Xn-T3-xMG" customClass="FileViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LZR-JY-DRX"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qxc-b6-vFa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CqR-lS-DST">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TRk-3j-lCw">
+                                <rect key="frame" x="16" y="20" width="568" height="485"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="fileName" id="hNN-Xw-Vr3">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hNN-Xw-Vr3" id="WPH-bL-lNV">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exz-PC-uzd">
+                                <rect key="frame" x="16" y="513" width="189" height="30"/>
+                                <state key="normal" title="Mark All">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="markAll:" destination="6Xn-T3-xMG" eventType="touchUpInside" id="wYQ-Hs-2iZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z55-s0-bg1">
+                                <rect key="frame" x="205" y="513" width="190" height="30"/>
+                                <state key="normal" title="Email">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emailAction:" destination="6Xn-T3-xMG" eventType="touchUpInside" id="XIN-V2-VUH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-sk-tKO">
+                                <rect key="frame" x="395" y="513" width="189" height="30"/>
+                                <state key="normal" title="Trash">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="trashAction:" destination="6Xn-T3-xMG" eventType="touchUpInside" id="cVK-7W-CcE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qxc-b6-vFa" firstAttribute="top" secondItem="1vB-sk-tKO" secondAttribute="bottom" constant="8" symbolic="YES" id="19Q-4Z-QI5"/>
+                            <constraint firstItem="TRk-3j-lCw" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="36f-Kd-ZCe"/>
+                            <constraint firstItem="Qxc-b6-vFa" firstAttribute="top" secondItem="exz-PC-uzd" secondAttribute="bottom" constant="8" symbolic="YES" id="3eN-z8-apl"/>
+                            <constraint firstItem="exz-PC-uzd" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="5wS-BZ-glG"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="leading" secondItem="1vB-sk-tKO" secondAttribute="leading" id="7Bw-Kj-w0C"/>
+                            <constraint firstItem="1vB-sk-tKO" firstAttribute="leading" secondItem="Z55-s0-bg1" secondAttribute="trailing" id="9Yf-9E-oTb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TRk-3j-lCw" secondAttribute="trailing" id="B18-3d-x51"/>
+                            <constraint firstItem="1vB-sk-tKO" firstAttribute="trailing" secondItem="CqR-lS-DST" secondAttribute="trailingMargin" id="BAN-Hu-9Go"/>
+                            <constraint firstItem="TRk-3j-lCw" firstAttribute="top" secondItem="LZR-JY-DRX" secondAttribute="bottom" constant="8" symbolic="YES" id="BGS-dl-VjD"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="leading" secondItem="exz-PC-uzd" secondAttribute="trailing" id="Cx9-Ab-7qa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1vB-sk-tKO" secondAttribute="trailing" id="DnP-qW-BYc"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="leading" secondItem="exz-PC-uzd" secondAttribute="leading" id="Fk4-cK-AXu"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="baseline" secondItem="1vB-sk-tKO" secondAttribute="baseline" id="HOZ-cN-FHU"/>
+                            <constraint firstItem="exz-PC-uzd" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="Hbf-Er-bx7"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="width" secondItem="exz-PC-uzd" secondAttribute="width" id="OnU-58-5Dg"/>
+                            <constraint firstItem="1vB-sk-tKO" firstAttribute="leading" secondItem="Z55-s0-bg1" secondAttribute="trailing" id="VnC-IP-fvU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1vB-sk-tKO" secondAttribute="trailing" id="Xa8-EE-XYK"/>
+                            <constraint firstItem="Qxc-b6-vFa" firstAttribute="top" secondItem="exz-PC-uzd" secondAttribute="bottom" constant="8" symbolic="YES" id="YEu-V2-uEy"/>
+                            <constraint firstItem="TRk-3j-lCw" firstAttribute="top" secondItem="LZR-JY-DRX" secondAttribute="bottom" id="ZuV-ha-dZ6"/>
+                            <constraint firstItem="exz-PC-uzd" firstAttribute="baseline" secondItem="Z55-s0-bg1" secondAttribute="baseline" constant="-13" id="bKC-v3-fOM"/>
+                            <constraint firstItem="exz-PC-uzd" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="efQ-KW-nJf"/>
+                            <constraint firstItem="Qxc-b6-vFa" firstAttribute="top" secondItem="TRk-3j-lCw" secondAttribute="bottom" constant="8" symbolic="YES" id="fm2-a9-buT"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="top" secondItem="TRk-3j-lCw" secondAttribute="bottom" constant="8" symbolic="YES" id="jHc-Es-44V"/>
+                            <constraint firstItem="TRk-3j-lCw" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="jUT-7x-INN"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="width" secondItem="1vB-sk-tKO" secondAttribute="width" id="pnr-De-etR"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="leading" secondItem="exz-PC-uzd" secondAttribute="trailing" constant="66" id="r8f-HI-AIW"/>
+                            <constraint firstItem="exz-PC-uzd" firstAttribute="leading" secondItem="CqR-lS-DST" secondAttribute="leadingMargin" id="rJ6-XG-TLN"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="baseline" secondItem="exz-PC-uzd" secondAttribute="baseline" id="rh7-Jr-0YE"/>
+                            <constraint firstItem="Z55-s0-bg1" firstAttribute="leading" secondItem="exz-PC-uzd" secondAttribute="trailing" id="tgX-EW-iGT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1vB-sk-tKO" secondAttribute="trailing" id="vL4-R7-zXf"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BGS-dl-VjD"/>
+                                <exclude reference="jUT-7x-INN"/>
+                                <exclude reference="5wS-BZ-glG"/>
+                                <exclude reference="bKC-v3-fOM"/>
+                                <exclude reference="rJ6-XG-TLN"/>
+                                <exclude reference="7Bw-Kj-w0C"/>
+                                <exclude reference="Fk4-cK-AXu"/>
+                                <exclude reference="r8f-HI-AIW"/>
+                                <exclude reference="tgX-EW-iGT"/>
+                                <exclude reference="19Q-4Z-QI5"/>
+                                <exclude reference="YEu-V2-uEy"/>
+                                <exclude reference="fm2-a9-buT"/>
+                                <exclude reference="9Yf-9E-oTb"/>
+                                <exclude reference="BAN-Hu-9Go"/>
+                                <exclude reference="vL4-R7-zXf"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="fileListTable" destination="TRk-3j-lCw" id="PGM-ZM-Lum"/>
+                        <outlet property="fileTable" destination="TRk-3j-lCw" id="E0I-8x-Aeo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ww-tE-o2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-127" y="2084"/>
+        </scene>
         <!--Admin-->
         <scene sceneID="UAg-3i-wB2">
             <objects>
-                <viewController id="urg-lA-H9z" customClass="AdminViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="urg-lA-H9z" customClass="AdminViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="myy-CV-eL0"/>
                         <viewControllerLayoutGuide type="bottom" id="i5r-sE-MnD"/>
@@ -781,7 +898,7 @@
                             <outletCollection property="gestureRecognizers" destination="O5g-XD-IOq" appends="YES" id="Z7e-f7-zSw"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Admin" id="T1Y-dQ-IGA"/>
+                    <tabBarItem key="tabBarItem" title="Admin" image="settings" id="T1Y-dQ-IGA"/>
                     <connections>
                         <outlet property="accelerometerRange" destination="jcB-bj-ULz" id="hSX-ry-N7D"/>
                         <outlet property="actualPosition" destination="L2n-yh-4nI" id="sO6-zp-Jvb"/>
@@ -808,7 +925,7 @@
         <!--Dash-->
         <scene sceneID="HeU-Lm-KDd">
             <objects>
-                <viewController title="Dash" id="Pmh-IC-Rsw" customClass="DashboardViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Dash" id="Pmh-IC-Rsw" customClass="DashboardViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lag-Ca-hWa"/>
                         <viewControllerLayoutGuide type="bottom" id="6sk-aY-VB3"/>
@@ -817,7 +934,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ii8-PE-tHP" customClass="GaugeView" customModule="Physics_Lab" customModuleProvider="target">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ii8-PE-tHP" customClass="GaugeView" customModule="Newtons_Attic" customModuleProvider="target">
                                 <rect key="frame" x="16" y="28" width="568" height="515"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -842,11 +959,11 @@
                                     <action selector="resetMaxMin:" destination="Pmh-IC-Rsw" eventType="touchUpInside" id="OK4-iP-7t9"/>
                                 </connections>
                             </button>
-                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="TP1-0L-ygf" customClass="GaugeView" customModule="Physics_Lab" customModuleProvider="target">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="TP1-0L-ygf" customClass="GaugeView" customModule="Newtons_Attic" customModuleProvider="target">
                                 <rect key="frame" x="16" y="28" width="568" height="515"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cBv-lH-ca7" customClass="GaugeView" customModule="Physics_Lab" customModuleProvider="target">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cBv-lH-ca7" customClass="GaugeView" customModule="Newtons_Attic" customModuleProvider="target">
                                 <rect key="frame" x="16" y="28" width="568" height="515"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -946,7 +1063,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Dash" id="ws7-Az-OoS"/>
+                    <tabBarItem key="tabBarItem" title="Dash" image="speedometer" id="ws7-Az-OoS"/>
                     <connections>
                         <outlet property="gaugeView" destination="ii8-PE-tHP" id="hLq-6f-bq7"/>
                         <outlet property="gaugeView2" destination="TP1-0L-ygf" id="Rh7-FT-wFf"/>
@@ -961,7 +1078,7 @@
         <!--Graph-->
         <scene sceneID="uIp-HZ-70q">
             <objects>
-                <viewController title="Graph" id="alN-ZH-RwM" customClass="GraphViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Graph" id="alN-ZH-RwM" customClass="GraphViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ncE-fO-IN2"/>
                         <viewControllerLayoutGuide type="bottom" id="cy7-sd-iro"/>
@@ -970,7 +1087,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="nCR-lr-UC1" customClass="GraphView" customModule="Physics_Lab" customModuleProvider="target">
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="nCR-lr-UC1" customClass="GraphView" customModule="Newtons_Attic" customModuleProvider="target">
                                 <rect key="frame" x="16" y="62" width="568" height="489"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
@@ -1046,7 +1163,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Graph" id="5sh-UW-3dC"/>
+                    <tabBarItem key="tabBarItem" title="Graph" image="graph2" id="5sh-UW-3dC"/>
                     <connections>
                         <outlet property="graphView" destination="nCR-lr-UC1" id="SPn-QH-rmx"/>
                         <outlet property="xSelection" destination="jJH-fY-9Zi" id="2Mj-cn-x5O"/>
@@ -1060,7 +1177,7 @@
         <!--Physics Lab-->
         <scene sceneID="CEg-Fb-OTf">
             <objects>
-                <tableViewController id="DWK-kv-LWB" customClass="MainViewController" customModule="Physics_Lab" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="DWK-kv-LWB" customClass="MainViewController" customModule="Newtons_Attic" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pKY-lj-EZa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1121,4 +1238,11 @@
             <point key="canvasLocation" x="1" y="1212"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="datatable" width="25" height="25"/>
+        <image name="graph2" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="speedometer" width="25" height="25"/>
+        <image name="thermometer" width="25" height="25"/>
+    </resources>
 </document>

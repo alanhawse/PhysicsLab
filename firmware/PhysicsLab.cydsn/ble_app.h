@@ -19,6 +19,7 @@ void BLEupdatePositionAttribute(uint16 );
 void BLEenable();
 void BLEnotify();
 
+extern int BLEEventFlag;
 
     
 #endif

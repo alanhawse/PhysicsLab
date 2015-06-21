@@ -18,8 +18,11 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
     
     override func viewWillAppear(animated: Bool) {
         
-        recordButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
-        actionButton = UIBarButtonItem(barButtonSystemItem: .Play, target: self, action: "record")
+        let img = UIImage(named: "recordbutton")
+        
+        recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
+        //recordButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
+        actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
         self.navigationItem.setRightBarButtonItems([recordButton!,actionButton!], animated: true)
 
         
@@ -84,6 +87,7 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
     
     func action()
     {
+        performSegueWithIdentifier("fileViewController", sender: nil)
         
     }
     

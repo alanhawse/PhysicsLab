@@ -8,7 +8,7 @@
 
 import UIKit
 
-var loggedIn : Bool = true
+var loggedIn : Bool = false
 var bleLand = BlueToothNeighborhood?()
 
 

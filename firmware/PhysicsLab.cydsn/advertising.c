@@ -213,22 +213,8 @@ void handleAdvertisingPacketChange()
 
     static advStates advState = ADVSTATEPACKET0;
     static insertPacketStates insertState = ADVPACKET1;
-    static int advTrigger = 0;
     static uint32 advTimer=0;
     
-    
-    CYBLE_BLESS_STATE_T BLESSstate = CyBle_GetBleSsState();
-            
-    if(BLESSstate == CYBLE_BLESS_STATE_ACTIVE)
-    {
-        advTrigger = 1;
-    }
-    
-    else
-    {
-        if(advTrigger)
-        {
-            advTrigger = 0;
         
             switch(advState)
             {
@@ -265,7 +251,5 @@ void handleAdvertisingPacketChange()
                     setupType0Adv();
                 break;
                     
-            }
-        }
     }  
 }

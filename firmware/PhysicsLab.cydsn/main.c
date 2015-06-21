@@ -24,6 +24,8 @@ CY_ISR(systimeISR)
     systime++;
     SYSPWM_ClearInterrupt(SYSPWM_INTR_MASK_TC);
     systimeisr_ClearPending();
+    UA11_Write(~UA11_Read());
+    
 }
 
 
@@ -64,13 +66,13 @@ int main()
 {
 
 
-    
     CyGlobalIntEnable; 
     
     GlobalReadDefaults();
     
     SYSPWM_Start();
     systimeisr_StartEx(systimeISR);
+    
     SPI_Start();
     
 #ifndef debug__DISABLED
@@ -78,7 +80,7 @@ int main()
         mainLoop();
         
 #endif
-    
+   
     
     CapSense_Start();
     CapSense_InitializeEnabledBaselines();
@@ -88,7 +90,6 @@ int main()
     
     runTest();
     
-//    (void)LSM9DS0_begin(G_SCALE_245DPS,A_SCALE_4G,M_SCALE_2GS,G_ODR_95_BW_125,A_ODR_1600,M_ODR_100);
     (void)LSM9DS0_begin(globalDefaults.LSM9GyroMode,globalDefaults.LSM9AccelMode,globalDefaults.LSM9MagMode,G_ODR_95_BW_125,A_ODR_1600,M_ODR_100);
 
     
@@ -102,27 +103,27 @@ int main()
         BMP180init();
         BMP180ReadSensor();
     }
-    
+   
     QDenable();
     BLEenable();
-    
     for(;;)
     {
-                
-        CyBle_ProcessEvents ();
+        
+        CyBle_ProcessEvents();
+        CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+
+  
+        if( BLEEventFlag && CyBle_GetState() == CYBLE_STATE_ADVERTISING)
+        {
+            BLEEventFlag = 0;
+            UA10_Write(~UA10_Read());
+            handleAdvertisingPacketChange();  
+        }
         
         SPIprocess();
         GUIprocess();
-        QDprocess(); 
+        QDprocess();
         
-        
-        if(CyBle_GetState() == CYBLE_STATE_ADVERTISING)
-        {
-            handleAdvertisingPacketChange();
-        }
-        
-        CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
-       
     }
 }
 

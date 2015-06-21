@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E1541A51B1B36C000FAE4C8 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1541A41B1B36C000FAE4C8 /* FileViewController.swift */; };
+		3E1541A71B1DD9F000FAE4C8 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1541A61B1DD9F000FAE4C8 /* EmailViewController.swift */; };
 		3E2111B61B00AF2400DB2AF8 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */; };
 		3E2111B81B06238500DB2AF8 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */; };
 		3E2111BA1B0623E600DB2AF8 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2111B91B0623E600DB2AF8 /* GaugeView.swift */; };
@@ -15,14 +17,14 @@
 		3E4671CC1AF69B96005BC851 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CA1AF69B96005BC851 /* Main.storyboard */; };
 		3E4671CE1AF69B96005BC851 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CD1AF69B96005BC851 /* Images.xcassets */; };
 		3E4671D11AF69B96005BC851 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */; };
-		3E4671DD1AF69B96005BC851 /* Physics_LabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */; };
 		3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E61AF69D94005BC851 /* PhysicsLab.swift */; };
 		3E4671E91AF69DE1005BC851 /* BlueToothNeighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */; };
 		3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4671EE1AF8E56F005BC851 /* BleDevice.swift */; };
 		3E48DED61B0F5BAF0021AE72 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */; };
 		3E48DED81B0F5D4F0021AE72 /* CartHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DED71B0F5D4F0021AE72 /* CartHistory.swift */; };
 		3E48DEDC1B0F93DE0021AE72 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E48DEDA1B0F93DE0021AE72 /* GraphView.swift */; };
-		3E78120C1AFACA0C004B4AAA /* testclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78120B1AFACA0C004B4AAA /* testclass.swift */; };
+		3E8386C21B2C8E0E000D6341 /* Newtons-AtticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8386C11B2C8E0E000D6341 /* Newtons-AtticTests.swift */; };
+		3E8386C41B2C8E5F000D6341 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E8386C31B2C8E5F000D6341 /* Info.plist */; };
 		3EB4BF771AFE37A8007F61FD /* EnviroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */; };
 		3EB4BF791AFF8A9B007F61FD /* PhysicsLabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */; };
 		3ECE54F91AFA358F0044275B /* PhysicsLabDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */; };
@@ -39,26 +41,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E1541A41B1B36C000FAE4C8 /* FileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
+		3E1541A61B1DD9F000FAE4C8 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		3E2111B91B0623E600DB2AF8 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
-		3E4671C11AF69B96005BC851 /* Physics Lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Physics Lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E4671C11AF69B96005BC851 /* Newtons Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newtons Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E4671C51AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E4671C61AF69B96005BC851 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E4671C81AF69B96005BC851 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3E4671CB1AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E4671CD1AF69B96005BC851 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3E4671D01AF69B96005BC851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Physics LabTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E4671DB1AF69B96005BC851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Physics_LabTests.swift; sourceTree = "<group>"; };
+		3E4671D61AF69B96005BC851 /* Newtons Attic Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Newtons Attic Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E4671E61AF69D94005BC851 /* PhysicsLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLab.swift; sourceTree = "<group>"; };
 		3E4671E81AF69DE1005BC851 /* BlueToothNeighborhood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueToothNeighborhood.swift; sourceTree = "<group>"; };
 		3E4671EE1AF8E56F005BC851 /* BleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleDevice.swift; sourceTree = "<group>"; };
 		3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		3E48DED71B0F5D4F0021AE72 /* CartHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartHistory.swift; sourceTree = "<group>"; };
 		3E48DEDA1B0F93DE0021AE72 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
-		3E78120B1AFACA0C004B4AAA /* testclass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testclass.swift; sourceTree = "<group>"; };
+		3E8386C11B2C8E0E000D6341 /* Newtons-AtticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Newtons-AtticTests.swift"; sourceTree = "<group>"; };
+		3E8386C31B2C8E5F000D6341 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EB4BF761AFE37A8007F61FD /* EnviroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnviroViewController.swift; sourceTree = "<group>"; };
 		3EB4BF781AFF8A9A007F61FD /* PhysicsLabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabBarViewController.swift; sourceTree = "<group>"; };
 		3ECE54F81AFA358F0044275B /* PhysicsLabDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsLabDataViewController.swift; sourceTree = "<group>"; };
@@ -85,9 +88,8 @@
 		3E4671B81AF69B95005BC851 = {
 			isa = PBXGroup;
 			children = (
-				3E78120B1AFACA0C004B4AAA /* testclass.swift */,
-				3E4671C31AF69B96005BC851 /* Physics Lab */,
-				3E4671D91AF69B96005BC851 /* Physics LabTests */,
+				3E4671C31AF69B96005BC851 /* Newtons Attic */,
+				3E8386C51B2C8E74000D6341 /* Newtons Attic Tests */,
 				3E4671C21AF69B96005BC851 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,16 +97,18 @@
 		3E4671C21AF69B96005BC851 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3E4671C11AF69B96005BC851 /* Physics Lab.app */,
-				3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */,
+				3E4671C11AF69B96005BC851 /* Newtons Attic.app */,
+				3E4671D61AF69B96005BC851 /* Newtons Attic Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3E4671C31AF69B96005BC851 /* Physics Lab */ = {
+		3E4671C31AF69B96005BC851 /* Newtons Attic */ = {
 			isa = PBXGroup;
 			children = (
 				3E4671CA1AF69B96005BC851 /* Main.storyboard */,
+				3E1541A61B1DD9F000FAE4C8 /* EmailViewController.swift */,
+				3E1541A41B1B36C000FAE4C8 /* FileViewController.swift */,
 				3E48DED51B0F5BAF0021AE72 /* GraphViewController.swift */,
 				3E2111B71B06238500DB2AF8 /* DashboardViewController.swift */,
 				3E2111B51B00AF2400DB2AF8 /* AdminViewController.swift */,
@@ -122,6 +126,7 @@
 				3E4671CF1AF69B96005BC851 /* LaunchScreen.xib */,
 				3E4671C41AF69B96005BC851 /* Supporting Files */,
 			);
+			name = "Newtons Attic";
 			path = "Physics Lab";
 			sourceTree = "<group>";
 		};
@@ -134,29 +139,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		3E4671D91AF69B96005BC851 /* Physics LabTests */ = {
+		3E8386C51B2C8E74000D6341 /* Newtons Attic Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3E4671DC1AF69B96005BC851 /* Physics_LabTests.swift */,
-				3E4671DA1AF69B96005BC851 /* Supporting Files */,
+				3E8386C11B2C8E0E000D6341 /* Newtons-AtticTests.swift */,
+				3E8386C31B2C8E5F000D6341 /* Info.plist */,
 			);
-			path = "Physics LabTests";
-			sourceTree = "<group>";
-		};
-		3E4671DA1AF69B96005BC851 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3E4671DB1AF69B96005BC851 /* Info.plist */,
-			);
-			name = "Supporting Files";
+			name = "Newtons Attic Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3E4671C01AF69B96005BC851 /* Physics Lab */ = {
+		3E4671C01AF69B96005BC851 /* Newtons Attic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics Lab" */;
+			buildConfigurationList = 3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Newtons Attic" */;
 			buildPhases = (
 				3E4671BD1AF69B96005BC851 /* Sources */,
 				3E4671BE1AF69B96005BC851 /* Frameworks */,
@@ -166,14 +163,14 @@
 			);
 			dependencies = (
 			);
-			name = "Physics Lab";
+			name = "Newtons Attic";
 			productName = "Physics Lab";
-			productReference = 3E4671C11AF69B96005BC851 /* Physics Lab.app */;
+			productReference = 3E4671C11AF69B96005BC851 /* Newtons Attic.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3E4671D51AF69B96005BC851 /* Physics LabTests */ = {
+		3E4671D51AF69B96005BC851 /* Newtons Attic Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics LabTests" */;
+			buildConfigurationList = 3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Newtons Attic Tests" */;
 			buildPhases = (
 				3E4671D21AF69B96005BC851 /* Sources */,
 				3E4671D31AF69B96005BC851 /* Frameworks */,
@@ -184,9 +181,9 @@
 			dependencies = (
 				3E4671D81AF69B96005BC851 /* PBXTargetDependency */,
 			);
-			name = "Physics LabTests";
+			name = "Newtons Attic Tests";
 			productName = "Physics LabTests";
-			productReference = 3E4671D61AF69B96005BC851 /* Physics LabTests.xctest */;
+			productReference = 3E4671D61AF69B96005BC851 /* Newtons Attic Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -200,6 +197,7 @@
 				TargetAttributes = {
 					3E4671C01AF69B96005BC851 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 32XGC4ZC37;
 					};
 					3E4671D51AF69B96005BC851 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -207,7 +205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Physics Lab" */;
+			buildConfigurationList = 3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Newtons Attic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -220,8 +218,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3E4671C01AF69B96005BC851 /* Physics Lab */,
-				3E4671D51AF69B96005BC851 /* Physics LabTests */,
+				3E4671C01AF69B96005BC851 /* Newtons Attic */,
+				3E4671D51AF69B96005BC851 /* Newtons Attic Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -241,6 +239,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8386C41B2C8E5F000D6341 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,8 +251,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E4671E91AF69DE1005BC851 /* BlueToothNeighborhood.swift in Sources */,
-				3E78120C1AFACA0C004B4AAA /* testclass.swift in Sources */,
+				3E1541A51B1B36C000FAE4C8 /* FileViewController.swift in Sources */,
 				3E4671C91AF69B96005BC851 /* MainViewController.swift in Sources */,
+				3E1541A71B1DD9F000FAE4C8 /* EmailViewController.swift in Sources */,
 				3ECE54F91AFA358F0044275B /* PhysicsLabDataViewController.swift in Sources */,
 				3E4671E71AF69D94005BC851 /* PhysicsLab.swift in Sources */,
 				3E4671EF1AF8E56F005BC851 /* BleDevice.swift in Sources */,
@@ -273,7 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E4671DD1AF69B96005BC851 /* Physics_LabTests.swift in Sources */,
+				3E8386C21B2C8E0E000D6341 /* Newtons-AtticTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +282,7 @@
 /* Begin PBXTargetDependency section */
 		3E4671D81AF69B96005BC851 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E4671C01AF69B96005BC851 /* Physics Lab */;
+			target = 3E4671C01AF69B96005BC851 /* Newtons Attic */;
 			targetProxy = 3E4671D71AF69B96005BC851 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -394,7 +394,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Physics Lab/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -404,7 +406,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Physics Lab/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -414,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -425,7 +430,8 @@
 				INFOPLIST_FILE = "Physics LabTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Physics Lab.app/Physics Lab";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newtons Attic.app/Newtons Attic";
 			};
 			name = Debug;
 		};
@@ -433,6 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -440,14 +447,14 @@
 				INFOPLIST_FILE = "Physics LabTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Physics Lab.app/Physics Lab";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newtons Attic.app/Newtons Attic";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Physics Lab" */ = {
+		3E4671BC1AF69B95005BC851 /* Build configuration list for PBXProject "Newtons Attic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E4671DE1AF69B96005BC851 /* Debug */,
@@ -456,7 +463,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics Lab" */ = {
+		3E4671E01AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Newtons Attic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E4671E11AF69B96005BC851 /* Debug */,
@@ -465,7 +472,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Physics LabTests" */ = {
+		3E4671E31AF69B96005BC851 /* Build configuration list for PBXNativeTarget "Newtons Attic Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3E4671E41AF69B96005BC851 /* Debug */,

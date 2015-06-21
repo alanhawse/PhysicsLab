@@ -26,6 +26,7 @@ int BLEGyroIndicate=0;
 int BLEPositionNotify=0;
 int BLEPositionIndicate=0;
 
+int BLEEventFlag=0;
 
 // PrivateFunctions
 
@@ -35,6 +36,10 @@ void BleCallBack(uint32 event, void* eventParam);
 void BLEenable()
 {
     CyBle_Start( BleCallBack );
+    while(CyBle_GetState() == CYBLE_STATE_INITIALIZING)
+    {
+        CyBle_ProcessEvents();
+    }
 
 }
 
@@ -244,6 +249,12 @@ void BleCallBack(uint32 event, void* eventParam)
             
             
 		break;
+            
+        case CYBLE_DEBUG_EVT_BLESS_INT: // signals the start of a ble event
+            if (CyBle_GetBleSsState() == CYBLE_BLESS_STATE_EVENT_CLOSE)
+                BLEEventFlag = 1;
+        break;
+                
         
 
          case CYBLE_EVT_GATTS_WRITE_REQ:

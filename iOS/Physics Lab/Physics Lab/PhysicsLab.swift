@@ -504,7 +504,6 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
     
     func addPacket(ar: [UInt8])
     {
-        // packet type 0
         
         let packetType = ar[2] & 0b00000011
         switch packetType {
@@ -526,15 +525,31 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
         
     }
  
+    var packet0Count = 0
     private func packetType0 (ar : [UInt8])
     {
         
+        //println("Packet type 0")
+
+        let packetTime = Float(Int(ar[3]) + Int(ar[4])<<8 + Int(ar[5])<<16) / 1000
+        if packetTime == currentTime
+        {
+            return
+        }
+        packet0Count = packet0Count + 1
+        //println("Packet 0 \(packet0Count)")
+        currentTime = packetTime
         
         LSM9DSOAccelMode = Int((ar[2]  & 0b11000000) >> 6)
         LSM9DS0MagMode = Int((ar[2]  & 0b00110000) >> 4)
         LSM9DSOGyroMode = Int((ar[2]  & 0b00001100) >> 2)
         
-        currentTime  = Float(Int(ar[3]) + Int(ar[4])<<8 + Int(ar[5])<<16) / 1000
+        
+        let b0 = UInt32(ar[3])
+        let b1 = UInt32(ar[4])
+        let b2 = UInt32(ar[5])
+        
+        let tempint = b0 + b1<<8 + b2<<16
         
         
         var tempInt:Int16 = 0
@@ -606,7 +621,6 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
         
         addMag(currentTime, x: DataX, y:DataY, z: DataZ)
         
-        
         history.addPoint(currentTime, position: cartPosition, acceleration: acceleration, gyro: gyro, mag: mag, velocity: velocity)
         
     }
@@ -616,7 +630,9 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
     private var packet2Count = 0
     private func packetType1 (ar : [UInt8])
     {
-        
+  
+        packet1Count = packet1Count + 1
+        //println("Packet Type 1 = \(packet1Count)")
         var Time : Int = Int(ar[3]) + Int(ar[4])<<8 + Int(ar[5])<<16
         var tempInt:Int16 = 0
         var tempFloat:Float = 0.0
@@ -652,6 +668,7 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
     private func packetType2 (ar : [UInt8])
     {
         
+      //  println("Packet Type 2")
         var Time : Int = Int(ar[3]) + Int(ar[4])<<8 + Int(ar[5])<<16
         var tempInt:Int16 = 0
         var tempFloat:Float = 0.0
@@ -689,6 +706,7 @@ class PhysicsLab : NSObject, CBPeripheralDelegate {
     private func packetType3( ar: [UInt8])
     {
         
+      //  println("Packet Type 3")
         var tempUInt : UInt16 = 0
         var tempInt:Int16 = 0
         var tempFloat:Float = 0.0

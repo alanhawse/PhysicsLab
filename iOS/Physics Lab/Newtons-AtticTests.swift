@@ -1,15 +1,15 @@
 //
-//  Physics_LabTests.swift
-//  Physics LabTests
+//  CalculatorTests.swift
+//  CalculatorTests
 //
-//  Created by Alan Hawse on 5/3/15.
+//  Created by Alan Hawse on 4/3/15.
 //  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
 //
 
 import UIKit
 import XCTest
 
-class Physics_LabTests: XCTestCase {
+class Newtons-AtticTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

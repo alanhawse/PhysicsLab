@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
 //
 
+import Foundation
+
 protocol CartHistoryDisplayDelegate {
     func display(sender : CartHistory)
 }
@@ -66,7 +68,7 @@ class CartHistory {
     }
     
     private let maxPoints = 2500
-    let maxTime : Float = 20.0
+    let maxTime : Float = 5.0
     private let roundingTime = 30 // in miliseconds
     var cartPass : Int = 0
     private var forwardDirection = true
@@ -97,17 +99,22 @@ class CartHistory {
         }
        
         
-        if history?.count >= maxPoints {
+        if history?.count >= maxPoints || lastTimeSeconds>maxTime {
             recording = false
             armed = false
+        
+            let x = NSDate()
+            let nsdfm = NSDateFormatter()
+            nsdfm.timeStyle = .MediumStyle
+            //nsdfm.dateStyle = .ShortStyle
+            
+            let fname = nsdfm.stringFromDate(x)
+            
+            let filename = "pl\(fname).csv"
+            writeToFile(filename)
             return
         }
         
-        if lastTimeSeconds > maxTime {
-            recording = false
-            armed = false
-            return
-        }
         
         
         if !recording {
@@ -147,6 +154,7 @@ class CartHistory {
             cartPass = 5
         }
         
+       // println("Time =\(time) Count = \(timeDps!.count)")
         lastPosition = position
 
         
@@ -163,6 +171,7 @@ class CartHistory {
         
         
         history?.append(dp)
+        println("Count = \(history!.count)")
         
         // recording of data versus time
         
@@ -223,6 +232,35 @@ class CartHistory {
             
         }
         return rval
+    }
+
+    
+    func writeToFile(file: String)
+    {
+        let fileManager = NSFileManager.defaultManager()
+        var docsDir: String?
+
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        
+        docsDir = dirPaths[0] as? String
+        let dataFile = docsDir?.stringByAppendingPathComponent(file)
+    
+        var heading = "time,position,velocity,accel x,accel y,accel z,mag x, mag y,mag z,gyro x,gyro y,gyro z\n"
+        
+        println("points = \(history!.count)")
+        
+        for i in 0..<history!.count {
+            if let dp = history?[i] {
+                let outpoint = "\(dp.time),\(dp.position),\(dp.velocity),\(dp.acceleration.x),\(dp.acceleration.y),\(dp.acceleration.z),\(dp.mag.x),\(dp.mag.y),\(dp.mag.z),\(dp.gyro.x),\(dp.gyro.y),\(dp.gyro.z)\n"
+                //println(outpoint)
+                heading += outpoint
+            }
+        }
+        println("Starting write")
+        var databuffer = (heading as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+
+        fileManager.createFileAtPath(dataFile!, contents: databuffer!,attributes: nil)
+        
     }
     
     

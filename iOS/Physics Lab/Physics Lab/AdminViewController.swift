@@ -29,7 +29,6 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
     }
     
     override func viewWillDisappear(animated: Bool) {
-       // super.viewWillDisappear(animated)
         bleLand?.disconnectDevice(bleD)
         bleD?.pl?.delegate = nil
     }
@@ -48,13 +47,18 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         
         changeEditing(sender.connectionComplete)
         
+        currentPosition.text = format2(sender.cartPosition,digits:2)
+        
+        
+        
+    }
+    
+    func format2 (val: Float, digits: Int) -> String? {
         let x=NSNumberFormatter()
         x.numberStyle = .DecimalStyle
-        x.minimumFractionDigits = 2
-        x.maximumFractionDigits = 2
-        currentPosition.text = x.stringFromNumber(sender.cartPosition)
-        
-        
+        x.minimumFractionDigits = digits
+        x.maximumFractionDigits = digits
+        return x.stringFromNumber(val)
         
     }
     
@@ -79,8 +83,6 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
             
             bleD!.pl!.cartPosition = Float(enteredActual)	
             currentPosition.text = actualPosition.text
-            
-            
         }
     }
     
@@ -111,7 +113,8 @@ class AdminViewController: UIViewController, PhysicsLabDisplayDelegate, UITextFi
         }
         else
         {
-            cmsPerRotation.text = "\(bleD!.pl!.cmsPerRotation)"
+            //cmsPerRotation.text = "\(bleD!.pl!.cmsPerRotation)"
+            cmsPerRotation.text = format2(bleD!.pl!.cmsPerRotation,digits:2)
         }
 
         
