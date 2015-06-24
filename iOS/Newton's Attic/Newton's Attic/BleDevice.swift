@@ -14,16 +14,10 @@ class BleDevice:NSObject {
     var lastSeen : NSDate?
     var pl : PhysicsLab?
   
-    init(peripheral: CBPeripheral, lastSeen: NSDate, advertisementData: [UInt8])
+    init(peripheral: CBPeripheral, lastSeen: NSDate)
     {
         self.peripheral = peripheral
         self.lastSeen = lastSeen
-        self.pl = PhysicsLab(advertisementData: advertisementData)
-        self.pl?.name = peripheral.identifier.UUIDString
-
+        //self.pl?.name = peripheral.identifier.UUIDString
     }
-    
-    
-  
-    
 }

@@ -34,9 +34,7 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
             if let plenviro = i as? EnviroViewController {
                 plenviro.bleD = bleD
             }
-            if let plenviro = i as? AdminViewController {
-                plenviro.bleD = bleD
-            }
+
             if let pldashboard = i as? DashboardViewController {
                 pldashboard.bleD = bleD
             }

@@ -56,8 +56,8 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         
         if bleD?.peripheral != nil {
             centralManager?.cancelPeripheralConnection(bleD?.peripheral)
-            bleD?.pl?.connectionComplete = false
-            bleD?.pl?.peripheral = nil
+            bleD?.pl?.bleConnectionInterface?.connectionComplete = false
+            bleD?.pl?.bleConnectionInterface?.peripheral = nil
         }
     }
     
@@ -77,7 +77,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         {
         //    println("Ble Connected")
 
-            peripheral.delegate = bleD.pl
+            peripheral.delegate = bleD.pl?.bleConnectionInterface
             
             peripheral.discoverServices(nil)
 
@@ -85,53 +85,58 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         
      }
     
-    
-
-    
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [NSObject : AnyObject], RSSI: NSNumber)
     {
         
         let packetData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
         
+        if packetData == nil {
+            return
+        }
         var ar = [UInt8]()
         
-        if packetData != nil {
-            
-            ar  = [UInt8](count:packetData!.length, repeatedValue: 0)
-            // copy bytes into array
-            packetData!.getBytes(&ar, length:packetData!.length)
-        }
-   
+        ar  = [UInt8](count:packetData!.length, repeatedValue: 0)
+        // copy bytes into array
+        packetData!.getBytes(&ar, length:packetData!.length)
         
-        if let bleD = blePeripherals[peripheral.identifier]  {
-            bleD.lastSeen = NSDate()
-            if bleD.pl != nil {
-                    bleD.pl?.addPacket(ar)
-                    delegate?.addedDevice() // /ARH might be a bad idea if it causes to many updates of the list	
-            }
-            
-        }
-        else
+        
+        if let bleD = blePeripherals[peripheral.identifier]
         {
+            bleD.lastSeen = NSDate()
             
-            
-            //println(peripheral.description)
-            let bleD = BleDevice(peripheral: peripheral, lastSeen: NSDate(),advertisementData: ar)
+            // if we have seen this device before and it is a physics lab then
+            // you need to add the new advertising packet information
+            if bleD.pl != nil
+            {
+                bleD.pl?.bleAdvInterface?.addPacket(ar)
+                delegate?.addedDevice() // /ARH might be a bad idea if it causes to many updates of the list
+            }
+        }
+        else // you have never seen the device
+        {
+            // make a new ble device
+            let bleD = BleDevice(peripheral: peripheral, lastSeen: NSDate())
+            // add it to the table of device
             blePeripherals[peripheral.identifier] = bleD
             
-            if bleD.pl == nil {
-
-            }
-            else
+            let plInterface = PLAdvPacketInterface()
+            if plInterface.isValid(ar)
             {
+                bleD.pl = PhysicsLab()
+                bleD.pl!.name = peripheral.identifier.UUIDString
+                bleD.pl!.bleAdvInterface = plInterface
+                plInterface.pl = bleD.pl
+                
+                bleD.pl!.bleConnectionInterface = PLBleInterface()
+                bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
+                
+                
+                // add it to the list of physics labs
                 blePeripheralsPhysicsLab.append(bleD)
+                // cause the display to reload as we found a new physics lab
                 delegate?.addedDevice()
-
             }
-        
         }
-        
-        
     }
     
     
@@ -139,16 +144,10 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     @objc func centralManagerDidUpdateState(central: CBCentralManager!) {
         switch (central.state) {
         case .PoweredOff: break
-            
-        case .PoweredOn:
-            blueToothReady = true;
-            
+        case .PoweredOn: blueToothReady = true
         case .Resetting: break
-            
         case .Unauthorized: break
-            
         case .Unknown:break
-            
         case .Unsupported:break
             
         }

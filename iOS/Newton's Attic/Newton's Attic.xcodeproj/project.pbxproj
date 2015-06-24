@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E7EAFE61B374E7800E2E59C /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */; };
+		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
 		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
 		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PLAdvPacketInterface.swift; path = ../PLAdvPacketInterface.swift; sourceTree = "<group>"; };
+		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
 		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */,
 				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
 				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
+				3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */,
+				3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */,
 				3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */,
 				3EDD3FA01B2CA67A007010A3 /* GraphView.swift */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
@@ -255,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EDD3FAC1B2CA67A007010A3 /* BlueToothNeighborhood.swift in Sources */,
+				3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */,
 				3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */,
 				3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */,
 				3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */,
@@ -263,6 +270,7 @@
 				3EDD3FAE1B2CA67A007010A3 /* CartHistory.swift in Sources */,
 				3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */,
 				3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */,
+				3E7EAFE61B374E7800E2E59C /* PLAdvPacketInterface.swift in Sources */,
 				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
 				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
 				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,

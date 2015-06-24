@@ -171,7 +171,6 @@ class CartHistory {
         
         
         history?.append(dp)
-        println("Count = \(history!.count)")
         
         // recording of data versus time
         

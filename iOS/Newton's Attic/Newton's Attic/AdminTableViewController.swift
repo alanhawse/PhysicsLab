@@ -76,7 +76,7 @@ class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate,
     // delegate display method.  If you are connected the PL will send you
     // a notification when a characteristic changes.. specifically the position
     func physicsLabDisplay(sender: PhysicsLab) {
-        changeEditing(sender.connectionComplete)
+        changeEditing(sender.bleConnectionInterface!.connectionComplete)
         currentPosition.text = format2(sender.cartPosition,digits:2)
     }
     
