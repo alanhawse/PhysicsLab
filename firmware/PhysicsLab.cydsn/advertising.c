@@ -48,6 +48,13 @@ void setupType0Adv()
     // position // if it is a uint16 it causes some unhandled exception
     uint16 val= QD_ReadCounter();
     
+    /* ARH Bomb
+    if (val != 0x1000)
+    {
+        while(1);
+    }
+    */
+    
     ap->position = val;
    
     
@@ -72,6 +79,7 @@ typedef struct __packed advPacket1 {
     float relativeHumdity;
     long airPressure;
     float temperature;
+    float altitude;
     
 } advPacket1;
 
@@ -107,12 +115,16 @@ void setupType1Adv()
 
     tempData.longVal = BMP180GetPressure();
     memcpy(&ap->airPressure,&tempData,4);
+    
+    
+    tempData.f = BMP180GetAltitude(); 
+    memcpy(&ap->altitude,&tempData,4);
 
     CyBle_GapUpdateAdvData(cyBle_discoveryModeInfo.advData, cyBle_discoveryModeInfo.scanRspData);
     
 }
 
-
+/*
 typedef struct __packed advPacket2 {
     uint8 setup;
     uint8 tb0;
@@ -123,12 +135,9 @@ typedef struct __packed advPacket2 {
     float dewPoint;
     
 } advPacket2;
+*/
 
-float getAirDensity()
-{
-    return 0.0;
-}
-
+/*
 void setupType2Adv()
 {
     // packet type
@@ -162,9 +171,10 @@ void setupType2Adv()
     
 
 }
+*/
 
 
-typedef struct __packed advPacket3 {
+typedef struct __packed advPacket2 {
     uint8 setup;
     uint8 name[14];
     float wheelCircumfrence;
@@ -173,7 +183,7 @@ typedef struct __packed advPacket3 {
 } advPacket3;
 
 
-void setupType3Adv()
+void setupType2Adv()
 {
     // packet type
 
@@ -183,7 +193,7 @@ void setupType3Adv()
     ap = (advPacket3 *)&cyBle_discoveryModeInfo.advData->advData[ADVINDEX];
     
     // packet type + LSM9Setting
-    ap->setup = ADVPACKET3;
+    ap->setup = ADVPACKET2;
     
     ap->wheelCircumfrence = globalDefaults.cmsPerRotation;
     ap->zeroPos = globalDefaults.zeroPos;
@@ -207,8 +217,7 @@ void handleAdvertisingPacketChange()
 
     typedef enum insertPacketStates {
         ADVSTATEEPACKET1,
-        ADVSTATEEPACKET2,
-        ADVSTATEEPACKET3
+        ADVSTATEEPACKET2
     } insertPacketStates;
 
     static advStates advState = ADVSTATEPACKET0;
@@ -232,16 +241,12 @@ void handleAdvertisingPacketChange()
                         setupType1Adv();
                         insertState = ADVSTATEEPACKET2;
                     }
-                    else if (insertState == ADVSTATEEPACKET2)
+                    else
                     {
                         setupType2Adv();
-                        insertState = ADVSTATEEPACKET3;
-                    }
-                    else 
-                    {
-                        setupType3Adv();
                         insertState = ADVSTATEEPACKET1;
                     }
+                    
                     advState = ADVSTATEPACKET0;
                     advTimer = systime;
                 break;
