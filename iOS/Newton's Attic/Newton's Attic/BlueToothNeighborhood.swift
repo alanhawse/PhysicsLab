@@ -9,42 +9,26 @@
 
 import CoreBluetooth
 
-protocol BlueToothNeighborhoodUpdate {
-    func addedDevice()
-}
 
 class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
-    
-    var physicsLabFilter = true
-    
     var centralManager : CBCentralManager?
+    var blePeripheralsPhysicsLab = [BleDevice]() // just the physics labs
     
-    var delegate : BlueToothNeighborhoodUpdate?
+    private var blueToothReady = false
+    private var blePeripherals = [NSUUID:BleDevice]() // all the known ble peripherals
     
-    var count : Int = 0
-    
-
-    var blueToothReady = false
-    
-    var blePeripherals = [NSUUID:BleDevice]()
-    var blePeripheralsPhysicsLab = [BleDevice]()
+    // MARK: - Function to control the central manager
     
     func startUpCentralManager() {
-
-        
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        
     }
     
     func discoverDevices() {
-
         centralManager?.scanForPeripheralsWithServices(nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
-        
     }
     
     func connectToDevice(peripheral: CBPeripheral?)
     {
-    //    println("Connect to device \(peripheral!.identifier)")
         if peripheral != nil {
         centralManager?.connectPeripheral(peripheral, options: nil)
         }
@@ -53,38 +37,38 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     func disconnectDevice(bleD : BleDevice?)
     {
-        
         if bleD?.peripheral != nil {
             centralManager?.cancelPeripheralConnection(bleD?.peripheral)
-            bleD?.pl?.bleConnectionInterface?.connectionComplete = false
-            bleD?.pl?.bleConnectionInterface?.peripheral = nil
+        
+            bleD?.pl?.bleConnectionInterface?.closeConnection()
         }
     }
+
+    // MARK: - CBCentralManager Delegate Functions
     
+    // disconnected a device
     func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
         if let bleD = blePeripherals[peripheral.identifier]
         {
-         //   println("Ble DisConnected")
-            bleD.pl?.delegate?.physicsLabDisplay(bleD.pl!)
-            
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEDisconnected, object: nil)
         }
     }
     
-    
+    // a device connection is complete
     func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
         
         if let bleD = blePeripherals[peripheral.identifier]
         {
-        //    println("Ble Connected")
-
+            // ARH this should probably be setup in the bleConnectionInterface Object
             peripheral.delegate = bleD.pl?.bleConnectionInterface
-            
+        //    println("starting service discovery")
             peripheral.discoverServices(nil)
 
         }
         
      }
     
+    // called when you see an advertising packet
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [NSObject : AnyObject], RSSI: NSNumber)
     {
         
@@ -109,7 +93,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             if bleD.pl != nil
             {
                 bleD.pl?.bleAdvInterface?.addPacket(ar)
-                delegate?.addedDevice() // /ARH might be a bad idea if it causes to many updates of the list
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
             }
         }
         else // you have never seen the device
@@ -130,16 +114,13 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
                 bleD.pl!.bleConnectionInterface = PLBleInterface()
                 bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
                 
-                
                 // add it to the list of physics labs
                 blePeripheralsPhysicsLab.append(bleD)
                 // cause the display to reload as we found a new physics lab
-                delegate?.addedDevice()
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
             }
         }
     }
-    
-    
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager!) {
         switch (central.state) {
@@ -155,7 +136,5 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             discoverDevices()
         }
     }
-    
-    
 }
 

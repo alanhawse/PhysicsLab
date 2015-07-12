@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E7EAFE61B374E7800E2E59C /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */; };
+		3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE31B496D5D005F37A1 /* globals.swift */; };
+		3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */; };
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
 		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
@@ -42,7 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PLAdvPacketInterface.swift; path = ../PLAdvPacketInterface.swift; sourceTree = "<group>"; };
+		3E68BDE31B496D5D005F37A1 /* globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
+		3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLAdvPacketInterface.swift; sourceTree = "<group>"; };
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
 		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E68BDE51B49C021005F37A1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3FB01B2CA69C007010A3 /* Main.storyboard */,
+				3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */,
+				3EDD3F921B2CA67A007010A3 /* EmailViewController.swift */,
+				3EDD3F931B2CA67A007010A3 /* FileViewController.swift */,
+				3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */,
+				3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */,
+				3EDD3F971B2CA67A007010A3 /* MainViewController.swift */,
+				3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */,
+				3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */,
+				3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3E68BDE61B49C049005F37A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */,
+				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
+				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
+				3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */,
+				3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */,
+				3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3E68BDE71B49C070005F37A1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3EDD3F9B1B2CA67A007010A3 /* GaugeView.swift */,
+				3EDD3FA01B2CA67A007010A3 /* GraphView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		3EDD3F641B2CA661007010A3 = {
 			isa = PBXGroup;
 			children = (
@@ -109,24 +150,10 @@
 		3EDD3F6F1B2CA661007010A3 /* Newton's Attic */ = {
 			isa = PBXGroup;
 			children = (
-				3EDD3FB01B2CA69C007010A3 /* Main.storyboard */,
-				3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */,
-				3EDD3F921B2CA67A007010A3 /* EmailViewController.swift */,
-				3EDD3F931B2CA67A007010A3 /* FileViewController.swift */,
-				3EDD3F941B2CA67A007010A3 /* GraphViewController.swift */,
-				3EDD3F951B2CA67A007010A3 /* DashboardViewController.swift */,
-				3EDD3F971B2CA67A007010A3 /* MainViewController.swift */,
-				3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */,
-				3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */,
-				3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */,
-				3EDD3F9B1B2CA67A007010A3 /* GaugeView.swift */,
-				3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */,
-				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
-				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
-				3E7EAFE51B374E7800E2E59C /* PLAdvPacketInterface.swift */,
-				3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */,
-				3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */,
-				3EDD3FA01B2CA67A007010A3 /* GraphView.swift */,
+				3E68BDE31B496D5D005F37A1 /* globals.swift */,
+				3E68BDE51B49C021005F37A1 /* ViewControllers */,
+				3E68BDE71B49C070005F37A1 /* Views */,
+				3E68BDE61B49C049005F37A1 /* Model */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
 				3EDD3F701B2CA661007010A3 /* Supporting Files */,
 			);
@@ -264,18 +291,19 @@
 				3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */,
 				3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */,
 				3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */,
+				3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */,
 				3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */,
 				3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */,
 				3EDD3FAD1B2CA67A007010A3 /* PhysicsLab.swift in Sources */,
 				3EDD3FAE1B2CA67A007010A3 /* CartHistory.swift in Sources */,
 				3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */,
 				3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */,
-				3E7EAFE61B374E7800E2E59C /* PLAdvPacketInterface.swift in Sources */,
 				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
 				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
 				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,
 				3EDD3FAF1B2CA67A007010A3 /* GraphView.swift in Sources */,
 				3EDD3FAA1B2CA67A007010A3 /* GaugeView.swift in Sources */,
+				3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */,
 				3EDD3FAB1B2CA67A007010A3 /* BleDevice.swift in Sources */,
 				3EDD3FA71B2CA67A007010A3 /* EnviroViewController.swift in Sources */,
 			);

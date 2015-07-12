@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate, UITextFieldDelegate {
+class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     // this is setup by the parent navigation controller.
@@ -16,13 +16,23 @@ class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate,
 
     override func viewWillAppear(animated: Bool) {
         parentTabBar!.setupTopBarConnect()
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.PLUpdatedAdmin, object: bleD!.pl!)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.BLEConnected, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.BLEDisconnected, object: nil)
+
+        
     }
     
-    override func viewDidDisappear(animated: Bool) {
+
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         parentTabBar!.setupTopBarRecord()
         bleLand?.disconnectDevice(bleD)
-        bleD?.pl?.delegate = nil
     }
+    
    
     // if the user clicks anywhere outside of the text fields it will be on
     // the tableview.  When he does that then turn off the keyboard and end
@@ -39,7 +49,6 @@ class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate,
     var bleD : BleDevice?
     
     override func viewDidAppear(animated: Bool) {
-        bleD!.pl?.delegate = self
         updateGui()
         changeEditing(false)
         
@@ -49,11 +58,7 @@ class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate,
         actualPosition.delegate = self
         
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        bleLand?.disconnectDevice(bleD)
-        bleD?.pl?.delegate = nil
-    }
+
     
     // if the user says he is done.. so be it.  The next call will
     // be automatically to the end ibaction as registered in the storyboard
@@ -73,11 +78,11 @@ class AdminTableViewController: UITableViewController,PhysicsLabDisplayDelegate,
    //     println("did end editing")
    // }
     
-    // delegate display method.  If you are connected the PL will send you
+    // If you are connected the PL will send you
     // a notification when a characteristic changes.. specifically the position
-    func physicsLabDisplay(sender: PhysicsLab) {
-        changeEditing(sender.bleConnectionInterface!.connectionComplete)
-        currentPosition.text = format2(sender.cartPosition,digits:2)
+    func physicsLabDisplay() {
+        changeEditing(bleD!.pl!.bleConnectionInterface!.connectionComplete)
+        currentPosition.text = format2(bleD!.pl!.cartPosition,digits:2)
     }
     
     func format2 (val: Float, digits: Int) -> String? {

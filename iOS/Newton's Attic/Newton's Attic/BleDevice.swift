@@ -7,9 +7,7 @@
 //
 import CoreBluetooth
 
-
 class BleDevice:NSObject {
-   
     var peripheral : CBPeripheral?
     var lastSeen : NSDate?
     var pl : PhysicsLab?
@@ -18,6 +16,5 @@ class BleDevice:NSObject {
     {
         self.peripheral = peripheral
         self.lastSeen = lastSeen
-        //self.pl?.name = peripheral.identifier.UUIDString
     }
 }

@@ -8,14 +8,16 @@
 
 import UIKit
 
-var loggedIn : Bool = false
-var bleLand = BlueToothNeighborhood?()
 
-class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
-    // a table id to bleDevice mapping table
-    var tagToId = [Int: BleDevice]()
+class MainViewController: UITableViewController {
+
+    // MARK: - Member Variables
     
+    // a table id to bleDevice mapping table
+    private var tagToId = [Int: BleDevice]()
     @IBOutlet var devicesTable: UITableView!
+    
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,26 +26,35 @@ class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
             bleLand = BlueToothNeighborhood()
             bleLand?.startUpCentralManager()
         }
-        bleLand?.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
-        bleLand?.delegate = self
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEUpdatedDevices, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.devicesTable.reloadData() }
+        
         // make it so that the tableviews dont go beneath the navigation bar
         navigationController?.navigationBar.translucent = false
         navigationController?.toolbar.translucent = false
     }
     
-    // delegate method for the BlueToothNeighborhoodUpdate protocol
-    func addedDevice() {
-        devicesTable.reloadData()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController as? UIViewController
+
+        // tell the new viewcontroller which bleD model he is talking to
+        if let tbc = destination as? PhysicsLabBarViewController
+        {
+            if let tvc = sender as? UITableViewCell {
+                tbc.bleD = tagToId[tvc.tag]
+            }
+        }
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+
+    // MARK: - Table delegate functions
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return bleLand?.blePeripheralsPhysicsLab.count ?? 0
     }
@@ -60,9 +71,9 @@ class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
                 // identifier in the tableviewcell.  When the broadcast packet
                 // with the name is received it will send a reload data which will
                 // then change the identifier to the name in the table
-                if let nm = bleD.pl?.name
+                if let name = bleD.pl?.name
                 {
-                    cell.textLabel!.text = nm
+                    cell.textLabel!.text = name
                 }
                 else
                 {
@@ -78,22 +89,4 @@ class MainViewController: UITableViewController, BlueToothNeighborhoodUpdate {
         }
         return cell
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destinationViewController as? UIViewController
-        
-        if let navCon = destination as? UINavigationController
-        {
-            destination = navCon.visibleViewController
-        }
-        
-        if let tbc = destination as? PhysicsLabBarViewController
-        {
-            if let tvc = sender as? UITableViewCell {
-                tbc.bleD = tagToId[tvc.tag]
-            }
-        }
-        bleLand?.delegate = nil
-    }
-
 }

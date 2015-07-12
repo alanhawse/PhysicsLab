@@ -1,6 +1,5 @@
 //
 //  PhysicsLab.swift
-//  BLETest1
 //
 //  Created by Alan Hawse on 1/18/15.
 //  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
@@ -8,24 +7,26 @@
 
 import Foundation
 
-protocol PhysicsLabDisplayDelegate {
-    func physicsLabDisplay(sender: PhysicsLab)
-}
-
 class PhysicsLab {
+ 
     
     var bleAdvInterface : PLAdvPacketInterface?
     var bleConnectionInterface : PLBleInterface?
-    
-    var delegate : PhysicsLabDisplayDelegate?
-    
     var history = CartHistory()
+    var currentTime : Float = 0
+    
+    init()
+    {
+        history.pl = self
+    }
     
     var name:String? {
         didSet {
-            bleConnectionInterface?.writeName(name!)
+          //  bleConnectionInterface?.writeName(name!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedName, object: self)
         }
     }
+    
     
     func isNameLegal(name : String) -> Bool
     {
@@ -39,13 +40,6 @@ class PhysicsLab {
             return false
         }
     }
-    
-    
-    var velocity : Float = 0.0
-    var maxMinVelocity : (min:Float, max:Float) = (0.0,0.0)
-    
-    
-    var velocityRange : (min:Double, max:Double) = (-8.0,8.0)
     
     func resetMax() {
         maxCartPosition = cartPosition
@@ -61,65 +55,94 @@ class PhysicsLab {
         maxMinVelocity = (velocity,velocity)
     }
     
+    func saveHistory()
+    {
+        history.addPoint(currentTime, position: cartPosition, acceleration: acceleration, gyro: gyro, mag: mag, velocity: velocity)
+    }
+    
+    
+    // MARK: - Cart Position + Velocity
+    var velocity : Float = 0.0
+    var maxMinVelocity : (min:Float, max:Float) = (0.0,0.0)
+    var velocityRange : (min:Double, max:Double) = (-8.0,8.0)
+    var lastCartPosition : (time:Float,position:Float)?
+    var maxCartPosition : Float = 0.0
     
     var cartZero : Float = 0.0 {
         didSet {
             
-            var val:UInt16 = UInt16( cartZero / cartPositionConvertRatio)
-            bleConnectionInterface?.writeCartZeroInt(val)
+            //var val:UInt16 = UInt16( cartZero / cartPositionConvertRatio)
+ //           bleConnectionInterface?.writeCartZeroInt(val)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedCartZero, object: self)
         }
     }
     
-    var currentTime : Float = 0
+    var cartZeroInt : UInt16 {
+        get { return UInt16(cartZero / cartPositionConvertRatio) }
+        set { cartZero  = Float(newValue) * cartPositionConvertRatio }
+    }
+    
+    var cartPositionInt : UInt16 {
+        get { return UInt16( cartPosition / cartPositionConvertRatio)}
+        set {cartPosition = Float(newValue) * cartPositionConvertRatio}
+    }
+  
     var cartPosition : Float = 0.0 {
         didSet {
             
-            // ARH need a better way to do this
-            if (bleConnectionInterface?.connectionComplete != nil) {
-                var val:UInt16 = UInt16( cartPosition / cartPositionConvertRatio)
-                bleConnectionInterface?.writeCartPosition(val)
+            if cartPosition > maxCartPosition {
+                maxCartPosition = cartPosition
+            }
+            
+            if lastCartPosition != nil {
+                // calculate current velocity
+                if (currentTime > lastCartPosition!.time + 0.2) // only calculate the velocity every 200ms
+                {
+                    velocity = (cartPosition - lastCartPosition!.position) / (currentTime - lastCartPosition!.time)
+                    if velocity > Float(velocityRange.max) {
+                        
+                        println("Velocity error \(currentTime) \(lastCartPosition!.time)")
+                        println("Cart = \(cartPosition) \(lastCartPosition!.position)")
+                        maxMinVelocity.max = velocity
+                    }
+                    if velocity < Float(velocityRange.min) {
+                        maxMinVelocity.min = velocity
+                    }
+                    lastCartPosition = (currentTime,cartPosition)
+                    
+                }
             }
             else
             {
-                
-                if cartPosition > maxCartPosition {
-                    maxCartPosition = cartPosition
-                }
-                
-                
-                if lastCartPosition != nil {
-                    // calculate current velocity
-                    if (currentTime > lastCartPosition!.time + 0.2) // only calculate the velocity every 200ms
-                    {
-                        velocity = (cartPosition - lastCartPosition!.position) / (currentTime - lastCartPosition!.time)
-                        if velocity > Float(velocityRange.max) {
-                    
-                            println("Velocity error \(currentTime) \(lastCartPosition!.time)")
-                            println("Cart = \(cartPosition) \(lastCartPosition!.position)")
-                            maxMinVelocity.max = velocity
-                        }
-                        if velocity < Float(velocityRange.min) {
-                            maxMinVelocity.min = velocity
-                        }
-                        lastCartPosition = (currentTime,cartPosition)
-                        
-                    }
-                }
-                else
-                {
-                    lastCartPosition = (currentTime,cartPosition)
-                }
+                lastCartPosition = (currentTime,cartPosition)
             }
-            
-            
+        }
+    }
+
+    // meters per click
+    // 10 inches * 2.54 CM/inch
+    
+    var cmsPerRotation: Float = 10.0 * 2.54 {
+        didSet {
+            //bleConnectionInterface?.writeCmsPerRotation(cmsPerRotation)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedCmsPerRotation, object: self)
         }
     }
     
-    var lastCartPosition : (time:Float,position:Float)?
     
-    func setCartZeroInt(val: Int) {
-        cartZero  = Float(val) * cartPositionConvertRatio
+    // meters/click = 1 rotation/200 clicks * cmsPerRotation *  1m/100cm
+    private var cartPositionConvertRatio: Float {
+        get {
+            return cmsPerRotation * (1.0/100.0) * (1.0/200)
+        }
     }
+    
+
+
+    
+    // MARK: - Acceleration
+    var maxAcceleration : (x: Float, y:Float, z: Float) = (0.0,0.0,0.0)
+    var minAcceleration : (x: Float, y:Float, z: Float) = (0.0,0.0,0.0)
     
     var acceleration : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0) {
         didSet {
@@ -133,6 +156,91 @@ class PhysicsLab {
         }
     }
     
+    var LSM9DSOAccelMode = 0 {
+        didSet {
+            //bleConnectionInterface?.writeAccelMode(LSM9DSOAccelMode)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedAccelMode, object: self)
+            
+        }
+    }
+    
+    enum AccelState {
+        case A2G
+        case A4G
+        case A6G
+        case A8G
+    }
+    
+    let accelInfo : [AccelState:(Int,Float)] =
+    [   .A2G:(0,2.0),
+        .A4G:(1,4.0),
+        .A6G:(2,6.0),
+        .A8G:(3,8.0)
+    ]
+    
+    
+    var LSM9DSOAccelRange : Float {
+        get {
+            switch LSM9DSOAccelMode {
+            case 0:
+                return 2.0
+            case 1:
+                return 4.0
+            case 2:
+                return 6.0
+            case 3:
+                return 8.0
+            default:
+                return 2.0
+            }
+            
+        }
+    }
+    
+    private var LSM9DSOAccelCountpG : Float    // 2g in 15 bits - 2,4,6,8,16 (are legal ranges)
+        {
+        get {
+            switch(LSM9DSOAccelMode)
+            {
+            case 0:
+                return 32768.0/2.0
+                
+            case 1:
+                return 32768.0/4.0
+                
+                
+            case 2:
+                return 32768.0/6.0
+                
+            case 3:
+                return 32768.0/8.0
+                
+            default:
+                return 32768.0/2.0
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    func setAccelerationInt(#x:Int, y:Int, z:Int)
+    {
+        var xval : Float = Float(x) / LSM9DSOAccelCountpG
+        var yval : Float = Float(y) / LSM9DSOAccelCountpG
+        var zval : Float = Float(z) / LSM9DSOAccelCountpG
+        
+        acceleration = (x:xval,y:yval,z:zval)
+    }
+    
+   
+    
+    // MARK: - Gyro
+    var maxGyro : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
+    var minGyro : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
+    
     var gyro : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0) {
         didSet {
             if gyro.x >= maxGyro.x { maxGyro.x = gyro.x }
@@ -144,6 +252,65 @@ class PhysicsLab {
             if gyro.z <= minGyro.z { minGyro.z = gyro.z }
         }
     }
+    
+    var LSM9DSOGyroMode = 0 {
+        didSet {
+            //bleConnectionInterface?.writeGyroMode(LSM9DSOGyroMode)
+           NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedGyroMode, object: self)
+        }
+    }
+    
+    
+    var LSM9DSOGyroRange : Float {
+        get {
+            switch LSM9DSOGyroMode {
+            case 0:
+                return 245
+            case 1:
+                return 500
+            case 2:
+                return 2000
+                
+            default:
+                return 245
+            }
+            
+        }
+    }
+    
+    private var LSM9DSOGyroCountpDPS : Float { // - 245, 500, 2000 are legal ranges
+        
+        get {
+            
+            switch(LSM9DSOGyroMode)
+            {
+            case 0:
+                return 32768.0/245.0
+            case 1:
+                return 32768.0/500.0
+            case 2:
+                return 32768.0/2000.0
+            default:
+                return 32768.0/245.0
+            }
+        }
+    }
+    
+    func setGyroInt(#x:Int, y:Int, z:Int)
+    {
+        var xval : Float = Float(x) / LSM9DSOGyroCountpDPS
+        var yval : Float = Float(y) / LSM9DSOGyroCountpDPS
+        var zval : Float = Float(z) / LSM9DSOGyroCountpDPS
+        gyro = (x:xval,y:yval,z:zval)
+    }
+    
+    
+  
+    
+    // MARK: - Magnemoter
+    
+    var maxMag : ( x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
+    var minMag : ( x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
     
     var mag : ( x:Float, y:Float, z:Float) = (0.0,0.0,0.0)  {
         didSet {
@@ -158,19 +325,57 @@ class PhysicsLab {
         }
     }
     
-    var maxCartPosition : Float = 0.0
+    var LSM9DS0MagMode = 0 {
+        didSet {
+            //bleConnectionInterface?.writeMagMode(LSM9DS0MagMode)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedMagMode, object: self)
+        }
+    }
     
-    var maxAcceleration : (x: Float, y:Float, z: Float) = (0.0,0.0,0.0)
-    var minAcceleration : (x: Float, y:Float, z: Float) = (0.0,0.0,0.0)
+    var LSM9DSOMagRange : Float {
+        get {
+            switch LSM9DS0MagMode {
+            case 0:
+                return 2.0
+            case 1:
+                return 4.0
+            case 2:
+                return 8.0
+            case 3:
+                return 12.0
+            default:
+                return 2.0
+            }
+            
+        }
+    }
     
+    private var LSM9DSOMagCountpG : Float {   // 2, 4, 8, 12 are the legal ranges
+        get {
+            switch(LSM9DS0MagMode)
+            {
+            case 0:
+                return 32768.0/2.0
+            case 1:
+                return 32768.0/4.0
+            case 2:
+                return 32768.0/8.0
+            case 3:
+                return 32768.0/12.0
+            default:
+                return 32768.0/2.0
+            }
+        }
+    }
     
-    var maxGyro : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
-    var maxMag : ( x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
-    var minGyro : (x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
-    var minMag : ( x:Float, y:Float, z:Float) = (0.0,0.0,0.0)
+    func setMagInt(#x:Int, y:Int, z:Int)
+    {
+        var xval : Float = Float(x) / LSM9DSOMagCountpG
+        var yval : Float = Float(y) / LSM9DSOMagCountpG
+        var zval : Float = Float(z) / LSM9DSOMagCountpG
+        mag = (x:xval,y:yval,z:zval)
+    }
     
-    
-
     var heading : Float {
         get {
             //var heading : Float = 0.0
@@ -190,6 +395,8 @@ class PhysicsLab {
         }
     }
 
+
+    // MARK: - Environmental
     var relativeHumdity : Float = 0.0
     var pressure :  Int = 0
     var temperature :  Float = 0.0
@@ -238,201 +445,5 @@ class PhysicsLab {
             return Float(rval)
         }
     }
-    
 
-    var LSM9DSOAccelMode = 0 {
-        didSet {
-            bleConnectionInterface?.writeAccelMode(LSM9DSOAccelMode)
-            
-        }
-    }
-
-    var LSM9DSOAccelRange : Float {
-        get {
-            switch LSM9DSOAccelMode {
-            case 0:
-                return 2.0
-            case 1:
-                return 4.0
-            case 2:
-                return 6.0
-            case 3:
-                return 8.0
-            default:
-                return 2.0
-            }
-            
-        }
-    }
-    
-    private var LSM9DSOAccelCountpG : Float    // 2g in 15 bits - 2,4,6,8,16 (are legal ranges)
-    {
-        get {
-            switch(LSM9DSOAccelMode)
-            {
-            case 0:
-                return 32768.0/2.0
-                
-            case 1:
-                return 32768.0/4.0
-                
-                
-            case 2:
-                return 32768.0/6.0
-                
-            case 3:
-                return 32768.0/8.0
-                
-            default:
-               return 32768.0/2.0
-                
-            }
-            
-        }
-        
-    }
-    
-    
-    // meters per click
-    // 10 inches * 2.54 CM/inch
-    
-    var cmsPerRotation: Float = 10.0 * 2.54 {
-        didSet {
-            bleConnectionInterface?.writeCmsPerRotation(cmsPerRotation)
-        }
-    }
-    
-    
-    // meters/click = 1 rotation/200 clicks * cmsPerRotation *  1m/100cm
-    private var cartPositionConvertRatio: Float {
-        get {
-            return cmsPerRotation * (1.0/100.0) * (1.0/200)
-        }
-    }
-    
-
-    var LSM9DSOGyroMode = 0 {
-        didSet {
-            bleConnectionInterface?.writeGyroMode(LSM9DSOGyroMode)
-        }
-    }
-    
-    
-    var LSM9DSOGyroRange : Float {
-        get {
-            switch LSM9DSOGyroMode {
-            case 0:
-                return 245
-            case 1:
-                return 500
-            case 2:
-                return 2000
-            
-            default:
-                return 245
-            }
-            
-        }
-    }
-    
-    
-    
-     private var LSM9DSOGyroCountpDPS : Float { // - 245, 500, 2000 are legal ranges
-        
-        get {
-            
-            switch(LSM9DSOGyroMode)
-            {
-            case 0:
-                return 32768.0/245.0
-            case 1:
-                return 32768.0/500.0
-            case 2:
-                return 32768.0/2000.0
-            default:
-                return 32768.0/245.0
-            }
-        }
-    }
-    
-    var LSM9DS0MagMode = 0 {
-        didSet {
-        bleConnectionInterface?.writeMagMode(LSM9DS0MagMode)
-        }
-    }
-    
-    var LSM9DSOMagRange : Float {
-        get {
-            switch LSM9DS0MagMode {
-            case 0:
-                return 2.0
-            case 1:
-                return 4.0
-            case 2:
-                return 8.0
-            case 3:
-                return 12.0
-            default:
-                return 2.0
-            }
-            
-        }
-    }
-
-    private var LSM9DSOMagCountpG : Float {   // 2, 4, 8, 12 are the legal ranges
-        get {
-            switch(LSM9DS0MagMode)
-            {
-            case 0:
-                return 32768.0/2.0
-            case 1:
-                return 32768.0/4.0
-            case 2:
-                return 32768.0/8.0
-            case 3:
-                return 32768.0/12.0
-            default:
-                return 32768.0/2.0
-            }
-        }
-    }
-    
-  
-    func setCartPositionInt(newPosition:Int)
-    {
-        cartPosition = Float(newPosition) * cartPositionConvertRatio
-    }
-   
-    func setAccelerationInt(#x:Int, y:Int, z:Int)
-    {
-        var xval : Float = Float(x) / LSM9DSOAccelCountpG
-        var yval : Float = Float(y) / LSM9DSOAccelCountpG
-        var zval : Float = Float(z) / LSM9DSOAccelCountpG
-
-        acceleration = (x:xval,y:yval,z:zval)
-    }
-    
-    func setGyroInt(#x:Int, y:Int, z:Int)
-    {
-        var xval : Float = Float(x) / LSM9DSOGyroCountpDPS
-        var yval : Float = Float(y) / LSM9DSOGyroCountpDPS
-        var zval : Float = Float(z) / LSM9DSOGyroCountpDPS
-        gyro = (x:xval,y:yval,z:zval)
-    }
-    
- 
-    func setMagInt(#x:Int, y:Int, z:Int)
-    {
-        var xval : Float = Float(x) / LSM9DSOMagCountpG
-        var yval : Float = Float(y) / LSM9DSOMagCountpG
-        var zval : Float = Float(z) / LSM9DSOMagCountpG
-        mag = (x:xval,y:yval,z:zval)
-    }
-    
-    func saveHistory()
-    {
-        history.addPoint(currentTime, position: cartPosition, acceleration: acceleration, gyro: gyro, mag: mag, velocity: velocity)
-    }
-    
-    
 }

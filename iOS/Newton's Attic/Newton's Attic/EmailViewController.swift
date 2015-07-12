@@ -28,8 +28,10 @@ class EmailViewController: MFMailComposeViewController, MFMailComposeViewControl
             let filePath = docsDir + "/" + i
             if let fileData = NSData(contentsOfFile: filePath) {
                 addAttachmentData(fileData, mimeType: "csv", fileName: i)
+                
             }
         }
     }
+    
     
 }

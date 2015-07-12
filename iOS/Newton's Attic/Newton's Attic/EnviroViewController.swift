@@ -8,11 +8,10 @@
 
 import UIKit
 
-class EnviroViewController: UIViewController, PhysicsLabDisplayDelegate {
+class EnviroViewController: UIViewController {
 
     var bleD : BleDevice?
 
-    
     @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var relativeHumidity: UILabel!
     @IBOutlet weak var pressure: UILabel!
@@ -20,20 +19,20 @@ class EnviroViewController: UIViewController, PhysicsLabDisplayDelegate {
     @IBOutlet weak var altitude: UILabel!
     @IBOutlet weak var density: UILabel!
     
+    
+    // MARK: - Viewcontroller life cycle
     override func viewDidAppear(animated: Bool) {
-        bleD?.pl?.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUI", name: PLNotifications.PLUpdatedEnviroment, object: bleD!.pl!)
         updateUI()
     }
     override func viewWillDisappear(animated: Bool) {
-     
-        bleD?.pl?.delegate = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func physicsLabDisplay(sender: PhysicsLab) {
-        updateUI()
-    }
 
-    
+    // MARK: - Display functions
+
+    /* ARH need a consistent name for these */
     func updateUI()
     {
         let x = NSNumberFormatter()
@@ -44,15 +43,12 @@ class EnviroViewController: UIViewController, PhysicsLabDisplayDelegate {
         if bleD?.pl?.temperature != nil {
             temperature.text = x.stringFromNumber(bleD!.pl!.temperature)
         }
-        
         if bleD?.pl?.relativeHumdity != nil {
             relativeHumidity.text = x.stringFromNumber(bleD!.pl!.relativeHumdity)
         }
-        
         if bleD?.pl?.pressure != nil {
             pressure.text = x.stringFromNumber(bleD!.pl!.pressure)
         }
-        
         if bleD?.pl?.dewPoint != nil {
                 dewPoint.text = x.stringFromNumber(bleD!.pl!.dewPoint)
         }
@@ -60,11 +56,7 @@ class EnviroViewController: UIViewController, PhysicsLabDisplayDelegate {
             altitude.text = x.stringFromNumber(bleD!.pl!.altitude)
         }
         if bleD?.pl?.airDensity != nil {
-
             density.text = x.stringFromNumber(bleD!.pl!.airDensity)
         }
-
-        
     }
-    
 }

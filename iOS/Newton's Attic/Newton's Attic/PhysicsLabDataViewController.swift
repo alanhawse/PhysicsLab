@@ -8,34 +8,41 @@
 
 import UIKit
 
-class PhysicsLabDataViewController: UIViewController, PhysicsLabDisplayDelegate {
+class PhysicsLabDataViewController: UIViewController {
 
     var bleD : BleDevice?
 
-    @IBAction func resetMax(sender: UIButton) {
-        bleD?.pl?.resetMax()
-        
-    }
+    // if it is true then displaying max rather than current
+    private var displayMax = false
     
     @IBOutlet weak var accelX: UILabel!
     @IBOutlet weak var accelY: UILabel!
     @IBOutlet weak var accelZ: UILabel!
-    
     @IBOutlet weak var magX: UILabel!
     @IBOutlet weak var magY: UILabel!
     @IBOutlet weak var magZ: UILabel!
-
     @IBOutlet weak var gyroX: UILabel!
     @IBOutlet weak var gyroY: UILabel!
     @IBOutlet weak var gyroZ: UILabel!
-    
     @IBOutlet weak var position: UILabel!
-
     @IBOutlet weak var velocity: UILabel!
-    
     @IBOutlet weak var heading: UILabel!
     
-    var displayMax = false
+    
+    // MARK: - Viewcontroller lifecycle functions
+    
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.physicsLabUpdateDisplay() }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    // MARK: - Action functions
+    @IBAction func resetMax(sender: UIButton) {
+        bleD?.pl?.resetMax()
+    }
     
     @IBAction func changeMax(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -46,65 +53,48 @@ class PhysicsLabDataViewController: UIViewController, PhysicsLabDisplayDelegate 
             displayMax = true
         }
     }
-    func physicsLabDisplay(sender: PhysicsLab) {
+    
+    // MARK: - Display function
+    func physicsLabUpdateDisplay() {
         let x = NSNumberFormatter()
         x.numberStyle = .DecimalStyle
         x.minimumFractionDigits = 2
         x.maximumFractionDigits = 2
         
-        heading.text = x.stringFromNumber(sender.heading)
-        
-        
+        heading.text = x.stringFromNumber(bleD!.pl!.heading)
         
         if !displayMax {
         
-        accelX.text = x.stringFromNumber(sender.acceleration.x)
-        accelY.text = x.stringFromNumber(sender.acceleration.y)
-        accelZ.text = x.stringFromNumber(sender.acceleration.z)
+        accelX.text = x.stringFromNumber(bleD!.pl!.acceleration.x)
+        accelY.text = x.stringFromNumber(bleD!.pl!.acceleration.y)
+        accelZ.text = x.stringFromNumber(bleD!.pl!.acceleration.z)
         
-        magX.text = x.stringFromNumber(sender.mag.x)
-        magY.text = x.stringFromNumber(sender.mag.y)
-        magZ.text = x.stringFromNumber(sender.mag.z)
+        magX.text = x.stringFromNumber(bleD!.pl!.mag.x)
+        magY.text = x.stringFromNumber(bleD!.pl!.mag.y)
+        magZ.text = x.stringFromNumber(bleD!.pl!.mag.z)
         
-        gyroX.text = x.stringFromNumber(sender.gyro.x)
-        gyroY.text = x.stringFromNumber(sender.gyro.y)
-        gyroZ.text = x.stringFromNumber(sender.gyro.z)
+        gyroX.text = x.stringFromNumber(bleD!.pl!.gyro.x)
+        gyroY.text = x.stringFromNumber(bleD!.pl!.gyro.y)
+        gyroZ.text = x.stringFromNumber(bleD!.pl!.gyro.z)
         
-        position.text = x.stringFromNumber(sender.cartPosition)
-            velocity.text = x.stringFromNumber(sender.velocity)
+        position.text = x.stringFromNumber(bleD!.pl!.cartPosition)
+            velocity.text = x.stringFromNumber(bleD!.pl!.velocity)
         }
         else {
-            accelX.text = x.stringFromNumber(sender.maxAcceleration.x)
-            accelY.text = x.stringFromNumber(sender.maxAcceleration.y)
-            accelZ.text = x.stringFromNumber(sender.maxAcceleration.z)
+            accelX.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.x)
+            accelY.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.y)
+            accelZ.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.z)
             
-            magX.text = x.stringFromNumber(sender.maxMag.x)
-            magY.text = x.stringFromNumber(sender.maxMag.y)
-            magZ.text = x.stringFromNumber(sender.maxMag.z)
+            magX.text = x.stringFromNumber(bleD!.pl!.maxMag.x)
+            magY.text = x.stringFromNumber(bleD!.pl!.maxMag.y)
+            magZ.text = x.stringFromNumber(bleD!.pl!.maxMag.z)
             
-            gyroX.text = x.stringFromNumber(sender.maxGyro.x)
-            gyroY.text = x.stringFromNumber(sender.maxGyro.y)
-            gyroZ.text = x.stringFromNumber(sender.maxGyro.z)
+            gyroX.text = x.stringFromNumber(bleD!.pl!.maxGyro.x)
+            gyroY.text = x.stringFromNumber(bleD!.pl!.maxGyro.y)
+            gyroZ.text = x.stringFromNumber(bleD!.pl!.maxGyro.z)
             
-            position.text = x.stringFromNumber(sender.maxCartPosition)
-            velocity.text = x.stringFromNumber(sender.maxMinVelocity.max)
+            position.text = x.stringFromNumber(bleD!.pl!.maxCartPosition)
+            velocity.text = x.stringFromNumber(bleD!.pl!.maxMinVelocity.max)
         }
-       
     }
-    
-
-    
-    override func viewDidAppear(animated: Bool) {
-        //super.viewWillAppear(animated: Bool)
-        bleD?.pl?.delegate = self
-        
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        bleD?.pl?.delegate = nil
-    }
-
-
-
-   
 }

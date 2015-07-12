@@ -21,13 +21,18 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var checkState = [UITableViewCellAccessoryType]()
 
     @IBOutlet weak var fileListTable: UITableView!
+    @IBOutlet weak var fileTable: UITableView!
+    
 
-
+    // MARK: - Viewcontroller Lifecycle
+    
     override func viewWillAppear(animated: Bool) {
         readFiles()
         fileTable.dataSource = self
         fileTable.delegate = self
     }
+ 
+    // MARK: - UI Actions
     
     // if the user clicks the trash button then erase the currently
     // selected files... then for easy programming read in the file
@@ -75,14 +80,6 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-   /* override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("Segue to email")
-        
-    }
-*/
-    
-    @IBOutlet weak var fileTable: UITableView!
-  
     // if the user clicks the email button then make a list of all of
     // the files to mail.  the attach them.  then launch an email window
     // so the user can send the email
@@ -102,24 +99,9 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+
     
-    // this function reads all of the files in the documents directory and adds them to the list of files that the program knows about
-    private func readFiles() {
-        
-        fileNames.removeAll(keepCapacity: true)
-        checkState.removeAll(keepCapacity: true)
-        
-        let fileManager = NSFileManager.defaultManager()
-        let enumerator = fileManager.enumeratorAtPath(docsDir)
-        
-        while let element = enumerator?.nextObject() as? String {
-            if element.hasSuffix(".csv") { // checks the extension
-                fileNames.append(element)
-                checkState.append(.None)
-            }
-        }
-        
-    }
+    // MARK: - Tableview delegate functions
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -150,6 +132,8 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         flipCellState(cell!)
     }
+    
+    // MARK: - Helper functions
     
     // if the cell is checked then you need to flip the state
     // in the list as well.
@@ -196,5 +180,23 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let fname = docsDir! + "/" + i
             fileManager.removeItemAtPath(fname, error: nil)
         }
+    }
+    
+    
+    // this function reads all of the files in the documents directory and adds them to the list of files that the program knows about
+    private func readFiles() {
+        fileNames.removeAll(keepCapacity: true)
+        checkState.removeAll(keepCapacity: true)
+        
+        let fileManager = NSFileManager.defaultManager()
+        let enumerator = fileManager.enumeratorAtPath(docsDir)
+        
+        while let element = enumerator?.nextObject() as? String {
+            if element.hasSuffix(".csv") { // checks the extension
+                fileNames.append(element)
+                checkState.append(.None)
+            }
+        }
+        
     }
 }

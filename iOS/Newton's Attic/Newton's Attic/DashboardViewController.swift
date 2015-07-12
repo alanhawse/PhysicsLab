@@ -8,57 +8,70 @@
 
 import UIKit
 
-class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
+class DashboardViewController: UIViewController {
     
     var bleD : BleDevice?
+
+    private struct DashboardText {
+        static let accelX = "Acceleration X"
+        static let accelY = "Acceleration Y"
+        static let accelZ = "Acceleration Z"
+        static let gravityUnits = "G"
+        
+        static let velocity = "Velocity"
+        static let velocityUnits = "m/s"
+    }
     
     @IBOutlet weak var gaugeView: GaugeView!
-
     @IBOutlet weak var gaugeView2: GaugeView!
-    
     @IBOutlet weak var gaugeView3: GaugeView!
     
-    func physicsLabDisplay(sender: PhysicsLab) {
+    private enum Graph1Modes {
+        case accelX
+        case accelY
+        case accelZ
+        case velocity
+    }
+    
+    private var graph1Mode : Graph1Modes = .accelZ
+    
+
+    // MARK: - Viewcontroller lifecycle
+    
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!)
         
+        graph1MakeSelection()
+        
+        gaugeView2.name = DashboardText.accelX
+        gaugeView2.gaugeUnits = DashboardText.gravityUnits
+        gaugeView2.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
+
+    
+        gaugeView3.name = DashboardText.accelZ
+        gaugeView3.gaugeUnits = DashboardText.gravityUnits
+        gaugeView3.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    // MARK: - View Controller Display + Action Function
+
+    func physicsLabDisplay() {
         if view.bounds.height < view.bounds.width {
             graph1Selection?.selectedSegmentIndex = 3
             graph1MakeSelection()
         }
         
-      updateGraph1Display()
+        updateGraph1Display()
         
         gaugeView2?.needleValue = (current: Double(bleD!.pl!.acceleration.y), min: Double(bleD!.pl!.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.x))
         gaugeView3?.needleValue = (current: Double(bleD!.pl!.acceleration.z), min: Double(bleD!.pl!.minAcceleration.z), max: Double(bleD!.pl!.maxAcceleration.z))
-
-    }
-    
-
-    override func viewDidAppear(animated: Bool) {
-        bleD?.pl?.delegate = self
-        graph1MakeSelection()
-        
-        gaugeView2.name = "Acceleration X"
-        gaugeView2.gaugeUnits = "g"
-        gaugeView2.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
-
-    
-        gaugeView3.name = "Acceleration Z"
-        gaugeView3.gaugeUnits = "g"
-        gaugeView3.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
-        
         
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        bleD?.pl?.delegate = nil
-    }
-    
-    enum Graph1Modes {
-        case AccelX
-        case AccelY
-        case AccelZ
-        case Velocity
-    }
+
     
     @IBAction func resetMaxMin(sender: UIButton) {
         bleD!.pl?.resetMax()
@@ -68,74 +81,58 @@ class DashboardViewController: UIViewController, PhysicsLabDisplayDelegate {
     {
         if let pl = bleD?.pl
         {
-            switch graph1 {
-            case .AccelX:
+            switch graph1Mode {
+            case .accelX:
                 gaugeView.needleValue = (current: Double(pl.acceleration.x), min:Double(pl.minAcceleration.x), max: Double(bleD!.pl!.maxAcceleration.x))
-            case .AccelY:
+            case .accelY:
                 gaugeView.needleValue = (current: Double(pl.acceleration.y), min:Double(pl.minAcceleration.y), max: Double(bleD!.pl!.maxAcceleration.y))
 
-            case .AccelZ:
+            case .accelZ:
                 gaugeView.needleValue = (current: Double(pl.acceleration.z), min:Double(pl.minAcceleration.z), max:Double(bleD!.pl!.maxAcceleration.z))
 
-            case .Velocity:
+            case .velocity:
                 gaugeView.needleValue = (current: Double(pl.velocity), min: Double(pl.maxMinVelocity.min), max:Double(pl.maxMinVelocity.max))
 
             }
         }
     }
     
-    var graph1 : Graph1Modes = .AccelZ
-    
     
     @IBOutlet weak var graph1Selection: UISegmentedControl!
     
     @IBAction func graph1MakeSelection() {
+        // I dont think that this can happen
         if graph1Selection == nil {
             return
         }
         
         switch graph1Selection!.selectedSegmentIndex {
         case 0:
-            graph1 = .AccelX
-            gaugeView.name = "Acceleration X"
-            gaugeView.gaugeUnits = "g"
-            
+            graph1Mode = .accelX
+            gaugeView.name = DashboardText.accelX
+            gaugeView.gaugeUnits = DashboardText.gravityUnits
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
-
-            
         case 1:
-            graph1 = .AccelY
-            gaugeView.name = "Acceleration Y"
-            gaugeView.gaugeUnits = "g"
+            graph1Mode = .accelY
+            gaugeView.name = DashboardText.accelY
+            gaugeView.gaugeUnits = DashboardText.gravityUnits
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
-
-
         case 2:
-            graph1 = .AccelZ
-            gaugeView.name = "Acceleration Z"
-            gaugeView.gaugeUnits = "g"
+            graph1Mode = .accelZ
+            gaugeView.name = DashboardText.accelZ
+            gaugeView.gaugeUnits = DashboardText.gravityUnits
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
 
         case 3:
-            graph1 = .Velocity
-            gaugeView.name = "Velocity"
-            gaugeView.gaugeUnits = "m/s"
+            graph1Mode = .velocity
+            gaugeView.name = DashboardText.velocity
+            gaugeView.gaugeUnits = DashboardText.velocityUnits
             gaugeView.gaugeValueRange = (min: bleD!.pl!.velocityRange.min, max:bleD!.pl!.velocityRange.max)
-
-            
         default:
-            graph1 = .AccelZ
-            gaugeView.name = "Acceleration Z"
-            gaugeView.gaugeUnits = "g"
-
+            graph1Mode = .accelZ
+            gaugeView.name = DashboardText.accelZ
+            gaugeView.gaugeUnits = DashboardText.gravityUnits
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.LSM9DSOAccelRange), max:Double(bleD!.pl!.LSM9DSOAccelRange))
-
-
         }
-        
     }
-    
-    
-    
-    
 }

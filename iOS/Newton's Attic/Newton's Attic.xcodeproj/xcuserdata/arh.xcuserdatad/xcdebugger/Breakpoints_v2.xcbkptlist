@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Newton&apos;s Attic/PhysicsLab.swift"
-            timestampString = "456800687.084809"
+            timestampString = "458311097.928721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "PhysicsLab"
             landmarkType = "3">
          </BreakpointContent>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/PhysicsLabBarViewController.swift"
-            timestampString = "456555056.801733"
+            filePath = "PLAdvPacketInterface.swift"
+            timestampString = "457813562.643373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "bleConnect()"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "packetType0(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,46 +41,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/BlueToothNeighborhood.swift"
-            timestampString = "456452049.614925"
+            filePath = "Newton&apos;s Attic/GaugeView.swift"
+            timestampString = "458212701.81981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "connectToDevice(_:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "drawNeedle(_:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/BlueToothNeighborhood.swift"
-            timestampString = "456452121.288908"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "connectToDevice(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/PhysicsLab.swift"
-            timestampString = "456800687.084809"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
-            landmarkName = "PhysicsLab"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -8,18 +8,18 @@
 
 import UIKit
 
-class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegate {
-
+class PhysicsLabBarViewController: UITabBarController
+{
     var bleD : BleDevice?
-   // var bleLand : BlueToothNeighborhood?
 
-    var recordButton : UIBarButtonItem?
-    var actionButton : UIBarButtonItem?
-    var bleConnectButton : UIBarButtonItem?
-    var loginButton : UIBarButtonItem?
+    private var recordButton : UIBarButtonItem?
+    private var actionButton : UIBarButtonItem?
+    private var bleConnectButton : UIBarButtonItem?
+    private var loginButton : UIBarButtonItem?
+    
+    // MARK: - Viewcontroller life cycle
     
     override func viewWillAppear(animated: Bool) {
-        
         self.tabBar.translucent = false
         setupTopBarRecord()
         
@@ -48,17 +48,18 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
                 admin1.parentTabBar = self
                 
             }
-            
-            bleD!.pl?.history.delegate = self
-            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateHistory", name: PLNotifications.PLUpdatedHistory, object: bleD!.pl!)
         }
         
     }
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
+    // MARK: - Setup GUI
     
     func setupTopBarConnect()
     {
-        
         let img1 = UIImage(named: "bluetoothconnected")
         bleConnectButton = UIBarButtonItem(image: img1, style: .Plain, target: self, action: "bleConnect")
         bleConnectButton?.enabled = loggedIn
@@ -77,84 +78,52 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
         self.navigationItem.setRightBarButtonItems([recordButton!,actionButton!], animated: true)
         
     }
-    
-
-
+   
+    // MARK: - GUI Action Functions
     func bleConnect() {
         
         switch bleD!.peripheral!.state
         {
         case .Connected:
             bleLand?.disconnectDevice(bleD)
-       //     println("performing disconnect")
         case .Disconnected:
-         //   println("peripheral = \(bleD?.peripheral!.identifier)")
             bleLand?.connectToDevice(bleD?.peripheral)
-          //  println("performing connect")
         default: break
         }
     }
 
     
-    func record()
+    private func record()
     {
           bleD!.pl?.history.clearRecord()
           bleD!.pl?.history.arm(bleD!.pl!.cartPosition)
-          display(bleD!.pl!.history)
+          updateHistory()
     }
-    
-    
-    func display(sender : CartHistory)
-    {
-        if sender.recording {
-
-        let x = NSNumberFormatter()
-        x.numberStyle = .DecimalStyle
-        x.minimumFractionDigits = 1
-        x.maximumFractionDigits = 1
-        self.navigationItem.title =  x.stringFromNumber(sender.lastTimeSeconds)
-        }
-        else
-        {
-            if sender.armed {
-                self.navigationItem.title = "Armed"
-                
-            }
-            else
-            {
-                self.navigationItem.title = ""
-            }
-        }
-    }
-    
+ 
     func action()
     {
         performSegueWithIdentifier("fileViewController", sender: nil)
         
     }
     
+    // activated when the user presses the login button
+    // creates a alert notification controller for user to type password
+    // if the password is set then mark the gloabl variable loggedin... and
+    // enable the BLE Connection Button
     func login() {
         
         let alertController = UIAlertController(title: "Login", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
             let passwordTextField = alertController.textFields![0] as! UITextField
-            // 1225 is newtons birthday
-            if passwordTextField.text == "1225" {
+            if passwordTextField.text == Global.password {
                 loggedIn = true
-                //self.changeEditing(true)
-   //             self.connectButton.userInteractionEnabled = true
-   //             self.connectButton.enabled = true
-
                 self.bleConnectButton?.enabled = true
             }
             else
             {
                 loggedIn = false
                 self.bleConnectButton?.enabled = false
-                //self.changeEditing(false)
-    //            self.connectButton.userInteractionEnabled = false
-    //            self.connectButton.enabled = false
             }
         }
         
@@ -171,7 +140,28 @@ class PhysicsLabBarViewController: UITabBarController, CartHistoryDisplayDelegat
         self.presentViewController(alertController, animated: true) {
         }
     }
-
     
+    // MARK: - Notification action
     
+    // this function updates the text at the top of the navigation controller
+    func updateHistory()
+    {
+        if bleD!.pl!.history.recording {
+            let x = NSNumberFormatter()
+            x.numberStyle = .DecimalStyle
+            x.minimumFractionDigits = 1
+            x.maximumFractionDigits = 1
+            self.navigationItem.title =  x.stringFromNumber(bleD!.pl!.history.lastTimeSeconds)
+        }
+        else
+        {
+            if bleD!.pl!.history.armed {
+                self.navigationItem.title = "Armed"
+            }
+            else
+            {
+                self.navigationItem.title = ""
+            }
+        }
+    }
 }

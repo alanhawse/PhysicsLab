@@ -11,21 +11,45 @@ import UIKit
 @IBDesignable
 class GaugeView: UIView {
 
-    
-    private var scale : CGFloat = 0.9
-
-    private var gaugeRadius : CGFloat {
-        return min(bounds.width, bounds.height)/2 * scale
+    // MARK: - Constants
+    private struct GaugeViewDefaults {
+        static let gaugePercentOfView : CGFloat = 0.9
+        static let gaugeNumberOfTicks = 10 // number of ticks on the face
+        static let needleWidth : CGFloat = 2
+        static let circleWidth : CGFloat = 3
+        static let tickWidth : CGFloat = 3
+        
+        static let gaugeColor = UIColor.blackColor()
+        
+        static let needleColor = UIColor.blueColor()
+        static let needleMaxColor = UIColor.redColor()
+        static let needleMinColor = UIColor.greenColor()
+      
+        // tickStart, tickEnd and tickLabelStart are all % of guage radius
+        static let tickStart = 0.8
+        static let tickEnd = 1.0
+        static let tickLabelStart = 0.7
+        
+        // the zero is on the left at 5pi/4 and the maximum value is pi/4 on the right
+        static let gaugeZero = 5*M_PI_4
+        static let gaugeMax =  -M_PI_4
+        
+        // Position of the name on the guage as % of radius
+        static let gaugeNamePercent = 0.2
+        static let gaugeNameRadians = 3*M_PI_2
+        // Position of the units on the gauge as % of the radius
+        static let gaugeUnitsPercent = 0.3
+        static let gaugeUnitsRadians = 3*M_PI_2
     }
     
-    private let gaugeZero = 5*M_PI_4
-    private let gaugeMax = -M_PI_4
+    // MARK: - Public API
     
-    @IBInspectable var gaugeValueRange : (min:Double, max:Double) = (-2.0,2.0)
+    // this should be overwritten when the gauge is setup
+    var gaugeValueRange : (min:Double, max:Double) = (0.0,1.0)
+    var name : NSString = " "
+    var gaugeUnits : NSString = " "
     
-    @IBInspectable
-    var gaugeTicks = 10
-    
+    // the gauge keeps track of the maximum and minimum that it has seen
     var needleValue = (current:0.0, min: 0.0, max: 0.0) {
         didSet {
             if needleValue.current < gaugeValueRange.min {
@@ -53,140 +77,101 @@ class GaugeView: UIView {
         }
     }
     
+    // MARK: - Public but probably constant API
     
-    @IBInspectable
-    var name : NSString = " "
-    var gaugeUnits : NSString = " "
+    // Unlikely that anyone will change these values...
+    var gaugeTicks = GaugeViewDefaults.gaugeNumberOfTicks
+    var needleWidth = GaugeViewDefaults.needleWidth
+    var needleColor = GaugeViewDefaults.needleColor
+    var needleMaxColor = GaugeViewDefaults.needleMaxColor
+    var needleMinColor = GaugeViewDefaults.needleMinColor
     
+    // MARK: - Private Helper Variable
     
-    var needleWidth : CGFloat = 2.0
-    var needleColor = UIColor.blueColor()
-    var maxNeedleColor = UIColor.redColor()
-    var minNeedleColor = UIColor.greenColor()
+    private enum Needles {
+        case Current
+        case Min
+        case Max
+    }
     
-    private var gaugeColor = UIColor.blackColor()
+    private var gaugeRadius : CGFloat {
+        return min(bounds.width, bounds.height)/2 * GaugeViewDefaults.gaugePercentOfView
+    }
     
     private var gaugeCenter: CGPoint {
         return	convertPoint(center, fromView: superview)
     }
 
+    // MARK: - Drawing functions
+    
     override func drawRect(rect: CGRect) {
-        // Drawing code
         updateGui()
     }
     
     private func updateGui()
     {
-                
         let bp = UIBezierPath()
         
         // draw the circle of the gauge
-        gaugeColor.set()
-        bp.lineWidth = 3
+        GaugeViewDefaults.gaugeColor.set()
+        bp.lineWidth = GaugeViewDefaults.circleWidth
         bp.addArcWithCenter(gaugeCenter, radius: gaugeRadius, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
         bp.stroke()
         
         drawTicksAndLabels()
-        
-        drawTitle()
-        drawUnits()
-        
+        drawTextAtCoordinateRadians(name, percent: GaugeViewDefaults.gaugeNamePercent , angle: GaugeViewDefaults.gaugeNameRadians)
+        drawTextAtCoordinateRadians(gaugeUnits, percent: GaugeViewDefaults.gaugeUnitsPercent , angle: GaugeViewDefaults.gaugeUnitsRadians)
         drawNeedle(.Current)
         drawNeedle(.Min)
         drawNeedle(.Max)
         
-        
     }
     
-    private func drawTitle()
-    {
 
-        
-        //let printString = NSString(string: strng)
-        
-        let start = Double(gaugeRadius) * 0.2
-        
-        let sizeV = name.sizeWithAttributes(nil)
-        
-        let pnt = radiansToRectangular(r: CGFloat(start), angle: 3*M_PI_2 , offset: gaugeCenter)
-        
+    private func drawTextAtCoordinateRadians(text : NSString, percent: Double , angle: Double )
+    {
+        let sizeV = text.sizeWithAttributes(nil)
+        let pnt = radiansToRectangular(r: gaugeRadius * CGFloat(percent), angle: angle , offset: gaugeCenter)
         let pnt1 = CGPoint(x: pnt.x - sizeV.width/2, y: pnt.y - sizeV.height/2)
-        
         let rect = CGRect(origin: pnt1, size: sizeV)
-        
-        name.drawInRect(rect, withAttributes: nil)
-        
+        text.drawInRect(rect, withAttributes: nil)
         
     }
     
-    private func drawUnits()
-    {
-        
-        
-        //let printString = NSString(string: strng)
-        
-        let start = Double(gaugeRadius) * 0.3 // ARH Guess
-        
-        let sizeV = gaugeUnits.sizeWithAttributes(nil)
-        
-        let pnt = radiansToRectangular(r: CGFloat(start), angle: 3*M_PI_2 , offset: gaugeCenter)
-        
-        let pnt1 = CGPoint(x: pnt.x - sizeV.width/2, y: pnt.y - sizeV.height/2)
-        
-        let rect = CGRect(origin: pnt1, size: sizeV)
-        
-        gaugeUnits.drawInRect(rect, withAttributes: nil)
-        
-        
-    }
     
     private func drawTicksAndLabels() {
+   
+        let startValTick = Double(gaugeRadius) * GaugeViewDefaults.tickStart
+        let endValTick = Double(gaugeRadius) * GaugeViewDefaults.tickEnd
+        let labelLocationRadiusPercent = GaugeViewDefaults.tickLabelStart
         
-        let incrementVal = (gaugeZero - gaugeMax) / Double(gaugeTicks)
+        
+        let incrementVal = (GaugeViewDefaults.gaugeZero - GaugeViewDefaults.gaugeMax) / Double(gaugeTicks)
         let scaleIncrementVal = (gaugeValueRange.max - gaugeValueRange.min) / Double(gaugeTicks)
         
-        let startValTick = Double(gaugeRadius) * 0.8
-        let startValLabel = Double(gaugeRadius) * 0.7
-        let endVal = Double(gaugeRadius) * 1.0
-        
         for i in 0...gaugeTicks {
-            let angle = gaugeZero - (Double(i) * incrementVal)
-            drawLinePolar(startR: startValTick, startAngle: angle, endR: endVal, endAngle: angle)
+            let angle = GaugeViewDefaults.gaugeZero - (Double(i) * incrementVal)
+            drawLinePolar(startR: startValTick, startAngle: angle, endR: endValTick, endAngle: angle)
             
             // print the labels
-            
-            
             let printval = gaugeValueRange.min + Double(i) * scaleIncrementVal
-            //let strng = "\(printval)"
-            
             
             let x = NSNumberFormatter()
             x.numberStyle = .DecimalStyle
             x.minimumFractionDigits = 1
             x.maximumFractionDigits = 1
-
+            
             if let printString = x.stringFromNumber(printval) {
-
-            
-            let sizeV = printString.sizeWithAttributes(nil)
-           
-            let pnt = radiansToRectangular(r: CGFloat(startValLabel), angle: angle, offset: gaugeCenter)
-            
-            let pnt1 = CGPoint(x: pnt.x - sizeV.width/2, y: pnt.y - sizeV.height/2)
-            
-            let rect = CGRect(origin: pnt1, size: sizeV)
-            
-            printString.drawInRect(rect, withAttributes: nil)
+                drawTextAtCoordinateRadians(printString, percent: labelLocationRadiusPercent , angle: angle)
             }
-
         }
-       
+        
     }
     
 
     private func drawLinePolar(#startR: Double, startAngle: Double, endR: Double, endAngle: Double)
     {
-        gaugeColor.set()
+        GaugeViewDefaults.gaugeColor.set()
         let bp = UIBezierPath()
         bp.moveToPoint(radiansToRectangular(r: CGFloat(startR), angle: startAngle, offset: gaugeCenter))
         bp.addLineToPoint(radiansToRectangular(r: CGFloat(endR), angle: endAngle, offset: gaugeCenter))
@@ -194,17 +179,9 @@ class GaugeView: UIView {
         
     }
     
-
-    enum Needles {
-        case Current
-        case Min
-        case Max
-    }
-    
     private func drawNeedle(needle : Needles)
     {
-        
-        var percent = 100.0
+        var percent = 0.0
         
         switch(needle)
         {
@@ -213,35 +190,23 @@ class GaugeView: UIView {
             needleColor.set()
         case .Min:
             percent = (needleValue.min - gaugeValueRange.min) / (gaugeValueRange.max - gaugeValueRange.min)
-            minNeedleColor.set()
+            needleMinColor.set()
             
         case .Max:
             percent = (needleValue.max - gaugeValueRange.min) / (gaugeValueRange.max - gaugeValueRange.min)
-            maxNeedleColor.set()
+            needleMaxColor.set()
         }
         
-        
-        let needleLocation = gaugeZero - (percent * (gaugeZero - gaugeMax))
-        drawNeedle(angle: needleLocation)
-        
-        
-    }
-    
-    private func drawNeedle(#angle: Double)
-    {
+        // draw the needle
         var needlePath = UIBezierPath()
-        
-
-        //needleColor.set()
         needlePath.lineWidth = needleWidth
-        
-        needlePath.removeAllPoints()
-        
         needlePath.moveToPoint(gaugeCenter)
-        needlePath.addLineToPoint(radiansToRectangular(r:gaugeRadius, angle: angle, offset: gaugeCenter))
+        let needleLocation = GaugeViewDefaults.gaugeZero - (percent * (GaugeViewDefaults.gaugeZero - GaugeViewDefaults.gaugeMax))
+        needlePath.addLineToPoint(radiansToRectangular(r:gaugeRadius, angle: needleLocation, offset: gaugeCenter))
         needlePath.stroke()
     }
     
+    // calculate x,y in coordinate space from the center of the guage in polar
     private func radiansToRectangular(#r:CGFloat, angle:Double, offset: CGPoint) -> CGPoint
     {
         let x = Double(r)*cos(angle)

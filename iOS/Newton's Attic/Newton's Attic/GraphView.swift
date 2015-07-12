@@ -9,7 +9,11 @@
 import UIKit
 
 protocol GraphViewDataSource: class {
+    // Used for the line graph
     func getValYforX(x: Double) -> Float?
+    // Used for the Scatter Graph
+    // the return Int is the pass #
+    // the return Float is the yvalue
     func getValYforXPosition(x: Int, range: Int) -> [Int:Float]?
     
 }
@@ -17,226 +21,194 @@ protocol GraphViewDataSource: class {
 @IBDesignable
 class GraphView: UIView {
     
-    @IBInspectable var scale = 0.0
+    struct GraphViewDefaults {
+        
+        private static let graphLineWidth : CGFloat = 1
+        private static let graphLineColor = UIColor.blackColor()
+        
+        private static let axisColor = UIColor.redColor()
+        
+        private static let numOfYTicks = 4
+        private static let sizeOfYTick : CGFloat = 10
+        private static let yTickLabelOffset : CGFloat = 3 // how far left of the tickmark
+        private static let yTickColor = UIColor.redColor()
 
+        private static let numOfXTicks = 4
+        private static let sizeOfXTick : CGFloat = 5
+        private static let xTickLabelOffset : CGFloat = 10 // how far below the tickmark
+        private static let xTickColor = UIColor.redColor()
+        
+        private static let sizeOfCross : Float = 2.0
+        private static let crossColorArray  = [UIColor.blueColor(), UIColor.redColor(), UIColor.purpleColor(), UIColor.greenColor(), UIColor.brownColor(), UIColor.blackColor()]
+        
+        
+        // left right top and bottom "margin"
+        private static let graphPercentOfXMin : CGFloat = 0.1
+        private static let graphPercentOfXMax : CGFloat = 0.95
+        private static let graphPercentOfYMin : CGFloat = 0.05
+        private static let graphPercentOfYMax : CGFloat = 0.95
+        
+    }
+    
+    // MARK: - Public Interface
     var dataSource : GraphViewDataSource?
     
+    // rangeX and rangeY is almost certainly overwritten when you start
     var rangeX : (min:CGFloat,max:CGFloat) = (0.0,20.0)
     var rangeY : (min:CGFloat,max:CGFloat) = (-4.0,4.0)
     
-    var xstart : CGFloat = 0.0 //  { bounds.width * 0.1}
-    var ystart : CGFloat = 0.0 //{ bounds.height * 0.05 }
-    
-    var xend : CGFloat = 0.0 //{ bounds.width * 0.95 }
-    var yend : CGFloat = 0.0 //{ bounds.height * 0.95 }
-    
-    let colorArray  = [UIColor.blueColor(), UIColor.redColor(), UIColor.purpleColor(), UIColor.greenColor(), UIColor.brownColor(), UIColor.blackColor()]
-    
-    var scatterMode = false
-    
-    
-    func setupRanges(rect: CGRect)
-    {
-        xstart = rect.width * 0.1
-        xend = rect.width * 0.95
-        ystart = rect.height * 0.05
-        yend = rect.height * 0.95
-    
+    enum GraphTypes {
+        case Line
+        case Scatter
     }
     
-    var xScale : CGFloat {
-        get {
-            return (rangeX.max-rangeX.min) / (xend - xstart)
-        }
-    }
+    var graphType : GraphTypes = .Line
+    
+    
+    // MARK: - Private Configuration
+    
+    private var xstart : CGFloat { return bounds.width * GraphViewDefaults.graphPercentOfXMin }
+    private var xend : CGFloat { return bounds.width * GraphViewDefaults.graphPercentOfXMax }
+    private var ystart : CGFloat { return bounds.height * GraphViewDefaults.graphPercentOfYMin }
+    private var yend : CGFloat { return bounds.height * GraphViewDefaults.graphPercentOfYMax }
+    
+    private var yaxis : CGFloat {return ystart + (yend-ystart)/2 }
+    
+    private var xScale : CGFloat { return (rangeX.max-rangeX.min) / (xend - xstart)  }
 
-    var yScale : CGFloat {
-        get {
-            return (rangeY.max-rangeY.min) / (yend - ystart)
-        }
-    }
+    private var yScale : CGFloat {return (rangeY.max-rangeY.min) / (yend - ystart) }
     
 
+    // MARK: - Drawing functions
+    override func drawRect(rect: CGRect) {
+        drawAxis()
+        
+        switch graphType
+        {
+        case .Line:
+            drawLineGraph()
+        case .Scatter:
+            drawScatterGraph()
+        }
+    }
+    
+    
     private func drawAxis()
     {
-        UIColor.redColor().set()
-        // draw x-axis
+        GraphViewDefaults.axisColor.set()
         let bp = UIBezierPath()
-        
-        let yaxis = ystart + (yend-ystart)/2
-        
+
+        // draw x-axis
         bp.moveToPoint(CGPoint(x:xstart,y:yaxis))
         bp.addLineToPoint(CGPoint(x:xend,y:yaxis))
-        
         
         // draw y-axis
         bp.moveToPoint(CGPoint(x:xstart,y:ystart))
         bp.addLineToPoint(CGPoint(x:xstart,y:yend))
-        
         bp.stroke()
-        bp.removeAllPoints()
         
         drawXTicksLabels(y:yaxis)
         drawYTicksLabels(x:xstart)
-
     }
     
-    func drawScatterGraph()
-    {
-        
-        let yaxis = ystart + (yend-ystart)/2
-        let num = Int(xend-xstart)
-        
-        let increment = Float(rangeX.max - rangeX.min) / Float(num) * Float(100.0)
-
-        //println("Start of graph print num=\(num) increment=\(increment)")
-    
-        for i in 0...num {
-            
-            let xfunc = Float(i) / Float(xend-xstart) * Float(rangeX.max - rangeX.min) * 100
-        
-            if let ys = dataSource?.getValYforXPosition(Int(xfunc), range: Int(increment))
-            {
-                //println("x = \(xfunc) datapoints = \(ys.count)")
-                for evaly in ys {
-                    let col = colorArray[evaly.0]
-                    
-                    col.set()
-                    
-                    // convert yval to iPhone coordinates
-                    let a1 = CGFloat(evaly.1 - Float(rangeY.min))
-                    let a2 = CGFloat(rangeY.max - rangeY.min)
-                    let a3 = CGFloat(yend - ystart)
-                    
-                    let yVal = CGFloat(yend) - ( a1/a2*a3)
-                   //let yVal = yend - ((CGFloat(evaly) - CGFloat(rangeY.min)) / CGFloat(rangeY.max - rangeY.min) *  CGFloat(yend - ystart) )
-                    drawCross(x: Float(i)+Float(xstart), y: Float(yVal))
-                }
-            }
-        }
-        
-    }
-    
-    // x + y are in the iPhone coordinates
-    func drawCross(#x: Float, y: Float)
+    func drawXTicksLabels(# y: CGFloat)
     {
         let bp = UIBezierPath()
-        bp.moveToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y+2)))
-        bp.addLineToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y-2)))
-        bp.moveToPoint(CGPoint(x:CGFloat(x-2),y:CGFloat(y)))
-        bp.addLineToPoint(CGPoint(x:CGFloat(x+2),y:CGFloat(y)))
+        GraphViewDefaults.xTickColor.set()
+   
+        var increment = (xend-xstart) / CGFloat(GraphViewDefaults.numOfXTicks)
+        for i in 1...GraphViewDefaults.numOfXTicks {
+            let x = xstart + (CGFloat(i) * increment)
+            bp.moveToPoint(CGPoint(x:x,y:y-GraphViewDefaults.sizeOfXTick))
+            bp.addLineToPoint(CGPoint(x:x,y:y+GraphViewDefaults.sizeOfXTick))
+
+            let transX = Int(rangeX.min) + i * Int(rangeX.max - rangeX.min) / GraphViewDefaults.numOfXTicks
+            
+            let label = "\(transX)"
+            let sizeV = label.sizeWithAttributes(nil)
+            let pnt1 = CGPoint(x: x - sizeV.width/2, y: y + GraphViewDefaults.xTickLabelOffset - sizeV.height/2)
+            let rect = CGRect(origin: pnt1, size: sizeV)
+            label.drawInRect(rect, withAttributes: nil)
+        }
         bp.stroke()
-        
     }
-    override func drawRect(rect: CGRect) {
-        setupRanges(rect)
-        drawAxis()
-        if scatterMode {
-            drawScatterGraph()
-        }
-        else
-        {
-            drawLineGraph()
- 
-        }
+    
+    private func drawYTicksLabels(# x: CGFloat)
+    {
+        let bp = UIBezierPath()
+        GraphViewDefaults.yTickColor.set()
         
+        let increment = (yend - ystart) / CGFloat(GraphViewDefaults.numOfYTicks)
+        
+        for i in 0...Int(GraphViewDefaults.numOfYTicks) {
+            let calcy = yend - (CGFloat(i)*increment)
+            bp.moveToPoint(CGPoint(x:x,y:calcy))
+            bp.addLineToPoint(CGPoint(x:x+GraphViewDefaults.sizeOfYTick,y:calcy))
+            let transY = i*(Int(rangeY.max - rangeY.min) / GraphViewDefaults.numOfYTicks) + Int(rangeY.min)
+            let label = "\(transY)"
+            let sizeV = label.sizeWithAttributes(nil)
+            let pnt1 = CGPoint(x: x - sizeV.width - GraphViewDefaults.yTickLabelOffset, y: calcy - sizeV.height/2)
+            let rect = CGRect(origin: pnt1, size: sizeV)
+            label.drawInRect(rect, withAttributes: nil)
+        }
+        bp.stroke()
     }
+
+    // MARK: - Plotting Functions
     
     func drawLineGraph()
     {
-        let yaxis = ystart + (yend-ystart)/2
-        UIColor.blackColor().set()
+        GraphViewDefaults.graphLineColor.set()
         
         let num = Int(xend-xstart)
-        let bp1 = UIBezierPath()
+        let bp = UIBezierPath()
         
-        bp1.lineWidth = 1.0
+        bp.lineWidth = GraphViewDefaults.graphLineWidth
         
-        bp1.moveToPoint(CGPoint(x:xstart,y:yaxis))
+        bp.moveToPoint(CGPoint(x:xstart,y:yaxis))
         
         for i in 0...num {
             let evalx = CGFloat(i) / CGFloat(num) * (rangeX.max - rangeX.min)
             if let evaly = dataSource?.getValYforX(Double(evalx))
             {
                 let yVal = yend - ((CGFloat(evaly) - rangeY.min) / (rangeY.max - rangeY.min) *  CGFloat(yend - ystart) )
-                
-                bp1.addLineToPoint(CGPoint(x:CGFloat(i)+xstart,y:yVal))
+                bp.addLineToPoint(CGPoint(x:CGFloat(i)+xstart,y:yVal))
             }
-            
-        }
-        
-        bp1.stroke()
-    }
-    
-    func drawXTicksLabels(# y: CGFloat)
-    {
-        let bp = UIBezierPath()
-        UIColor.redColor().set()
-
-        bp.lineWidth=1
-        
-        //var numTicks = Int((xend - xstart) / 50)
-        var numTicks = 4
-        
-        var increment = (xend-xstart) / CGFloat(numTicks)
-        for i in 1...numTicks {
-            let x = xstart + (CGFloat(i) * increment)
-            bp.moveToPoint(CGPoint(x:x,y:y-5.0))
-            bp.addLineToPoint(CGPoint(x:x,y:y+5))
-            
-            // transform the x from the screen coordinates to the graph coordinates
-            //let transX = ( (x-xstart) / (xend - xstart) ) * (rangeX.max - rangeX.min)
-            
-            let transX = Int(rangeX.min) + i * Int(rangeX.max - rangeX.min) / numTicks
-            
-            // draw the label
-            /*
-            let ns = NSNumberFormatter()
-            ns.numberStyle = .DecimalStyle
-            ns.minimumFractionDigits = 1
-            ns.maximumFractionDigits = 1
-            let label = ns.stringFromNumber(transX)
-            */
-            let label = "\(transX)"
-            let sizeV = label.sizeWithAttributes(nil)
-            let pnt1 = CGPoint(x: x - sizeV.width/2, y: y + 10.0 - sizeV.height/2)
-            let rect = CGRect(origin: pnt1, size: sizeV)
-            label.drawInRect(rect, withAttributes: nil)
-            
         }
         bp.stroke()
-        
     }
     
-    func drawYTicksLabels(# x: CGFloat)
+    func drawScatterGraph()
+    {
+        let num = Int(xend-xstart)
+        
+        let increment = Float(rangeX.max - rangeX.min) / Float(num) * Float(100.0)
+        
+        for i in 0...num {
+            let xfunc = Float(i) / Float(xend-xstart) * Float(rangeX.max - rangeX.min) * 100
+            if let ys = dataSource?.getValYforXPosition(Int(xfunc), range: Int(increment))
+            {
+                for evaly in ys {
+                    GraphViewDefaults.crossColorArray[evaly.0].set()
+                    // convert yval to iPhone coordinates
+                    let a1 = CGFloat(evaly.1 - Float(rangeY.min))
+                    let a2 = CGFloat(rangeY.max - rangeY.min)
+                    let a3 = CGFloat(yend - ystart)
+                    let yVal = CGFloat(yend) - ( a1/a2*a3)
+                    drawCross(x: Float(i)+Float(xstart), y: Float(yVal))
+                }
+            }
+        }
+    }
+    
+    // x + y are in the iPhone coordinates
+    func drawCross(#x: Float, y: Float)
     {
         let bp = UIBezierPath()
-        UIColor.redColor().set()
-
-        //let numTicks = (ymax - ymin) / 90
-        let numTicks = 4
-        let increment = (yend - ystart) / CGFloat(numTicks)
-        
-        for i in 0...Int(numTicks) {
-            let calcy = yend - (CGFloat(i)*increment)
-            bp.moveToPoint(CGPoint(x:x,y:calcy))
-            bp.addLineToPoint(CGPoint(x:x+10.0,y:calcy)) // arh hardcoded size of tick
-            
-            
-            //let transY = ( (yend-calcy) / (yend - ystart) ) * (rangeY.max - rangeY.min) + rangeY.min
-           
-            let transY = i*(Int(rangeY.max - rangeY.min) / numTicks) + Int(rangeY.min)
-            let label = "\(transY)"
-            let sizeV = label.sizeWithAttributes(nil)
-            // arh 3 is a magic number
-            let pnt1 = CGPoint(x: x - sizeV.width - 3, y: calcy - sizeV.height/2)
-            let rect = CGRect(origin: pnt1, size: sizeV)
-            label.drawInRect(rect, withAttributes: nil)
-        }
+        bp.moveToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y+GraphViewDefaults.sizeOfCross)))
+        bp.addLineToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y-GraphViewDefaults.sizeOfCross)))
+        bp.moveToPoint(CGPoint(x:CGFloat(x-GraphViewDefaults.sizeOfCross),y:CGFloat(y)))
+        bp.addLineToPoint(CGPoint(x:CGFloat(x+GraphViewDefaults.sizeOfCross),y:CGFloat(y)))
         bp.stroke()
-        
-        
     }
-    
-
 }
