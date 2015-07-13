@@ -93,7 +93,7 @@ class PhysicsLabBarViewController: UITabBarController
     }
 
     
-    private func record()
+    func record()
     {
           bleD!.pl?.history.clearRecord()
           bleD!.pl?.history.arm(bleD!.pl!.cartPosition)
