@@ -47,13 +47,7 @@ void setupType0Adv()
     
     // position // if it is a uint16 it causes some unhandled exception
     uint16 val= QD_ReadCounter();
-    
-    /* ARH Bomb
-    if (val != 0x1000)
-    {
-        while(1);
-    }
-    */
+     
     
     ap->position = val;
    
