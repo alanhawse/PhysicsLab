@@ -38,7 +38,7 @@ class GaugeView: UIView {
         static let gaugeNamePercent = 0.2
         static let gaugeNameRadians = 3*M_PI_2
         // Position of the units on the gauge as % of the radius
-        static let gaugeUnitsPercent = 0.3
+        static let gaugeUnitsPercent = 0.35
         static let gaugeUnitsRadians = 3*M_PI_2
     }
     
@@ -169,7 +169,7 @@ class GaugeView: UIView {
     }
     
 
-    private func drawLinePolar(#startR: Double, startAngle: Double, endR: Double, endAngle: Double)
+    private func drawLinePolar(startR startR: Double, startAngle: Double, endR: Double, endAngle: Double)
     {
         GaugeViewDefaults.gaugeColor.set()
         let bp = UIBezierPath()
@@ -198,7 +198,7 @@ class GaugeView: UIView {
         }
         
         // draw the needle
-        var needlePath = UIBezierPath()
+        let needlePath = UIBezierPath()
         needlePath.lineWidth = needleWidth
         needlePath.moveToPoint(gaugeCenter)
         let needleLocation = GaugeViewDefaults.gaugeZero - (percent * (GaugeViewDefaults.gaugeZero - GaugeViewDefaults.gaugeMax))
@@ -207,7 +207,7 @@ class GaugeView: UIView {
     }
     
     // calculate x,y in coordinate space from the center of the guage in polar
-    private func radiansToRectangular(#r:CGFloat, angle:Double, offset: CGPoint) -> CGPoint
+    private func radiansToRectangular(r r:CGFloat, angle:Double, offset: CGPoint) -> CGPoint
     {
         let x = Double(r)*cos(angle)
         let y = Double(r)*sin(angle) * -1.0

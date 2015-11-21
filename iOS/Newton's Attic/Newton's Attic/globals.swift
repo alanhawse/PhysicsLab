@@ -25,17 +25,26 @@ struct PLNotifications {
 }
 
 struct GlobalHistoryConfig {
-    static var maxRecordingTime : Float = 10.0
+    static var maxRecordingTime = 10.0
+    static let maxRecordingTimeMin = 1.0
+    static let maxRecordingTimeMax = 100.0
+    
     static var maxPasses = 5
-    static let maxPoints = 2500
+    
+    // The 30 is the maximum number of packets/second... so 35 should be safe
+    static var maxPoints : Int { get { return Int(maxRecordingTime) * 35 } }
+    
     static let roundingTime = 30 // in miliseconds.. size of buckets for the recording
-    static let triggerG : Float = 0.1
-    static let directionThreshold : Float = 0.05 // cms you have to go the other way to increment the passes
+    static let triggerG  = 0.1 // change in Gs to start up the recording process
+    static let directionThreshold = 0.05 // cms you have to go the other way to increment the passes
 }
 
 struct Global {
     // sets the x-axis on the graph screen... the units are meters
-    static var trackLength :Float = 45.0
+    static var trackLength = 45.0
+    static let trackLengthMax = 100.0
+    static let trackLengthMin = 5.0
+    
     static let password = "1225" // newtons birthday
 }
 

@@ -16,20 +16,16 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         graphView.dataSource = self
         setRangeY()
         setRangeX()
-        // ARH - this might be better with a trailing closure and eliminating the function
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateDisplay", name: PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!)
+       
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.graphView.setNeedsDisplay() }
     }
+    
     
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     // MARK: - Display Functions
-    
-    func updateDisplay() {
-        graphView.setNeedsDisplay()
-    }
-
     
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var xSelection: UISegmentedControl!
@@ -67,24 +63,24 @@ class GraphViewController: UIViewController, GraphViewDataSource {
     {
         switch ySelection.selectedSegmentIndex {
         case 0:
-            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.LSM9DSOAccelRange),max:CGFloat(bleD!.pl!.LSM9DSOAccelRange))
+            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
         case 1:
-            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.LSM9DSOAccelRange),max:CGFloat(bleD!.pl!.LSM9DSOAccelRange))
+            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
         case 2:
-            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.LSM9DSOAccelRange),max:CGFloat(bleD!.pl!.LSM9DSOAccelRange))
+            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
         case 3:
-            graphView.rangeY = (min:CGFloat(bleD!.pl!.velocityRange.min), max:CGFloat(bleD!.pl!.velocityRange.max))
+            graphView.rangeY = (min:CGFloat(bleD!.pl!.pos.velocityRange.min), max:CGFloat(bleD!.pl!.pos.velocityRange.max))
         default:
-            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.LSM9DSOAccelRange),max:CGFloat(bleD!.pl!.LSM9DSOAccelRange))
+            graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
         }
     }
     
     // MARK: - Graph datasource delegate
     
     // input x in CMs for range cms
-    func getValYforXPosition(x: Int, range: Int) -> [Int : Float]? {
+    func getValYforXPosition(x: Int, range: Int) -> [Int : Double]? {
         
-        var rval = [Int:Float]()
+        var rval = [Int:Double]()
         var vals = bleD?.pl?.history.getValYforXPosition(x,range: range)
         
         for i in 0...bleD!.pl!.history.cartPass {
@@ -108,7 +104,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
     
     // This function is used when the graphview is in line graph mode
     // it return the y-value based on teh current x-value
-    func getValYforX(x: Double) -> Float? {
+    func getValYforX(x: Double) -> Double? {
         if xSelection.selectedSegmentIndex == 0 {
             let y =  bleD?.pl?.history.getValYforXTime(x)
             

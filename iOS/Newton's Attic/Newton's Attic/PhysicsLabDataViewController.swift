@@ -41,7 +41,7 @@ class PhysicsLabDataViewController: UIViewController {
     
     // MARK: - Action functions
     @IBAction func resetMax(sender: UIButton) {
-        bleD?.pl?.resetMax()
+        bleD?.pl?.resetMaxMin()
     }
     
     @IBAction func changeMax(sender: UISegmentedControl) {
@@ -61,13 +61,13 @@ class PhysicsLabDataViewController: UIViewController {
         x.minimumFractionDigits = 2
         x.maximumFractionDigits = 2
         
-        heading.text = x.stringFromNumber(bleD!.pl!.heading)
+        heading.text = x.stringFromNumber(bleD!.pl!.mag.heading)
         
         if !displayMax {
         
-        accelX.text = x.stringFromNumber(bleD!.pl!.acceleration.x)
-        accelY.text = x.stringFromNumber(bleD!.pl!.acceleration.y)
-        accelZ.text = x.stringFromNumber(bleD!.pl!.acceleration.z)
+        accelX.text = x.stringFromNumber(bleD!.pl!.accelerometer.x)
+        accelY.text = x.stringFromNumber(bleD!.pl!.accelerometer.y)
+        accelZ.text = x.stringFromNumber(bleD!.pl!.accelerometer.z)
         
         magX.text = x.stringFromNumber(bleD!.pl!.mag.x)
         magY.text = x.stringFromNumber(bleD!.pl!.mag.y)
@@ -77,24 +77,24 @@ class PhysicsLabDataViewController: UIViewController {
         gyroY.text = x.stringFromNumber(bleD!.pl!.gyro.y)
         gyroZ.text = x.stringFromNumber(bleD!.pl!.gyro.z)
         
-        position.text = x.stringFromNumber(bleD!.pl!.cartPosition)
-            velocity.text = x.stringFromNumber(bleD!.pl!.velocity)
+        position.text = x.stringFromNumber(bleD!.pl!.pos.cartPosition)
+            velocity.text = x.stringFromNumber(bleD!.pl!.pos.velocity)
         }
         else {
-            accelX.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.x)
-            accelY.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.y)
-            accelZ.text = x.stringFromNumber(bleD!.pl!.maxAcceleration.z)
+            accelX.text = x.stringFromNumber(bleD!.pl!.accelerometer.max.x)
+            accelY.text = x.stringFromNumber(bleD!.pl!.accelerometer.max.y)
+            accelZ.text = x.stringFromNumber(bleD!.pl!.accelerometer.max.z)
             
-            magX.text = x.stringFromNumber(bleD!.pl!.maxMag.x)
-            magY.text = x.stringFromNumber(bleD!.pl!.maxMag.y)
-            magZ.text = x.stringFromNumber(bleD!.pl!.maxMag.z)
+            magX.text = x.stringFromNumber(bleD!.pl!.mag.max.x)
+            magY.text = x.stringFromNumber(bleD!.pl!.mag.max.y)
+            magZ.text = x.stringFromNumber(bleD!.pl!.mag.max.z)
             
-            gyroX.text = x.stringFromNumber(bleD!.pl!.maxGyro.x)
-            gyroY.text = x.stringFromNumber(bleD!.pl!.maxGyro.y)
-            gyroZ.text = x.stringFromNumber(bleD!.pl!.maxGyro.z)
+            gyroX.text = x.stringFromNumber(bleD!.pl!.gyro.max.x)
+            gyroY.text = x.stringFromNumber(bleD!.pl!.gyro.max.y)
+            gyroZ.text = x.stringFromNumber(bleD!.pl!.gyro.max.z)
             
-            position.text = x.stringFromNumber(bleD!.pl!.maxCartPosition)
-            velocity.text = x.stringFromNumber(bleD!.pl!.maxMinVelocity.max)
+            position.text = x.stringFromNumber(bleD!.pl!.pos.maxCartPosition)
+            velocity.text = x.stringFromNumber(bleD!.pl!.pos.maxVelocity)
         }
     }
 }

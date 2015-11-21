@@ -14,7 +14,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var fileNames = [String]()
     private var docsDir : String {
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        return dirPaths[0] as! String
+        return dirPaths[0] 
     }
     // checkstate keeps track of the user checkmarks even if they
     // are off the screen.
@@ -114,7 +114,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("fileName", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("fileName", forIndexPath: indexPath) 
         
         let ip = indexPath.row
         cell.textLabel?.text = fileNames[ip]
@@ -160,7 +160,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func getList() -> [String] {
         var rval = [String]()
         
-        var ip = NSIndexPath()
+        //var ip = NSIndexPath()
         for i in 0..<fileNames.count {
             if checkState[i] != .None {
                 rval.append(fileNames[i])
@@ -175,10 +175,13 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var docsDir: String?
         
         let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        docsDir = dirPaths[0] as? String
+        docsDir = dirPaths[0] as String
         for i in fileList {
             let fname = docsDir! + "/" + i
-            fileManager.removeItemAtPath(fname, error: nil)
+            do {
+                try fileManager.removeItemAtPath(fname)
+            } catch _ {
+            }
         }
     }
     

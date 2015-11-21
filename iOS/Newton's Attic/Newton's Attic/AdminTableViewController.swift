@@ -8,31 +8,71 @@
 
 import UIKit
 
+extension Double {
+    /// Rounds the double to decimal places value
+    func roundToPlaces(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return round(self * divisor) / divisor
+    }
+}
+
 class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     // this is setup by the parent navigation controller.
     var parentTabBar : PhysicsLabBarViewController?
-
+    var bleD : BleDevice?
+    
+    // MARK: - ViewController Lifecycle
+    
     override func viewWillAppear(animated: Bool) {
         parentTabBar!.setupTopBarConnect()
         
+        updateGui()
+        changeEditing(false)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.PLUpdatedAdmin, object: bleD!.pl!)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.BLEConnected, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "physicsLabDisplay", name: PLNotifications.BLEDisconnected, object: nil)
+        
+        trackLengthSlider.minimumValue = Float(Global.trackLengthMin)
+        trackLengthSlider.maximumValue = Float(Global.trackLengthMax)
+        trackLengthSlider.value = Float(Global.trackLength)
+        
+        trackLengthLabel.text = "\(Global.trackLength)m"
+        
+        
+        recordingTimeSlider.minimumValue = Float(GlobalHistoryConfig.maxRecordingTimeMin)
+        recordingTimeSlider.maximumValue = Float(GlobalHistoryConfig.maxRecordingTimeMax)
+        recordingTimeSlider.value = Float(GlobalHistoryConfig.maxRecordingTime)
 
+        recordingTimeLabel.text = "\(Int(GlobalHistoryConfig.maxRecordingTime))s"
+        
+        // textFields need to have their editing delegates set
+        cmsPerRotation.delegate = self
+        zeroPosTextField.delegate = self
+        nameTextField.delegate = self
+        actualPosition.delegate = self
+      
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.currentPosition.text = self.formatValNumDigits(self.bleD!.pl!.pos.cartPosition,digits:2) }
+        
+        // can only happen if you are disconnected... when a advertising packet of type 2 arrives
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedAdmin, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateGui() }
+            
+        // Either make the fields editable or not
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEConnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(true) }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEDisconnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(false) }
+        
+        
         
     }
     
-
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         parentTabBar!.setupTopBarRecord()
         bleLand?.disconnectDevice(bleD)
     }
     
+
+    // MARK: - Table View Delegate Functions
    
     // if the user clicks anywhere outside of the text fields it will be on
     // the tableview.  When he does that then turn off the keyboard and end
@@ -46,20 +86,6 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         actualPosition.resignFirstResponder()
     }
 
-    var bleD : BleDevice?
-    
-    override func viewDidAppear(animated: Bool) {
-        updateGui()
-        changeEditing(false)
-        
-        cmsPerRotation.delegate = self
-        zeroPosTextField.delegate = self
-        nameTextField.delegate = self
-        actualPosition.delegate = self
-        
-    }
-
-    
     // if the user says he is done.. so be it.  The next call will
     // be automatically to the end ibaction as registered in the storyboard
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -74,128 +100,41 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
-   // func textFieldDidEndEditing(textField: UITextField) {
-   //     println("did end editing")
-   // }
-    
-    // If you are connected the PL will send you
-    // a notification when a characteristic changes.. specifically the position
-    func physicsLabDisplay() {
-        changeEditing(bleD!.pl!.bleConnectionInterface!.connectionComplete)
-        currentPosition.text = format2(bleD!.pl!.cartPosition,digits:2)
-    }
-    
-    func format2 (val: Float, digits: Int) -> String? {
-        let x=NSNumberFormatter()
-        x.numberStyle = .DecimalStyle
-        x.minimumFractionDigits = digits
-        x.maximumFractionDigits = digits
-        return x.stringFromNumber(val)
-        
-    }
-    
-    @IBOutlet weak var currentPosition: UITextField!
-    
-    @IBOutlet weak var actualPosition: UITextField!
-    
-    @IBAction func actualPositionEnd(sender: UITextField) {
-       // println("actual position end")
-        let currentZero = bleD!.pl!.cartZero
-        let currentCmsPerRotation = bleD!.pl!.cmsPerRotation
-        
-        if bleD!.pl!.cartPosition - currentZero < 0.1 {
-            return
-        }
-        if let enteredActual = NSNumberFormatter().numberFromString(actualPosition.text)
-        {
-            if enteredActual.floatValue < currentZero {
-                return
-            }
-            let scale =  (enteredActual.floatValue - currentZero) / (bleD!.pl!.cartPosition - currentZero)
-            
-            let newCmsPerRotation = currentCmsPerRotation * scale
-            
-            bleD!.pl!.cmsPerRotation = newCmsPerRotation
-            bleD!.pl!.cartZero = currentZero
-            bleD!.pl!.cartPosition = Float(enteredActual)
-            currentPosition.text = actualPosition.text
-        }
-    }
-    
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBAction func nameEndAction(sender: UITextField) {
-        //println("name end action")
-        bleD!.pl!.name = nameTextField.text
-        
-    }
-
-    
-    @IBOutlet weak var cmsPerRotation: UITextField!
-    @IBAction func finishedCmPerRotation(sender: AnyObject) {
-        
-        //println("finished cms per rotation")
-        if let rval = NSNumberFormatter().numberFromString(cmsPerRotation.text)
-        {
-            let currentZero = bleD!.pl!.cartZero
-            bleD!.pl!.cmsPerRotation = rval.floatValue
-            bleD!.pl!.cartZero = currentZero
-        }
-        else
-        {
-            //cmsPerRotation.text = "\(bleD!.pl!.cmsPerRotation)"
-            cmsPerRotation.text = format2(bleD!.pl!.cmsPerRotation,digits:2)
-        }
-    }
     
     func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
     {
         
         if textField == nameTextField {
-            var name :NSString = textField.text
+            let name : NSString = textField.text!
             return bleD!.pl!.isNameLegal(String(name.stringByReplacingCharactersInRange(range, withString: string)))
         }
         
-        let countdots = textField.text.componentsSeparatedByString(".").count - 1
+        let countdots = textField.text!.componentsSeparatedByString(".").count - 1
         if countdots > 0 && string == "."
         {
             return false
         }
         return true
     }
-    
-    @IBOutlet weak var zeroPosTextField: UITextField!
 
-    @IBAction func zeroPosTextFieldAction(sender: UITextField) {
-        if let rval = NSNumberFormatter().numberFromString(zeroPosTextField.text)
-        {
-            bleD!.pl!.cartZero = rval.floatValue
-        }
-        else
-        {
-            cmsPerRotation.text = "\(bleD!.pl!.cartZero)"
-        }
-    }
+    // MARK: - Configure GUI
     
-    func updateGui()
+    private func updateGui()
     {
         if let pl = bleD?.pl {
             
-            accelerometerRange.selectedSegmentIndex = pl.LSM9DSOAccelMode
-            magRange.selectedSegmentIndex = pl.LSM9DS0MagMode
-            gyroRange.selectedSegmentIndex = pl.LSM9DSOGyroMode
+            accelerometerRange.selectedSegmentIndex = pl.accelerometer.mode
+            magRange.selectedSegmentIndex = pl.mag.mode
+            gyroRange.selectedSegmentIndex = pl.gyro.mode
             
-            cmsPerRotation.text = "\(pl.cmsPerRotation)"
-            let x=NSNumberFormatter()
-            x.numberStyle = .DecimalStyle
-            x.minimumFractionDigits = 2
-            x.maximumFractionDigits = 2
-            zeroPosTextField.text = x.stringFromNumber(pl.cartZero)
+            cmsPerRotation.text = "\(pl.pos.cmsPerRotation)"
+            zeroPosTextField.text = formatValNumDigits(pl.pos.cartZero, digits: 2)
             nameTextField.text = pl.name
         }
     }
     
-       
-    func changeEditing(action: Bool)
+    
+    private func changeEditing(action: Bool)
     {
         accelerometerRange.userInteractionEnabled = action
         accelerometerRange.enabled = action
@@ -214,20 +153,139 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         actualPosition.enabled = action
     }
     
+
+    
+    private func formatValNumDigits (val: Double, digits: Int) -> String? {
+        let x=NSNumberFormatter()
+        x.numberStyle = .DecimalStyle
+        x.minimumFractionDigits = digits
+        x.maximumFractionDigits = digits
+        return x.stringFromNumber(val)
+        
+    }
+    
+    // MARK: - Interact with GUI
+    
+    @IBOutlet weak var recordingTimeLabel: UILabel!
+    
+    @IBOutlet weak var recordingTimeSlider: UISlider!
+    @IBAction func recordingTimeAction(sender: AnyObject) {
+        GlobalHistoryConfig.maxRecordingTime = Double(Int(recordingTimeSlider.value))
+        
+        recordingTimeLabel.text = "\(Int(GlobalHistoryConfig.maxRecordingTime))s"
+
+    }
+    
+    @IBOutlet weak var trackLengthLabel: UILabel!
+    
+    @IBOutlet weak var trackLengthSlider: UISlider!
+    
+    @IBAction func trackLengthSliderAction(sender: UISlider) {
+        Global.trackLength = Double(trackLengthSlider.value).roundToPlaces(1)
+        trackLengthLabel.text = "\(Global.trackLength)m"
+
+    }
+    
+    
+    @IBOutlet weak var currentPosition: UITextField!
+    
+    
+    @IBOutlet weak var actualPosition: UITextField!
+    
+    
+    
+    // This is essentially a calibrate function
+    @IBAction func actualPositionEnd(sender: UITextField) {
+       // println("actual position end")
+        let currentZero = bleD!.pl!.pos.cartZero
+        let currentCmsPerRotation = bleD!.pl!.pos.cmsPerRotation
+        
+        // If you have not moved it very far (0.1Meter hardcoded)... ignore the user input
+        if bleD!.pl!.pos.cartPosition - currentZero < 0.1 {
+            return
+        }
+        if let enteredActual = NSNumberFormatter().numberFromString(actualPosition.text!)
+        {
+            // you need to move forward
+            if enteredActual.doubleValue < currentZero {
+                return
+            }
+            
+            // how much do you need to change the current wheelsize so that you would
+            // end up with the right distance
+            let scale =  (enteredActual.doubleValue - currentZero) / (bleD!.pl!.pos.cartPosition - currentZero)
+            
+            let newCmsPerRotation = currentCmsPerRotation * scale
+            
+            bleD!.pl!.pos.cmsPerRotation = newCmsPerRotation
+            bleD!.pl!.bleConnectionInterface?.writeCmsPerRotation()
+
+            bleD!.pl!.pos.cartZero = currentZero
+            bleD!.pl!.bleConnectionInterface?.writeResetPosition()
+
+            bleD!.pl!.pos.cartPosition = Double(enteredActual)
+            currentPosition.text = actualPosition.text
+        }
+    }
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBAction func nameEndAction(sender: UITextField) {
+        bleD!.pl!.name = nameTextField.text
+        bleD!.pl!.bleConnectionInterface?.writeName()
+    }
+
+    
+    @IBOutlet weak var cmsPerRotation: UITextField!
+    @IBAction func finishedCmPerRotation(sender: AnyObject) {
+        if let rval = NSNumberFormatter().numberFromString(cmsPerRotation.text!)
+        {
+            let currentZero = bleD!.pl!.pos.cartZero
+            bleD!.pl!.pos.cmsPerRotation = rval.doubleValue
+            bleD!.pl!.pos.cartZero = currentZero
+            bleD!.pl!.bleConnectionInterface?.writeCmsPerRotation()
+            
+            
+        }
+        else
+        {
+            cmsPerRotation.text = formatValNumDigits(bleD!.pl!.pos.cmsPerRotation,digits:2)
+        }
+    }
+   
+    
+    @IBOutlet weak var zeroPosTextField: UITextField!
+
+    @IBAction func zeroPosTextFieldAction(sender: UITextField) {
+        if let rval = NSNumberFormatter().numberFromString(zeroPosTextField.text!)
+        {
+            bleD!.pl!.pos.cartZero = rval.doubleValue
+            bleD!.pl!.bleConnectionInterface?.writeResetPosition()
+        }
+        else
+        {
+            cmsPerRotation.text = "\(bleD!.pl!.pos.cartZero)"
+        }
+    }
+    
     
     @IBOutlet weak var accelerometerRange: UISegmentedControl!
     @IBAction func changeAccel(sender: UISegmentedControl) {
-        bleD?.pl?.LSM9DSOAccelMode = sender.selectedSegmentIndex
+        bleD?.pl?.accelerometer.mode = sender.selectedSegmentIndex
+        bleD?.pl?.bleConnectionInterface?.writeAccelMode()
+
     }
     
     
     @IBOutlet weak var magRange: UISegmentedControl!
     @IBAction func magRangeChange(sender: UISegmentedControl) {
-        bleD?.pl?.LSM9DS0MagMode = sender.selectedSegmentIndex
+        bleD?.pl?.mag.mode = sender.selectedSegmentIndex
+        bleD?.pl?.bleConnectionInterface?.writeMagMode()
     }
     
     @IBOutlet weak var gyroRange: UISegmentedControl!
     @IBAction func gyroRangeChange(sender: UISegmentedControl) {
-        bleD?.pl?.LSM9DSOGyroMode = sender.selectedSegmentIndex
+        bleD?.pl?.gyro.mode = sender.selectedSegmentIndex
+        bleD?.pl?.bleConnectionInterface?.writeGyroMode()
+
     }
 }

@@ -37,7 +37,7 @@ class MainViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destinationViewController as? UIViewController
+        let destination = segue.destinationViewController as UIViewController
 
         // tell the new viewcontroller which bleD model he is talking to
         if let tbc = destination as? PhysicsLabBarViewController
@@ -60,7 +60,7 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("bledevice", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("bledevice", forIndexPath: indexPath) 
         
         let ip = indexPath.row
         

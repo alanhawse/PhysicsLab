@@ -23,7 +23,7 @@ class PhysicsLabBarViewController: UITabBarController
         self.tabBar.translucent = false
         setupTopBarRecord()
         
-        let cnt = viewControllers!.count
+    //    let cnt = viewControllers!.count
     
         for i in viewControllers! {
             if let pldvc = i as? PhysicsLabDataViewController
@@ -48,7 +48,8 @@ class PhysicsLabBarViewController: UITabBarController
                 admin1.parentTabBar = self
                 
             }
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateHistory", name: PLNotifications.PLUpdatedHistory, object: bleD!.pl!)
+
+            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedHistory, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateHistory() }
         }
         
     }
@@ -96,7 +97,7 @@ class PhysicsLabBarViewController: UITabBarController
     func record()
     {
           bleD!.pl?.history.clearRecord()
-          bleD!.pl?.history.arm(bleD!.pl!.cartPosition)
+          bleD!.pl?.history.arm(bleD!.pl!.pos.cartPosition)
           updateHistory()
     }
  
@@ -115,7 +116,7 @@ class PhysicsLabBarViewController: UITabBarController
         let alertController = UIAlertController(title: "Login", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) in
-            let passwordTextField = alertController.textFields![0] as! UITextField
+            let passwordTextField = alertController.textFields![0] 
             if passwordTextField.text == Global.password {
                 loggedIn = true
                 self.bleConnectButton?.enabled = true

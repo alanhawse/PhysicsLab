@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0AA9461B57C9F5009A341D /* Gyro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA9451B57C9F5009A341D /* Gyro.swift */; };
+		3E0AA9481B57CD66009A341D /* Magnetometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA9471B57CD66009A341D /* Magnetometer.swift */; };
+		3E0AA94A1B57D4B2009A341D /* ThreeAxisModeConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */; };
+		3E0AA94C1B580B1A009A341D /* PositionSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA94B1B580B1A009A341D /* PositionSensor.swift */; };
+		3E2FB6311B56706900EB3163 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FB6301B56706900EB3163 /* Accelerometer.swift */; };
 		3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE31B496D5D005F37A1 /* globals.swift */; };
 		3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */; };
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
+		3E883B011C00B4F800BFC207 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E883B001C00B4F800BFC207 /* Clock.swift */; };
 		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
 		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
@@ -43,9 +49,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E0AA9451B57C9F5009A341D /* Gyro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gyro.swift; sourceTree = "<group>"; };
+		3E0AA9471B57CD66009A341D /* Magnetometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magnetometer.swift; sourceTree = "<group>"; };
+		3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeAxisModeConvertor.swift; sourceTree = "<group>"; };
+		3E0AA94B1B580B1A009A341D /* PositionSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionSensor.swift; sourceTree = "<group>"; };
+		3E2FB6301B56706900EB3163 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
 		3E68BDE31B496D5D005F37A1 /* globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLAdvPacketInterface.swift; sourceTree = "<group>"; };
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
+		3E883B001C00B4F800BFC207 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,12 +122,18 @@
 		3E68BDE61B49C049005F37A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */,
+				3E883B001C00B4F800BFC207 /* Clock.swift */,
 				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
 				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
 				3EDD3F9C1B2CA67A007010A3 /* BleDevice.swift */,
+				3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */,
 				3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */,
 				3EDD3F9F1B2CA67A007010A3 /* CartHistory.swift */,
+				3E2FB6301B56706900EB3163 /* Accelerometer.swift */,
+				3E0AA9471B57CD66009A341D /* Magnetometer.swift */,
+				3E0AA94B1B580B1A009A341D /* PositionSensor.swift */,
+				3E0AA9451B57C9F5009A341D /* Gyro.swift */,
+				3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -231,7 +249,9 @@
 		3EDD3F651B2CA661007010A3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Elkhorn Creek Engineering";
 				TargetAttributes = {
 					3EDD3F6C1B2CA661007010A3 = {
@@ -290,8 +310,10 @@
 				3EDD3FAC1B2CA67A007010A3 /* BlueToothNeighborhood.swift in Sources */,
 				3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */,
 				3EDD3FA41B2CA67A007010A3 /* DashboardViewController.swift in Sources */,
+				3E0AA94A1B57D4B2009A341D /* ThreeAxisModeConvertor.swift in Sources */,
 				3EDD3FA31B2CA67A007010A3 /* GraphViewController.swift in Sources */,
 				3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */,
+				3E0AA94C1B580B1A009A341D /* PositionSensor.swift in Sources */,
 				3EDD3FA11B2CA67A007010A3 /* EmailViewController.swift in Sources */,
 				3EDD3FA81B2CA67A007010A3 /* PhysicsLabDataViewController.swift in Sources */,
 				3EDD3FAD1B2CA67A007010A3 /* PhysicsLab.swift in Sources */,
@@ -300,12 +322,16 @@
 				3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */,
 				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
 				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
+				3E0AA9481B57CD66009A341D /* Magnetometer.swift in Sources */,
+				3E0AA9461B57C9F5009A341D /* Gyro.swift in Sources */,
 				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,
 				3EDD3FAF1B2CA67A007010A3 /* GraphView.swift in Sources */,
 				3EDD3FAA1B2CA67A007010A3 /* GaugeView.swift in Sources */,
 				3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */,
+				3E2FB6311B56706900EB3163 /* Accelerometer.swift in Sources */,
 				3EDD3FAB1B2CA67A007010A3 /* BleDevice.swift in Sources */,
 				3EDD3FA71B2CA67A007010A3 /* EnviroViewController.swift in Sources */,
+				3E883B011C00B4F800BFC207 /* Clock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +386,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -375,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -414,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -428,8 +455,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Newton's Attic/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"MTL_ENABLE_DEBUG_INFO[arch=*]" = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.elkhorn-creek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -440,8 +469,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Newton's Attic/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.elkhorn-creek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -450,16 +481,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Newton's AtticTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.elkhorn-creek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newton's Attic.app/Newton's Attic";
 			};
@@ -469,12 +498,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Newton's AtticTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.elkhorn-creek.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newton's Attic.app/Newton's Attic";
 			};

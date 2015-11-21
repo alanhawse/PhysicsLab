@@ -10,11 +10,11 @@ import UIKit
 
 protocol GraphViewDataSource: class {
     // Used for the line graph
-    func getValYforX(x: Double) -> Float?
+    func getValYforX(x: Double) -> Double?
     // Used for the Scatter Graph
     // the return Int is the pass #
     // the return Float is the yvalue
-    func getValYforXPosition(x: Int, range: Int) -> [Int:Float]?
+    func getValYforXPosition(x: Int, range: Int) -> [Int:Double]?
     
 }
 
@@ -38,7 +38,7 @@ class GraphView: UIView {
         private static let xTickLabelOffset : CGFloat = 10 // how far below the tickmark
         private static let xTickColor = UIColor.redColor()
         
-        private static let sizeOfCross : Float = 2.0
+        private static let sizeOfCross : Double = 2.0
         private static let crossColorArray  = [UIColor.blueColor(), UIColor.redColor(), UIColor.purpleColor(), UIColor.greenColor(), UIColor.brownColor(), UIColor.blackColor()]
         
         
@@ -54,15 +54,15 @@ class GraphView: UIView {
     var dataSource : GraphViewDataSource?
     
     // rangeX and rangeY is almost certainly overwritten when you start
-    var rangeX : (min:CGFloat,max:CGFloat) = (0.0,20.0)
-    var rangeY : (min:CGFloat,max:CGFloat) = (-4.0,4.0)
+    var rangeX : (min:CGFloat,max:CGFloat) = (0.0,20.0) { didSet {self.setNeedsDisplay()} }
+    var rangeY : (min:CGFloat,max:CGFloat) = (-4.0,4.0) { didSet {self.setNeedsDisplay()} }
     
     enum GraphTypes {
         case Line
         case Scatter
     }
     
-    var graphType : GraphTypes = .Line
+    var graphType : GraphTypes = .Line { didSet {self.setNeedsDisplay()} }
     
     
     // MARK: - Private Configuration
@@ -77,8 +77,8 @@ class GraphView: UIView {
     private var xScale : CGFloat { return (rangeX.max-rangeX.min) / (xend - xstart)  }
 
     private var yScale : CGFloat {return (rangeY.max-rangeY.min) / (yend - ystart) }
+ 
     
-
     // MARK: - Drawing functions
     override func drawRect(rect: CGRect) {
         drawAxis()
@@ -111,12 +111,12 @@ class GraphView: UIView {
         drawYTicksLabels(x:xstart)
     }
     
-    func drawXTicksLabels(# y: CGFloat)
+    func drawXTicksLabels(y  y: CGFloat)
     {
         let bp = UIBezierPath()
         GraphViewDefaults.xTickColor.set()
    
-        var increment = (xend-xstart) / CGFloat(GraphViewDefaults.numOfXTicks)
+        let increment = (xend-xstart) / CGFloat(GraphViewDefaults.numOfXTicks)
         for i in 1...GraphViewDefaults.numOfXTicks {
             let x = xstart + (CGFloat(i) * increment)
             bp.moveToPoint(CGPoint(x:x,y:y-GraphViewDefaults.sizeOfXTick))
@@ -133,7 +133,7 @@ class GraphView: UIView {
         bp.stroke()
     }
     
-    private func drawYTicksLabels(# x: CGFloat)
+    private func drawYTicksLabels(x  x: CGFloat)
     {
         let bp = UIBezierPath()
         GraphViewDefaults.yTickColor.set()
@@ -182,27 +182,27 @@ class GraphView: UIView {
     {
         let num = Int(xend-xstart)
         
-        let increment = Float(rangeX.max - rangeX.min) / Float(num) * Float(100.0)
+        let increment = Double(rangeX.max - rangeX.min) / Double(num) * Double(100.0)
         
         for i in 0...num {
-            let xfunc = Float(i) / Float(xend-xstart) * Float(rangeX.max - rangeX.min) * 100
+            let xfunc = Double(i) / Double(xend-xstart) * Double(rangeX.max - rangeX.min) * 100
             if let ys = dataSource?.getValYforXPosition(Int(xfunc), range: Int(increment))
             {
                 for evaly in ys {
                     GraphViewDefaults.crossColorArray[evaly.0].set()
                     // convert yval to iPhone coordinates
-                    let a1 = CGFloat(evaly.1 - Float(rangeY.min))
+                    let a1 = CGFloat(evaly.1 - Double(rangeY.min))
                     let a2 = CGFloat(rangeY.max - rangeY.min)
                     let a3 = CGFloat(yend - ystart)
                     let yVal = CGFloat(yend) - ( a1/a2*a3)
-                    drawCross(x: Float(i)+Float(xstart), y: Float(yVal))
+                    drawCross(x: Double(i)+Double(xstart), y: Double(yVal))
                 }
             }
         }
     }
     
     // x + y are in the iPhone coordinates
-    func drawCross(#x: Float, y: Float)
+    func drawCross(x x: Double, y: Double)
     {
         let bp = UIBezierPath()
         bp.moveToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y+GraphViewDefaults.sizeOfCross)))

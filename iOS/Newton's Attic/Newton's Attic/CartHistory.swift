@@ -11,7 +11,7 @@ import Foundation
 // This class is used to store one datapoint of all of the kinematic parameters of the car for one instance in time
 class DataPoint {
 
-    init(time: Float, position: Float, acceleration:(x:Float,y:Float,z:Float),gyro:(x:Float,y:Float,z:Float),mag:(x:Float,y:Float,z:Float), velocity: Float)
+    init(time: Double, position: Double, acceleration:(x:Double,y:Double,z:Double),gyro:(x:Double,y:Double,z:Double),mag:(x:Double,y:Double,z:Double), velocity: Double)
     {
         self.acceleration = acceleration
         self.time = time
@@ -21,12 +21,12 @@ class DataPoint {
         self.velocity = velocity
     }
     
-    var acceleration : (x:Float,y:Float,z:Float) = (0,0,0)
-    var mag : (x:Float,y:Float,z:Float) = (0,0,0)
-    var gyro : (x:Float,y:Float,z:Float) = (0,0,0)
-    var position : Float = 0
-    var time : Float = 0
-    var velocity : Float = 0.0
+    var acceleration : (x:Double,y:Double,z:Double) = (0,0,0)
+    var mag : (x:Double,y:Double,z:Double) = (0,0,0)
+    var gyro : (x:Double,y:Double,z:Double) = (0,0,0)
+    var position : Double = 0
+    var time : Double = 0
+    var velocity : Double = 0.0
     
 }
 
@@ -58,9 +58,9 @@ class CartHistory {
     
     private var startTime : Int = 0 // start in Miliseconds
     private var lastTime : Int = 0 // in Miliseconds
-    private var startTimeSeconds = Float(0.0)
+    private var startTimeSeconds = Double(0.0)
     
-    private var lastPosition : Float = Global.trackLength + Float(1.0)
+    private var lastPosition : Double = Global.trackLength + Double(1.0)
 
 
     init()
@@ -69,7 +69,7 @@ class CartHistory {
         timeDps = [Int: DataPoint]()
     }
     
-    func arm(position: Float)
+    func arm(position: Double)
     {
         lastPosition = position
         armed = true
@@ -88,9 +88,9 @@ class CartHistory {
         armed = false
     }
         
-    var lastTimeSeconds : Float {return Float(lastTime-(startTime*GlobalHistoryConfig.roundingTime))/1000.0 }
+    var lastTimeSeconds : Double {return Double(lastTime-(startTime*GlobalHistoryConfig.roundingTime))/1000.0 }
     
-    func addPoint(time: Float, position: Float,acceleration: (x:Float,y:Float,z:Float),gyro:(x:Float,y:Float,z:Float),mag:(x:Float,y:Float,z:Float), velocity : Float)
+    func addPoint(time: Double, position: Double,acceleration: (x:Double,y:Double,z:Double),gyro:(x:Double,y:Double,z:Double),mag:(x:Double,y:Double,z:Double), velocity : Double)
     {
    
         if !armed {
@@ -157,14 +157,14 @@ class CartHistory {
             startTime = roundedTime
         }
         
-        var dp: DataPoint = DataPoint(time: time-startTimeSeconds, position: position ,acceleration: acceleration,gyro: gyro, mag: mag, velocity: velocity)
+        let dp: DataPoint = DataPoint(time: time-startTimeSeconds, position: position ,acceleration: acceleration,gyro: gyro, mag: mag, velocity: velocity)
         
         
         history?.append(dp)
         
         // recording of data versus time
         
-        let num = roundedTime - startTime
+     //   let num = roundedTime - startTime
         
         if timeDps!.count < roundedTime-startTime {
             for i in timeDps!.count...(roundedTime-startTime) {
@@ -173,7 +173,7 @@ class CartHistory {
         }
         
         /// recording of data versus position
-        var pos = Int(position * 100)
+        let pos = Int(position * 100)
         if let dpa = posDps?[pos] {
             var t1 = dpa
             t1[cartPass] = dp
@@ -209,7 +209,7 @@ class CartHistory {
         var rval = [Int:DataPoint]()
         for i in x...x+range
         {
-            var dps = posDps![i]
+            let dps = posDps![i]
             if dps != nil {
                 for x in dps! {
                     rval[x.0] = x.1
@@ -223,17 +223,10 @@ class CartHistory {
     // Save the history to a csv
     private func writeToFile(file: String)
     {
-        let fileManager = NSFileManager.defaultManager()
-        var docsDir: String?
-
-        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         
-        docsDir = dirPaths[0] as? String
-        let dataFile = docsDir?.stringByAppendingPathComponent(file)
-    
         var heading = "time,position,velocity,accel x,accel y,accel z,mag x, mag y,mag z,gyro x,gyro y,gyro z\n"
         
-        println("points = \(history!.count)")
+        print("points = \(history!.count)")
         
         for i in 0..<history!.count {
             if let dp = history?[i] {
@@ -241,8 +234,12 @@ class CartHistory {
                 heading += outpoint
             }
         }
-        var databuffer = (heading as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-        fileManager.createFileAtPath(dataFile!, contents: databuffer!,attributes: nil)
         
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.stringByAppendingPathComponent(file)
+            try! heading.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+            
+        }
     }
+
 }

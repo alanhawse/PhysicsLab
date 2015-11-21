@@ -22,7 +22,8 @@ class EnviroViewController: UIViewController {
     
     // MARK: - Viewcontroller life cycle
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUI", name: PLNotifications.PLUpdatedEnviroment, object: bleD!.pl!)
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedEnviroment, object: bleD!.pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.updateUI() }
+        
         updateUI()
     }
     override func viewWillDisappear(animated: Bool) {

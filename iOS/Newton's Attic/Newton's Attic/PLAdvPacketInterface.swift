@@ -17,7 +17,7 @@ class PLAdvPacketInterface {
         case UI24Bit
         case SI16Bit
         case UI16Bit
-        case F64Bit
+        case F32Bit
     }
     
     private struct PLAdvHeaderFormat {
@@ -43,16 +43,17 @@ class PLAdvPacketInterface {
     
     private struct PLAdvPacket1Format {
         static let time         = (offset:3,numBytes: 3, type:fieldTypes.UI24Bit)
-        static let humidity     = (offset:6, numBytes: 4, type: fieldTypes.F64Bit)
-        static let airPressure  = (offset:10, numBytes: 4, type: fieldTypes.F64Bit)
-        static let temperature  = (offset:14, numBytes: 4, type: fieldTypes.F64Bit)
-        static let altitude     = (offset:18, numBytes: 4, type: fieldTypes.F64Bit)
+        static let humidity     = (offset:6, numBytes: 4, type: fieldTypes.F32Bit)
+        static let airPressure  = (offset:10, numBytes: 4, type: fieldTypes.F32Bit)
+        static let temperature  = (offset:14, numBytes: 4, type: fieldTypes.F32Bit)
+        static let altitude     = (offset:18, numBytes: 4, type: fieldTypes.F32Bit)
     }
     
     private struct PLAdvPacket2Format {
         static let name         = (offset:3, numBytes: 14, type: fieldTypes.Other)
-        static let wheelCircumfrence = (offset:17, numBytes: 4, type: fieldTypes.F64Bit)
+        static let wheelCircumfrence = (offset:17, numBytes: 4, type: fieldTypes.F32Bit)
         static let zeroPos      = (offset:21, numBytes: 2, type: fieldTypes.UI16Bit)
+        static let ticksPerRotation = (offset:23, numBytes:2, type: fieldTypes.UI16Bit)
     }
     
 
@@ -102,22 +103,23 @@ class PLAdvPacketInterface {
     private func packetType0 (ar : [UInt8])
     {
         let Time : Int = decodeBytesAtOffset(PLAdvPacket0Format.time.offset, ar: ar, numBytes: PLAdvPacket0Format.time.numBytes)
-        let packetTime = Float(Time) / 1000 // convert ms to seconds
+        let packetTime = Double(Time) / 1000 // convert ms to seconds ARH this is the wrong place for this magic number
 
-        if packetTime == pl!.currentTime
+        if packetTime == pl!.clock.currentTime
         {
             return
         }
         packet0Count = packet0Count + 1
         
-        pl!.currentTime = packetTime
+        pl!.clock.currentTime = packetTime
         
         // ARH need to do something about this
-        pl!.LSM9DSOAccelMode = Int((ar[2]  & 0b11000000) >> 6)
-        pl!.LSM9DS0MagMode = Int((ar[2]  & 0b00110000) >> 4)
-        pl!.LSM9DSOGyroMode = Int((ar[2]  & 0b00001100) >> 2)
+        pl!.accelerometer.mode = Int((ar[2]  & 0b11000000) >> 6)
+        pl!.mag.mode = Int((ar[2]  & 0b00110000) >> 4)
+        pl!.gyro.mode = Int((ar[2]  & 0b00001100) >> 2)
         
-        pl!.cartPositionInt = decodeBytesAtOffset(PLAdvPacket0Format.position.offset, ar: ar, numBytes: PLAdvPacket0Format.position.numBytes)
+        //pl!.pos.currentTime = packetTime
+        pl!.pos.cartPositionCounts = decodeBytesAtOffset(PLAdvPacket0Format.position.offset, ar: ar, numBytes: PLAdvPacket0Format.position.numBytes)
        
         
         var dataX: Int16 = 0
@@ -127,17 +129,18 @@ class PLAdvPacketInterface {
         dataX = decodeBytesAtOffset(PLAdvPacket0Format.accelX.offset, ar: ar, numBytes: PLAdvPacket0Format.accelX.numBytes)
         dataY = decodeBytesAtOffset(PLAdvPacket0Format.accelY.offset, ar: ar, numBytes: PLAdvPacket0Format.accelY.numBytes)
         dataZ = decodeBytesAtOffset(PLAdvPacket0Format.accelZ.offset, ar: ar, numBytes: PLAdvPacket0Format.accelZ.numBytes)
-        pl!.setAccelerationInt(x:Int(dataX),y:Int(dataY),z:Int(dataZ))
+        pl!.accelerometer.counts = (x:Int(dataX),y:Int(dataY),z:Int(dataZ))
+
         
         dataX = decodeBytesAtOffset(PLAdvPacket0Format.gyroX.offset, ar: ar, numBytes: PLAdvPacket0Format.gyroX.numBytes)
         dataY = decodeBytesAtOffset(PLAdvPacket0Format.gyroY.offset, ar: ar, numBytes: PLAdvPacket0Format.gyroY.numBytes)
         dataZ = decodeBytesAtOffset(PLAdvPacket0Format.gyroZ.offset, ar: ar, numBytes: PLAdvPacket0Format.gyroZ.numBytes)
-        pl!.setGyroInt(x: Int(dataX), y:Int(dataY), z: Int(dataZ))
+        pl!.gyro.counts =  (x: Int(dataX), y:Int(dataY), z: Int(dataZ))
         
         dataX = decodeBytesAtOffset(PLAdvPacket0Format.magX.offset, ar: ar, numBytes: PLAdvPacket0Format.magX.numBytes)
         dataY = decodeBytesAtOffset(PLAdvPacket0Format.magY.offset, ar: ar, numBytes: PLAdvPacket0Format.magY.numBytes)
         dataZ = decodeBytesAtOffset(PLAdvPacket0Format.magZ.offset, ar: ar, numBytes: PLAdvPacket0Format.magZ.numBytes)
-        pl!.setMagInt(x: Int(dataX), y:Int(dataY), z: Int(dataZ))
+        pl!.mag.counts = (x: Int(dataX), y:Int(dataY), z: Int(dataZ))
 
         pl!.saveHistory()
     }
@@ -154,9 +157,12 @@ class PLAdvPacketInterface {
     private func packetType2( ar: [UInt8])
     {
         packet2Count = packet2Count + 1
-        pl!.cmsPerRotation = decodeBytesAtOffset(PLAdvPacket2Format.wheelCircumfrence.offset, ar: ar, numBytes: PLAdvPacket2Format.wheelCircumfrence.numBytes)
+        pl!.pos.cmsPerRotation = decodeBytesAtOffset(PLAdvPacket2Format.wheelCircumfrence.offset, ar: ar, numBytes: PLAdvPacket2Format.wheelCircumfrence.numBytes)
         
-        pl!.cartZeroInt = decodeBytesAtOffset(PLAdvPacket2Format.zeroPos.offset, ar: ar, numBytes: PLAdvPacket2Format.zeroPos.numBytes)
+        pl!.pos.cartZeroCounts = decodeBytesAtOffset(PLAdvPacket2Format.zeroPos.offset, ar: ar, numBytes: PLAdvPacket2Format.zeroPos.numBytes)
+        
+        let tempU16 : UInt16 = decodeBytesAtOffset(PLAdvPacket2Format.ticksPerRotation.offset, ar: ar, numBytes: PLAdvPacket2Format.ticksPerRotation.numBytes)
+        pl!.pos.countsPerRotation = Double(tempU16)
         
         // Decode name from the packet
         var tempAr = [UInt8]()
@@ -175,7 +181,7 @@ class PLAdvPacketInterface {
     
     // MARK: - Decoder helpers
     
-    private func decodeBytesAtOffset(offset: Int, ar : [UInt8], numBytes: Int ) -> Float {
+    private func decodeBytesAtOffset(offset: Int, ar : [UInt8], numBytes: Int ) -> Double {
         var bytes : Array<UInt8> = [0,0,0,0]
         var rval : Float = 0.0
         bytes[0] = ar[offset]
@@ -183,7 +189,7 @@ class PLAdvPacketInterface {
         bytes[2] = ar[offset+2]
         bytes[3] = ar[offset+3]
         memcpy(&rval,bytes,4)
-        return rval
+        return Double(rval)
     }
     
     private func decodeBytesAtOffset(offset: Int, ar : [UInt8] , numBytes: Int) -> UInt16

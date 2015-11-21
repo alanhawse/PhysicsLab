@@ -12,6 +12,11 @@ import CoreBluetooth
 class PLBleInterface: NSObject, CBPeripheralDelegate {
     
     
+    override init()
+    {
+        super.init()
+    }
+    
     // MARK: - Public Interface
     var connectionComplete = false
     var peripheral : CBPeripheral?
@@ -41,17 +46,19 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
         
     }
     
-    struct PLBleCharacteristics {
-        private var charAccel = CBCharacteristic()
-        private var charMag = CBCharacteristic()
-        private var charGyro = CBCharacteristic()
-        private var charName = CBCharacteristic()
-        private var charWheelCircumfrence = CBCharacteristic()
-        private var charCartZero = CBCharacteristic()
-        private var charCartPosition = CBCharacteristic()
+    private struct PLBleCharacteristics {
+        var charAccelMode : CBCharacteristic!
+        var charMagMode : CBCharacteristic!
+        var charGyroMode : CBCharacteristic!
+        var charName : CBCharacteristic!
+        var charWheelCircumfrence : CBCharacteristic!
+        var charCartZero : CBCharacteristic!
+        var charCartPosition : CBCharacteristic!
+        
     }
     
     private var PLBleChar = PLBleCharacteristics()
+
     
     func closeConnection()
     {
@@ -63,56 +70,65 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
     // MARK: - BLE Discovery Delgate protocol interface
 
     // This function is called one time for each service in the device
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+        
+        //print("didDiscover Services \(peripheral)")
         
         self.peripheral = peripheral
         characteristicCount = 0
         
-        for service in peripheral.services {
-            if let thisService = service as? CBService
-            {
-                if thisService.UUID == PLBleInterfaceGlobals.SettingsService {
+        for service in peripheral.services! {
+            
+                if service.UUID == PLBleInterfaceGlobals.SettingsService {
                     
-                    peripheral.discoverCharacteristics(nil, forService: thisService) // ARH probably should replace nil with the specific ones
+                    //print("Discover characteristic for \(service.UUID)")
+                    
+                    peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
                 }
-                if thisService.UUID == PLBleInterfaceGlobals.KinematicService {
-                    peripheral.discoverCharacteristics(nil, forService: thisService) // ARH probably should replace nil with the specific ones
+                if service.UUID == PLBleInterfaceGlobals.KinematicService {
+                    //print("Discover characteristic for \(service.UUID)")
+                    
+                    peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
                 }
                 
-            }
+            
         }
     }
     
     private var characteristicCount = 0
     
     // this function is called once for each characterisitic in during discovery
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         
+       // print("Did Discover Characteristics")
         
-        for i in service.characteristics {
-            let thisCharacteristic = i as! CBCharacteristic
-            switch thisCharacteristic.UUID
+       // print("Service = \(service)")
+        
+        for i in service.characteristics! {
+            //let thisCharacteristic = i as! CBCharacteristic
+          //  print("Service = \(i)")
+            switch i.UUID
             {
             case PLBleInterfaceGlobals.CharacteristicAccelMode:
-                PLBleChar.charAccel = thisCharacteristic
+                PLBleChar.charAccelMode = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicGyroMode:
-                PLBleChar.charGyro = thisCharacteristic
+                PLBleChar.charGyroMode = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicMagMode:
-                PLBleChar.charMag = thisCharacteristic
+                PLBleChar.charMagMode = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicName:
-                PLBleChar.charName = thisCharacteristic
+                PLBleChar.charName = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicWheelCircumfrence:
-                PLBleChar.charWheelCircumfrence = thisCharacteristic
+                PLBleChar.charWheelCircumfrence = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicCartZero:
-                PLBleChar.charCartZero = thisCharacteristic
+                PLBleChar.charCartZero = i
                 characteristicCount += 1
             case PLBleInterfaceGlobals.CharacteristicPosition:
-                PLBleChar.charCartPosition = thisCharacteristic
+                PLBleChar.charCartPosition = i
                 characteristicCount += 1
                 
             default: break
@@ -123,51 +139,33 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
             connectionComplete = true
             peripheral.setNotifyValue(true, forCharacteristic: PLBleChar.charCartPosition)
             
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEConnected, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEConnected, object: pl!)
             
-            // setup the cart property observers
-            /*
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeName", name: PLNotifications.PLUpdatedName, object: pl!)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeCartZeroInt", name: PLNotifications.PLUpdatedCartZero, object: pl!)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeCmsPerRotation", name: PLNotifications.PLUpdatedCmsPerRotation, object: pl!)
-            
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeAccelMode", name: PLNotifications.PLUpdatedAccelMode, object: pl!)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeGyroMode", name: PLNotifications.PLUpdatedGyroMode, object: pl!)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeMagMode", name: PLNotifications.PLUpdatedMagMode, object: pl!)
-            
-            */
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedName, object: pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.writeName() }
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedCartZero, object: pl!, queue: NSOperationQueue.mainQueue() ) {_ in self.bleWriteUInt16(self.pl!.cartZeroInt, char: self.PLBleChar.charCartZero) }
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedCmsPerRotation, object: pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.bleWriteFloat(self.pl!.cmsPerRotation, char: self.PLBleChar.charWheelCircumfrence)}
-            
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedAccelMode, object: pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.bleWriteUInt8(UInt8(self.pl!.LSM9DSOAccelMode), char: self.PLBleChar.charAccel) }
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedGyroMode, object: pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.bleWriteUInt8(UInt8(self.pl!.LSM9DSOGyroMode), char: self.PLBleChar.charGyro) }
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedMagMode, object: pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.bleWriteUInt8(UInt8(self.pl!.LSM9DS0MagMode), char: self.PLBleChar.charMag) }
         }
         
     }
     
     // This function is called everytime a characteristic is updated and it is
     // set for ble notify
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if characteristic == PLBleChar.charCartPosition {
             var ar = [UInt8]()
             
-            if characteristic.value != nil {
+            if let dat = characteristic.value  {
                 
-                ar  = [UInt8](count:characteristic.value.length, repeatedValue: 0)
+                ar  = [UInt8](count:dat.length, repeatedValue: 0)
                 // copy bytes into array
-                characteristic.value.getBytes(&ar, length:characteristic.value.length)
+                dat.getBytes(&ar, length:dat.length)
                 
                 let cp :UInt16 = UInt16(ar[0]) | UInt16(ar[1])<<8
-                pl?.cartPositionInt = cp
+                pl?.pos.cartPositionCounts = cp
                 NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedKinematicData, object: pl!)
             }
         }
     }
     
     // MARK: - Write Characteristcs to connection
-    private func writeName()
+    func writeName()
     {
         if connectionComplete {
             
@@ -180,38 +178,35 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
             
         }
     }
-    /*
-    private func writeCartZeroInt() {
-        bleWriteUInt16(pl!.cartZeroInt, char: PLBleChar.charCartZero)
-    }
     
-    private func writeCartPositionInt()
+    
+    func writeCmsPerRotation()
     {
-        bleWriteUInt16(pl!.cartPositionInt, char: PLBleChar.charCartPosition)
+        bleWriteFloat(Float(pl!.pos.cmsPerRotation), char: PLBleChar.charWheelCircumfrence)
     }
     
-    
-    private func writeCmsPerRotation()
+    func writeResetPosition()
     {
-        bleWriteFloat(pl!.cmsPerRotation, char: PLBleChar.charWheelCircumfrence)
+        bleWriteUInt16(pl!.pos.cartZeroCounts, char: PLBleChar.charCartZero)
+        
     }
     
-    private func writeAccelMode()
+    func writeAccelMode()
     {
-        self.bleWriteUInt8(UInt8(self.pl!.LSM9DSOAccelMode), char: self.PLBleChar.charAccel)
+        bleWriteUInt8(UInt8(pl!.accelerometer.mode), char: PLBleChar.charAccelMode)
     }
     
-    private func writeGyroMode()
+    func writeMagMode()
     {
-        self.bleWriteUInt8(UInt8(self.pl!.LSM9DSOGyroMode), char: self.PLBleChar.charGyro)
+        bleWriteUInt8(UInt8(pl!.mag.mode), char: PLBleChar.charMagMode)
     }
     
-    private func writeMagMode()
+    func writeGyroMode()
     {
-        self.bleWriteUInt8(UInt8(self.pl!.LSM9DS0MagMode), char: self.PLBleChar.charMag)
+        bleWriteUInt8(UInt8(pl!.gyro.mode), char: PLBleChar.charGyroMode)
     }
+
     
-    */
 
     // MARK: - BLE Write Functions
     // ARH These should reall be done as extensions to Characertisitc?
@@ -227,6 +222,8 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
     private func bleWriteFloat(var val: Float, char : CBCharacteristic)
     {
         if connectionComplete {
+            print("Writing val = \(val) to Char=\(char)")
+
             //var outVal = pl!.cmsPerRotation
             let ns = NSData(bytes: &val, length: sizeof(Float))
             peripheral?.writeValue(ns, forCharacteristic: char, type: CBCharacteristicWriteType.WithResponse)

@@ -30,16 +30,15 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     func connectToDevice(peripheral: CBPeripheral?)
     {
         if peripheral != nil {
-        centralManager?.connectPeripheral(peripheral, options: nil)
+        centralManager?.connectPeripheral(peripheral!, options: nil)
         }
         
     }
     
     func disconnectDevice(bleD : BleDevice?)
     {
-        if bleD?.peripheral != nil {
-            centralManager?.cancelPeripheralConnection(bleD?.peripheral)
-        
+        if let per = bleD?.peripheral  {
+            centralManager?.cancelPeripheralConnection(per)
             bleD?.pl?.bleConnectionInterface?.closeConnection()
         }
     }
@@ -47,15 +46,15 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     // MARK: - CBCentralManager Delegate Functions
     
     // disconnected a device
-    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
+    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         if let bleD = blePeripherals[peripheral.identifier]
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEDisconnected, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEDisconnected, object: bleD.pl!)
         }
     }
     
     // a device connection is complete
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         
         if let bleD = blePeripherals[peripheral.identifier]
         {
@@ -69,7 +68,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
      }
     
     // called when you see an advertising packet
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [NSObject : AnyObject], RSSI: NSNumber)
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
     {
         
         let packetData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
@@ -122,7 +121,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         }
     }
     
-    @objc func centralManagerDidUpdateState(central: CBCentralManager!) {
+    @objc func centralManagerDidUpdateState(central: CBCentralManager) {
         switch (central.state) {
         case .PoweredOff: break
         case .PoweredOn: blueToothReady = true
