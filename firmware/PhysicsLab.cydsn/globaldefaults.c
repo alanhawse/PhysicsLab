@@ -7,8 +7,9 @@ static const DefaultVariables globalFlashDefaults = {
     G_SCALE_245DPS,
     M_SCALE_2GS,
     0x1000,
-    25.4,
-    "physicslab001"
+    15.14,
+    "physicslab001",
+    200
 };
 
 

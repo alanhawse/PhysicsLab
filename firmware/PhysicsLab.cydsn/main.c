@@ -19,6 +19,7 @@ void QDprocess();
 
 uint32 systime=0; // 1 ms
 
+/*
 CY_ISR(systimeISR)
 {
     systime++;
@@ -27,7 +28,14 @@ CY_ISR(systimeISR)
     UA11_Write(~UA11_Read());
     
 }
+*/
 
+CY_ISR(stime)
+{
+    systime++;
+    UA11_Write(~UA11_Read());
+
+}
 
 
 void SPIprocess()
@@ -69,9 +77,11 @@ int main()
     CyGlobalIntEnable; 
     
     GlobalReadDefaults();
-    
-    SYSPWM_Start();
-    systimeisr_StartEx(systimeISR);
+
+    CySysTickStart();
+    CySysTickSetClockSource(CY_SYS_SYST_CSR_CLK_SRC_LFCLK);
+    CySysTickSetReload(32);
+    CySysTickSetCallback(0,stime); // The LF clock has a WC 32768 ...divided by 32 = 1/ms
     
     SPI_Start();
     

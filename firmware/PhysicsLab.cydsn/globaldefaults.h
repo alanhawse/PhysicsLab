@@ -12,6 +12,7 @@ typedef struct __packed DefaultVariables {
     uint16 zeroPos;
     float cmsPerRotation;
     uint8 name[14];
+    uint16 ticksPerRotation;
     
 } DefaultVariables;
 

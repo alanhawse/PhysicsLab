@@ -50,7 +50,7 @@ void setupType0Adv()
      
     
     ap->position = val;
-   
+       
     
     // acceleration x,y,z
     memcpy(&ap->accel , LSM9DS0GetAccel(), 6); // sizeof(LSM9DS0DATA));
@@ -173,6 +173,7 @@ typedef struct __packed advPacket2 {
     uint8 name[14];
     float wheelCircumfrence;
     uint16 zeroPos;
+    uint16 ticksPerRotation;
     
 } advPacket3;
 
@@ -191,6 +192,7 @@ void setupType2Adv()
     
     ap->wheelCircumfrence = globalDefaults.cmsPerRotation;
     ap->zeroPos = globalDefaults.zeroPos;
+    ap->ticksPerRotation = globalDefaults.ticksPerRotation;
     memcpy(&ap->name,globalDefaults.name,sizeof(globalDefaults.name)); 
     
     CyBle_GapUpdateAdvData(cyBle_discoveryModeInfo.advData, cyBle_discoveryModeInfo.scanRspData);
