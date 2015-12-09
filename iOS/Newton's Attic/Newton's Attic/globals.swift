@@ -22,6 +22,8 @@ struct PLNotifications {
     static let PLUpdatedCmsPerRotation = "org.elkhorn-creek.org.physicslab.updateCmsPerRotation"
     
     static let PLUpdatedCartZero = "org.elkhorn-creek.org.physicslab.updateCartZero"
+    
+    static let PLUpdatedHistoryState = "org.elkhorn-creek.org.physicslab.updatedHistoryState"
 }
 
 struct GlobalHistoryConfig {

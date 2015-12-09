@@ -33,8 +33,23 @@ class DataPoint {
 
 class CartHistory {
 
-    var recording = false
-    var armed = false
+    var recording = false {
+        didSet {
+            // send the message that the recording is over
+            if oldValue != recording {
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedHistoryState, object: nil)
+            }
+        }
+    }
+    var armed = false {
+        didSet {
+            if oldValue != armed {
+                // send the message that the recording is over
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedHistoryState, object: nil)
+            }
+        }
+    }
+    
     var pl : PhysicsLab?
 
     // number of times the car has gone back and forth
@@ -90,6 +105,27 @@ class CartHistory {
         
     var lastTimeSeconds : Double {return Double(lastTime-(startTime*GlobalHistoryConfig.roundingTime))/1000.0 }
     
+    func triggerRecording ()
+    {
+        if recording == false && armed == true {
+            recording = true
+        }
+    }
+    
+    func stopRecording()
+    {
+        recording = false
+        armed = false
+        
+        let x = NSDate()
+        let nsdfm = NSDateFormatter()
+        nsdfm.timeStyle = .MediumStyle
+        let fname = nsdfm.stringFromDate(x)
+        let filename = "pl\(fname).csv"
+        writeToFile(filename)
+
+    }
+    
     func addPoint(time: Double, position: Double,acceleration: (x:Double,y:Double,z:Double),gyro:(x:Double,y:Double,z:Double),mag:(x:Double,y:Double,z:Double), velocity : Double)
     {
    
@@ -99,15 +135,7 @@ class CartHistory {
        
         
         if history?.count >= GlobalHistoryConfig.maxPoints || lastTimeSeconds > GlobalHistoryConfig.maxRecordingTime {
-            recording = false
-            armed = false
-        
-            let x = NSDate()
-            let nsdfm = NSDateFormatter()
-            nsdfm.timeStyle = .MediumStyle
-            let fname = nsdfm.stringFromDate(x)
-            let filename = "pl\(fname).csv"
-            writeToFile(filename)
+            stopRecording()
             return
         }
         
