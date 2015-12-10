@@ -14,6 +14,9 @@ class PhysicsLabBarViewController: UITabBarController
 
     private var recordButton : UIBarButtonItem?
     private var actionButton : UIBarButtonItem?
+    private var stopButton : UIBarButtonItem?
+    private var startButton : UIBarButtonItem?
+    
     private var bleConnectButton : UIBarButtonItem?
     private var loginButton : UIBarButtonItem?
     
@@ -50,6 +53,8 @@ class PhysicsLabBarViewController: UITabBarController
             }
 
             NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedHistory, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateHistory() }
+            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedHistoryState, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.setupTopBarRecord() }
+
         }
         
     }
@@ -72,13 +77,33 @@ class PhysicsLabBarViewController: UITabBarController
     
     func setupTopBarRecord()
     {
-        let img = UIImage(named: "recordbutton")
-        recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
         
-        actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
-        self.navigationItem.setRightBarButtonItems([recordButton!,actionButton!], animated: true)
+        if bleD!.pl!.history.armed == false && bleD!.pl!.history.recording == false {
+            let img = UIImage(named: "recordbutton")
+            recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
+            actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
+            self.navigationItem.setRightBarButtonItems([recordButton!,actionButton!], animated: true)
+        }
+        
+        if bleD!.pl!.history.armed == true && bleD!.pl!.history.recording == false {
+            
+            let img = UIImage(named: "recordbutton")
+            recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
+            startButton = UIBarButtonItem(barButtonSystemItem: .Play, target: self, action: "startRecording")
+            self.navigationItem.setRightBarButtonItems([recordButton!,startButton!], animated: true)
+        }
+        
+        
+        if bleD!.pl!.history.armed == true && bleD!.pl!.history.recording == true {
+            let img = UIImage(named: "recordbutton")
+            recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
+            stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "stopRecording")
+            self.navigationItem.setRightBarButtonItems([recordButton!,stopButton!], animated: true)
+        }
         
     }
+    
+
    
     // MARK: - GUI Action Functions
     func bleConnect() {
@@ -93,12 +118,24 @@ class PhysicsLabBarViewController: UITabBarController
         }
     }
 
+    func stopRecording()
+    {
+        bleD!.pl!.history.stopRecording()
+        
+    }
+    
+    func startRecording()
+    {
+        bleD!.pl!.history.triggerRecording()
+    }
     
     func record()
     {
-          bleD!.pl?.history.clearRecord()
-          bleD!.pl?.history.arm(bleD!.pl!.pos.cartPosition)
-          updateHistory()
+        bleD!.pl?.history.clearRecord()
+        bleD!.pl?.history.arm(bleD!.pl!.pos.cartPosition)
+        updateHistory()
+        setupTopBarRecord()
+
     }
  
     func action()
