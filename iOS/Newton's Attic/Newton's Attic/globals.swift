@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Elkhorn Creek Engineering. All rights reserved.
 //
 
+import UIKit
+
 struct PLNotifications {
     static let PLUpdatedKinematicData = "org.elkhorn-creek.physicslab.updatedKinematicData"
     static let PLUpdatedEnviroment = "org.elkhorn-creek.physicslab.updatedEnvironment"
@@ -25,7 +27,11 @@ struct PLNotifications {
 }
 
 struct GlobalHistoryConfig {
-    static var maxRecordingTime = 10.0
+    static var maxRecordingTime = 30.0 { didSet {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setDouble(maxRecordingTime, forKey: UserDefaultsKeys.recordingTime)
+        }
+    }
     static let maxRecordingTimeMin = 1.0
     static let maxRecordingTimeMax = 100.0
     
@@ -41,11 +47,20 @@ struct GlobalHistoryConfig {
 
 struct Global {
     // sets the x-axis on the graph screen... the units are meters
-    static var trackLength = 45.0
+    static var trackLength = 45.0 { didSet {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setDouble(trackLength, forKey: UserDefaultsKeys.trackLength)
+        }
+    }
     static let trackLengthMax = 100.0
     static let trackLengthMin = 5.0
     
     static let password = "1225" // newtons birthday
+}
+
+struct UserDefaultsKeys {
+    static let trackLength = "TrackLength"
+    static let recordingTime = "RecordingTime"
 }
 
 var loggedIn : Bool = false

@@ -26,6 +26,8 @@ class MainViewController: UITableViewController {
             bleLand = BlueToothNeighborhood()
             bleLand?.startUpCentralManager()
         }
+        
+        readDefaults()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -89,4 +91,26 @@ class MainViewController: UITableViewController {
         }
         return cell
     }
+    
+    // MARK: - Other functions
+    
+    func readDefaults()
+    {
+       
+        var rval = 0.0
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        rval = defaults.doubleForKey(UserDefaultsKeys.recordingTime)
+        if rval != 0.0
+        {
+            GlobalHistoryConfig.maxRecordingTime = rval
+        }
+    
+        rval = defaults.doubleForKey(UserDefaultsKeys.trackLength)
+        if rval != 0.0
+        {
+            Global.trackLength = rval
+        }
+    }
+
 }
