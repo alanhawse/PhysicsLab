@@ -73,6 +73,13 @@ class PLAdvPacketInterface {
     private var packet0Count = 0
     private var packet1Count = 0
     private var packet2Count = 0
+    private var packet0CountLast = 0
+    private var packet1CountLast = 0
+    private var packet2CountLast = 0
+    private var packet0LastTime = 0.0
+    
+    var packetsPerSecond = 0.0
+    
 
     func addPacket(ar: [UInt8])
     {
@@ -109,7 +116,13 @@ class PLAdvPacketInterface {
         {
             return
         }
+        
         packet0Count = packet0Count + 1
+        if packetTime-packet0LastTime > 1.0 {
+            packetsPerSecond = Double(packet0Count - packet0CountLast) / (packetTime-packet0LastTime)
+            packet0CountLast = packet0Count
+            packet0LastTime = packetTime
+        }
         
         pl!.clock.currentTime = packetTime
         

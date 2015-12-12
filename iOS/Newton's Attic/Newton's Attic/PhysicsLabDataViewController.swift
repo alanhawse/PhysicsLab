@@ -27,6 +27,7 @@ class PhysicsLabDataViewController: UIViewController {
     @IBOutlet weak var position: UILabel!
     @IBOutlet weak var velocity: UILabel!
     @IBOutlet weak var heading: UILabel!
+    @IBOutlet weak var dataRate: UILabel!
     
     
     // MARK: - Viewcontroller lifecycle functions
@@ -62,6 +63,8 @@ class PhysicsLabDataViewController: UIViewController {
         x.maximumFractionDigits = 2
         
         heading.text = x.stringFromNumber(bleD!.pl!.mag.heading)
+        
+        dataRate.text = x.stringFromNumber(bleD!.pl!.bleAdvInterface!.packetsPerSecond)
         
         if !displayMax {
         
