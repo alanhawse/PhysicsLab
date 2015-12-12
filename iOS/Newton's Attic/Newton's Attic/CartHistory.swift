@@ -76,7 +76,25 @@ class CartHistory {
     private var startTimeSeconds = Double(0.0)
     
     private var lastPosition : Double = Global.trackLength + Double(1.0)
-
+    
+    
+    var packets : Int? {
+        get {
+            return history?.count
+        }
+    }
+    
+    var packetsPerSecond : Double? {
+        get {
+            if history?.count>2 {
+                return Double(Int((Double(history!.count) / (history![history!.count-1].time - history![0].time))*10))/10
+            }
+            else
+            {
+                return nil
+            }
+        }
+    }
 
     init()
     {
