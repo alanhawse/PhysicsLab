@@ -185,11 +185,13 @@ class PhysicsLabBarViewController: UITabBarController
     func updateHistory()
     {
         if bleD!.pl!.history.recording {
-            let x = NSNumberFormatter()
+           /* let x = NSNumberFormatter()
             x.numberStyle = .DecimalStyle
             x.minimumFractionDigits = 1
             x.maximumFractionDigits = 1
             self.navigationItem.title =  x.stringFromNumber(bleD!.pl!.history.lastTimeSeconds)
+*/
+            self.navigationItem.title = "\(Int(bleD!.pl!.history.lastTimeSeconds))"
         }
         else
         {
