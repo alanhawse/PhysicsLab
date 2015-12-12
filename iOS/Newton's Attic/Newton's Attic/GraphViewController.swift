@@ -16,8 +16,12 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         graphView.dataSource = self
         setRangeY()
         setRangeX()
-       
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.graphView.setNeedsDisplay() }
+        updateRate()
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue())
+            { _ in self.graphView.setNeedsDisplay()
+                self.updateRate()
+        }
     }
     
     
@@ -29,6 +33,37 @@ class GraphViewController: UIViewController, GraphViewDataSource {
     
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var xSelection: UISegmentedControl!
+    
+    @IBOutlet weak var packets: UILabel!
+    @IBOutlet weak var packetsPerSecond: UILabel!
+    
+    
+    private func updateRate()
+    {
+        
+        if let temp = bleD?.pl?.history.packets
+        {
+            packets.text = "\(temp)"
+        }
+        else
+        {
+            packets.text = "0"
+        }
+        
+        if let temp = bleD?.pl?.history.packetsPerSecond
+        {
+            packetsPerSecond.text = "\(temp)"
+        }
+        else
+        {
+            packetsPerSecond.text = "0"
+
+        }
+        
+        
+    }
+    
+    
     
     @IBAction func xSelect(sender: UISegmentedControl) {
         setRangeX()
