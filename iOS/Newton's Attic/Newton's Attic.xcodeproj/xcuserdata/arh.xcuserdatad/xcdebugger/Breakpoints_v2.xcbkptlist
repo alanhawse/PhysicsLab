@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Newton&apos;s Attic/GraphViewController.swift"
-            timestampString = "471625054.832411"
+            timestampString = "471635607.550849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "setRangeX()"
             landmarkType = "5">
          </BreakpointContent>

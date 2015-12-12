@@ -15,6 +15,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
     override func viewDidAppear(animated: Bool) {
         graphView.dataSource = self
         setRangeY()
+        
         setRangeX()
         updateRate()
         
@@ -73,7 +74,6 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         else
         {
             graphView.graphType = .Scatter
-
         }
     }
     
@@ -81,11 +81,15 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         switch xSelection.selectedSegmentIndex {
         case 0: // time
            graphView.rangeX = (min:CGFloat(0.0),max:CGFloat(GlobalHistoryConfig.maxRecordingTime))
+            graphView.xAxisLabel = "s"
         case 1: // position
             graphView.rangeX = (min:CGFloat(0.0), max: CGFloat(Global.trackLength))
+            graphView.xAxisLabel = "m"
+
         default: // time
             graphView.rangeX = (min:CGFloat(0.0),max:CGFloat(GlobalHistoryConfig.maxRecordingTime))
-            
+            graphView.xAxisLabel = "s"
+
         }
     }
     
@@ -99,14 +103,23 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         switch ySelection.selectedSegmentIndex {
         case 0:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
+            graphView.yAxisLabel = "g"
         case 1:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
+            graphView.yAxisLabel = "g"
+
         case 2:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
+            graphView.yAxisLabel = "g"
+
         case 3:
             graphView.rangeY = (min:CGFloat(bleD!.pl!.pos.velocityRange.min), max:CGFloat(bleD!.pl!.pos.velocityRange.max))
+            graphView.yAxisLabel = "m/s"
+
         default:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
+            graphView.yAxisLabel = "g"
+
         }
     }
     

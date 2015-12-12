@@ -53,6 +53,9 @@ class GraphView: UIView {
     // MARK: - Public Interface
     var dataSource : GraphViewDataSource?
     
+    var xAxisLabel = "s"
+    var yAxisLabel = "g"
+    
     // rangeX and rangeY is almost certainly overwritten when you start
     var rangeX : (min:CGFloat,max:CGFloat) = (0.0,20.0) { didSet {self.setNeedsDisplay()} }
     var rangeY : (min:CGFloat,max:CGFloat) = (-4.0,4.0) { didSet {self.setNeedsDisplay()} }
@@ -107,8 +110,12 @@ class GraphView: UIView {
         bp.addLineToPoint(CGPoint(x:xstart,y:yend))
         bp.stroke()
         
+        drawYAxisLabel(x: xstart, y: yaxis)
+        
         drawXTicksLabels(y:yaxis)
         drawYTicksLabels(x:xstart)
+        
+        drawXAxisLabel(x: xend, y: yaxis)
     }
     
     func drawXTicksLabels(y  y: CGFloat)
@@ -152,6 +159,28 @@ class GraphView: UIView {
             label.drawInRect(rect, withAttributes: nil)
         }
         bp.stroke()
+    }
+    
+    private func drawYAxisLabel( x x: CGFloat, y: CGFloat)
+    {
+        //let label = "g"
+        
+        let sizeV = yAxisLabel.sizeWithAttributes(nil)
+        let pnt1 = CGPoint(x: 0, y: y  /*- sizeV.height/2*/)
+        let rect = CGRect(origin: pnt1, size: sizeV)
+        yAxisLabel.drawInRect(rect, withAttributes: nil)
+      
+    }
+    
+    private func drawXAxisLabel( x x: CGFloat, y: CGFloat)
+    {
+        //let xlabel = "s"
+
+        let sizeV = xAxisLabel.sizeWithAttributes(nil)
+        let pnt1 = CGPoint(x: x - 0*sizeV.width, y: y + sizeV.height)
+        let rect = CGRect(origin: pnt1, size: sizeV)
+        xAxisLabel.drawInRect(rect, withAttributes: nil)
+        
     }
 
     // MARK: - Plotting Functions

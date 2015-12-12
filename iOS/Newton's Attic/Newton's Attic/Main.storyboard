@@ -377,11 +377,11 @@
                                 <exclude reference="GQv-kd-bV2"/>
                                 <exclude reference="OWR-QB-FmP"/>
                                 <exclude reference="QcU-SV-5Ve"/>
-                                <exclude reference="yfx-Od-aoN"/>
                                 <exclude reference="0nw-7e-d2P"/>
                                 <exclude reference="HpT-3o-hR3"/>
                                 <exclude reference="L3V-rf-xWg"/>
                                 <exclude reference="wV7-m6-2RU"/>
+                                <exclude reference="yfx-Od-aoN"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
