@@ -190,7 +190,8 @@ class PhysicsLabBarViewController: UITabBarController
             x.minimumFractionDigits = 1
             x.maximumFractionDigits = 1
             self.navigationItem.title =  x.stringFromNumber(bleD!.pl!.history.lastTimeSeconds)
-*/
+            */
+            // Changed to 0 digits to close WCCIV issue #62
             self.navigationItem.title = "\(Int(bleD!.pl!.history.lastTimeSeconds))"
         }
         else
