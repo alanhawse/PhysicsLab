@@ -54,6 +54,8 @@ struct Global {
         defaults.setDouble(trackLength, forKey: UserDefaultsKeys.trackLength)
         }
     }
+    
+    static let minPacketRate = 25.0
     static let trackLengthMax = 100.0
     static let trackLengthMin = 5.0
     
