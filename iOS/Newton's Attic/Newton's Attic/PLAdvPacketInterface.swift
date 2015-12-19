@@ -120,6 +120,10 @@ class PLAdvPacketInterface {
         packet0Count = packet0Count + 1
         if packetTime-packet0LastTime > 1.0 {
             packetsPerSecond = Double(packet0Count - packet0CountLast) / (packetTime-packet0LastTime)
+            
+            if packetsPerSecond < Global.minPacketRate {
+                bleLand?.discoverDevices()
+            }
             packet0CountLast = packet0Count
             packet0LastTime = packetTime
         }
