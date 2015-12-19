@@ -65,10 +65,18 @@ class CartHistory {
     private var history : [DataPoint]?
     
     // timeDps stores one datapoint for each Time "bucket"
-    // the buckets are defined by the globalroundingtime
+    // the buckets are defined by the GlobalHistoryConfig.roundingTime
+    // the time starts from "0" ... which is when you arm the recording
+    // e.g "7" is 7*GlobalHistoryConfig.roundingTime 
+    // if the rounding time is 30 ... then 7 is the datapacket that occured at 7*30ms
+    // so 7 would be anytime between 210ms and 239ms
     private var timeDps : [ Int: DataPoint]?
     
-    // posDps = positionDataPoints stored by buckets of the roundingtime
+    // posDps = positionDataPoints stored by buckets of 1cm
+    // So, the key is a position on the track in CMs... 
+    // the value is an array of datapoints that occured each time it got to the track
+    // at that position
+    // I use "cartPass" to keep track of the number of times that the cart has been at a place on the track
     private var posDps : [Int:[Int:DataPoint]]?
     
     private var startTime : Int = 0 // start in Miliseconds
