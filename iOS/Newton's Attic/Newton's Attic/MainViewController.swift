@@ -79,13 +79,16 @@ class MainViewController: UITableViewController {
                 }
                 else
                 {
-                    cell.textLabel!.text = bleD.peripheral?.identifier.UUIDString
+                    //cell.textLabel!.text = bleD.peripheral?.identifier.UUIDString
+                    cell.textLabel!.text = bleD.UUIDString
+                    
                 }
                 
                 // tagtoid is a table of cell tags that map to which bleD so that
                 // when the user clicks the device it can setup the next stages
                 // with the correct bleDevice
                 cell.tag = tagToId.count
+                print("Cell tag = \(cell.tag)")
                 tagToId[tagToId.count+1] = bleD
             }
         }

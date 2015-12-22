@@ -21,6 +21,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     func startUpCentralManager() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        createDemoDevice()
     }
     
     func discoverDevices() {
@@ -119,6 +120,39 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
                 NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
             }
         }
+    }
+    
+    func createDemoDevice()
+    {
+        
+        let ns = NSUUID(UUIDString: "A5D59C2F-FE68-4BE7-B318-95029619C759")
+        
+        // make a new ble device
+        let bleD = BleDevice(name: "Demo", lastSeen: NSDate())
+        // add it to the table of device
+        blePeripherals[ns!] = bleD
+        
+        let plInterface = PLAdvPacketInterface()
+        
+        bleD.pl = PhysicsLab()
+        bleD.pl!.name = "Demo"
+        bleD.pl!.bleAdvInterface = plInterface
+        plInterface.pl = bleD.pl
+        
+        bleD.pl!.bleConnectionInterface = PLBleInterface()
+        bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
+        
+        // add it to the list of physics labs
+        blePeripheralsPhysicsLab.append(bleD)
+        // cause the display to reload as we found a new physics lab
+        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+      
+    }
+    
+    
+    func addDataDemoDevice()
+    {
+        
     }
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager) {
