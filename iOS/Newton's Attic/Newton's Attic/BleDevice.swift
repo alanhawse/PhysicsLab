@@ -11,6 +11,10 @@ class BleDevice:NSObject {
     var peripheral : CBPeripheral?
     var lastSeen : NSDate?
     var pl : PhysicsLab?
+    var deviceNumber = 0
+    
+    var demoDevice : DemoDevice?
+    
     var connectedState : Bool  {
             get
             {
@@ -45,5 +49,6 @@ class BleDevice:NSObject {
         self.peripheral = nil
         self.UUIDString = name
         self.lastSeen = lastSeen
+        self.demoDevice = DemoDevice()
     }
 }

@@ -21,7 +21,9 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     func startUpCentralManager() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        createDemoDevice()
+        createDemoDevices()
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "addDataDemoDevice", userInfo: nil, repeats: true)
     }
     
     func discoverDevices() {
@@ -116,43 +118,59 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
                 
                 // add it to the list of physics labs
                 blePeripheralsPhysicsLab.append(bleD)
+                bleD.deviceNumber = blePeripheralsPhysicsLab.count
+                
                 // cause the display to reload as we found a new physics lab
                 NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
             }
         }
     }
     
-    func createDemoDevice()
+    func createDemoDevices()
     {
         
-        let ns = NSUUID(UUIDString: "A5D59C2F-FE68-4BE7-B318-95029619C759")
+        for deviceName in demoDevices {
         
-        // make a new ble device
-        let bleD = BleDevice(name: "Demo", lastSeen: NSDate())
-        // add it to the table of device
-        blePeripherals[ns!] = bleD
+            let ns = NSUUID(UUIDString: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")
+            
+            // make a new ble device
+            let bleD = BleDevice(name: deviceName.0, lastSeen: NSDate())
+            // add it to the table of device
+            blePeripherals[ns!] = bleD
+            
+            let plInterface = PLAdvPacketInterface()
+            
+            bleD.pl = PhysicsLab()
+            bleD.pl!.name = deviceName.0
+            bleD.pl!.bleAdvInterface = plInterface
+            plInterface.pl = bleD.pl
+            
+            bleD.pl!.bleConnectionInterface = PLBleInterface()
+            bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
+            
+            bleD.demoDevice!.pl = bleD.pl
+            
+            // add it to the list of physics labs
+            blePeripheralsPhysicsLab.append(bleD)
+            bleD.deviceNumber = blePeripheralsPhysicsLab.count
+            
+        }
         
-        let plInterface = PLAdvPacketInterface()
-        
-        bleD.pl = PhysicsLab()
-        bleD.pl!.name = "Demo"
-        bleD.pl!.bleAdvInterface = plInterface
-        plInterface.pl = bleD.pl
-        
-        bleD.pl!.bleConnectionInterface = PLBleInterface()
-        bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
-        
-        // add it to the list of physics labs
-        blePeripheralsPhysicsLab.append(bleD)
         // cause the display to reload as we found a new physics lab
         NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
       
     }
     
     
+    
     func addDataDemoDevice()
     {
-        
+        for device in blePeripheralsPhysicsLab {
+            if let demoDev = device.demoDevice {
+                var out = demoDev.getNextData0()
+                demoDev.pl?.bleAdvInterface?.addPacket(out)
+            }
+        }
     }
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager) {

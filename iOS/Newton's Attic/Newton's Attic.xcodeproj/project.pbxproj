@@ -12,6 +12,8 @@
 		3E0AA94A1B57D4B2009A341D /* ThreeAxisModeConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */; };
 		3E0AA94C1B580B1A009A341D /* PositionSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA94B1B580B1A009A341D /* PositionSensor.swift */; };
 		3E2FB6311B56706900EB3163 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FB6301B56706900EB3163 /* Accelerometer.swift */; };
+		3E57827A1C29A9B2006C1C92 /* DemoDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5782791C29A9B2006C1C92 /* DemoDevice.swift */; };
+		3E57827C1C29E018006C1C92 /* template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3E57827B1C29E018006C1C92 /* template.csv */; };
 		3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE31B496D5D005F37A1 /* globals.swift */; };
 		3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */; };
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
@@ -54,6 +56,8 @@
 		3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeAxisModeConvertor.swift; sourceTree = "<group>"; };
 		3E0AA94B1B580B1A009A341D /* PositionSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionSensor.swift; sourceTree = "<group>"; };
 		3E2FB6301B56706900EB3163 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
+		3E5782791C29A9B2006C1C92 /* DemoDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDevice.swift; sourceTree = "<group>"; };
+		3E57827B1C29E018006C1C92 /* template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csv; sourceTree = "<group>"; };
 		3E68BDE31B496D5D005F37A1 /* globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLAdvPacketInterface.swift; sourceTree = "<group>"; };
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				3E0AA94B1B580B1A009A341D /* PositionSensor.swift */,
 				3E0AA9451B57C9F5009A341D /* Gyro.swift */,
 				3E0AA9491B57D4B2009A341D /* ThreeAxisModeConvertor.swift */,
+				3E5782791C29A9B2006C1C92 /* DemoDevice.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				3E68BDE71B49C070005F37A1 /* Views */,
 				3E68BDE61B49C049005F37A1 /* Model */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
+				3E57827B1C29E018006C1C92 /* template.csv */,
 				3EDD3F701B2CA661007010A3 /* Supporting Files */,
 			);
 			path = "Newton's Attic";
@@ -289,6 +295,7 @@
 			files = (
 				3EDD3FB11B2CA69C007010A3 /* Main.storyboard in Resources */,
 				3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */,
+				3E57827C1C29E018006C1C92 /* template.csv in Resources */,
 				3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +332,7 @@
 				3E0AA9481B57CD66009A341D /* Magnetometer.swift in Sources */,
 				3E0AA9461B57C9F5009A341D /* Gyro.swift in Sources */,
 				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,
+				3E57827A1C29A9B2006C1C92 /* DemoDevice.swift in Sources */,
 				3EDD3FAF1B2CA67A007010A3 /* GraphView.swift in Sources */,
 				3EDD3FAA1B2CA67A007010A3 /* GaugeView.swift in Sources */,
 				3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */,

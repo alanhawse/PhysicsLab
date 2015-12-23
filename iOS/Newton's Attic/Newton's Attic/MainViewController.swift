@@ -87,9 +87,9 @@ class MainViewController: UITableViewController {
                 // tagtoid is a table of cell tags that map to which bleD so that
                 // when the user clicks the device it can setup the next stages
                 // with the correct bleDevice
-                cell.tag = tagToId.count
-                print("Cell tag = \(cell.tag)")
-                tagToId[tagToId.count+1] = bleD
+                cell.tag = bleD.deviceNumber
+                tagToId[bleD.deviceNumber] = bleD
+                
             }
         }
         return cell
