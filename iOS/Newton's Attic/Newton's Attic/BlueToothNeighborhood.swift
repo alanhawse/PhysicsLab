@@ -23,7 +23,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         centralManager = CBCentralManager(delegate: self, queue: nil)
         createDemoDevices()
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "addDataDemoDevice", userInfo: nil, repeats: true)
+ 
     }
     
     func discoverDevices() {
@@ -154,6 +154,10 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             blePeripheralsPhysicsLab.append(bleD)
             bleD.deviceNumber = blePeripheralsPhysicsLab.count
             
+            bleD.demoDevice?.readDataFile(deviceName.1)
+            
+            NSTimer.scheduledTimerWithTimeInterval(bleD.demoDevice!.nextUpdate0, target: self, selector: "addDataDemoDevice0:", userInfo: bleD, repeats: false)
+            
         }
         
         // cause the display to reload as we found a new physics lab
@@ -163,14 +167,16 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     
     
     
-    func addDataDemoDevice()
+    func addDataDemoDevice0(timer:NSTimer)
     {
-        for device in blePeripheralsPhysicsLab {
-            if let demoDev = device.demoDevice {
-                var out = demoDev.getNextData0()
-                demoDev.pl?.bleAdvInterface?.addPacket(out)
-            }
-        }
+        let userInfo = timer.userInfo as! BleDevice
+        
+        let out = userInfo.demoDevice!.getNextData0()
+        userInfo.demoDevice?.pl?.bleAdvInterface?.addPacket(out)
+       
+        NSTimer.scheduledTimerWithTimeInterval(userInfo.demoDevice!.nextUpdate0, target: self, selector: "addDataDemoDevice0:", userInfo: userInfo, repeats: false)
+    
+        
     }
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager) {

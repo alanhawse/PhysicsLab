@@ -50,5 +50,6 @@ class BleDevice:NSObject {
         self.UUIDString = name
         self.lastSeen = lastSeen
         self.demoDevice = DemoDevice()
+        
     }
 }

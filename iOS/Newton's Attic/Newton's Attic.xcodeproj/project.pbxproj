@@ -13,11 +13,12 @@
 		3E0AA94C1B580B1A009A341D /* PositionSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA94B1B580B1A009A341D /* PositionSensor.swift */; };
 		3E2FB6311B56706900EB3163 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FB6301B56706900EB3163 /* Accelerometer.swift */; };
 		3E57827A1C29A9B2006C1C92 /* DemoDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5782791C29A9B2006C1C92 /* DemoDevice.swift */; };
-		3E57827C1C29E018006C1C92 /* template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3E57827B1C29E018006C1C92 /* template.csv */; };
 		3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE31B496D5D005F37A1 /* globals.swift */; };
 		3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */; };
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
 		3E883B011C00B4F800BFC207 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E883B001C00B4F800BFC207 /* Clock.swift */; };
+		3EA6A08A1C2B58D2006FA3F0 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6A0891C2B58D2006FA3F0 /* CSV.swift */; };
+		3EA6A0921C2C0B7C006FA3F0 /* template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3EA6A0911C2C0B7C006FA3F0 /* template.csv */; };
 		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
 		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
@@ -57,11 +58,12 @@
 		3E0AA94B1B580B1A009A341D /* PositionSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionSensor.swift; sourceTree = "<group>"; };
 		3E2FB6301B56706900EB3163 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
 		3E5782791C29A9B2006C1C92 /* DemoDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDevice.swift; sourceTree = "<group>"; };
-		3E57827B1C29E018006C1C92 /* template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csv; sourceTree = "<group>"; };
 		3E68BDE31B496D5D005F37A1 /* globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLAdvPacketInterface.swift; sourceTree = "<group>"; };
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
 		3E883B001C00B4F800BFC207 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		3EA6A0891C2B58D2006FA3F0 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
+		3EA6A0911C2C0B7C006FA3F0 /* template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csv; sourceTree = "<group>"; };
 		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		3E68BDE61B49C049005F37A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3EA6A0891C2B58D2006FA3F0 /* CSV.swift */,
 				3E883B001C00B4F800BFC207 /* Clock.swift */,
 				3EDD3F9E1B2CA67A007010A3 /* PhysicsLab.swift */,
 				3EDD3F9D1B2CA67A007010A3 /* BlueToothNeighborhood.swift */,
@@ -178,7 +181,7 @@
 				3E68BDE71B49C070005F37A1 /* Views */,
 				3E68BDE61B49C049005F37A1 /* Model */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
-				3E57827B1C29E018006C1C92 /* template.csv */,
+				3EA6A0911C2C0B7C006FA3F0 /* template.csv */,
 				3EDD3F701B2CA661007010A3 /* Supporting Files */,
 			);
 			path = "Newton's Attic";
@@ -295,7 +298,7 @@
 			files = (
 				3EDD3FB11B2CA69C007010A3 /* Main.storyboard in Resources */,
 				3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */,
-				3E57827C1C29E018006C1C92 /* template.csv in Resources */,
+				3EA6A0921C2C0B7C006FA3F0 /* template.csv in Resources */,
 				3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +331,7 @@
 				3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */,
 				3EDD3FA21B2CA67A007010A3 /* FileViewController.swift in Sources */,
 				3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */,
+				3EA6A08A1C2B58D2006FA3F0 /* CSV.swift in Sources */,
 				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
 				3E0AA9481B57CD66009A341D /* Magnetometer.swift in Sources */,
 				3E0AA9461B57C9F5009A341D /* Gyro.swift in Sources */,
