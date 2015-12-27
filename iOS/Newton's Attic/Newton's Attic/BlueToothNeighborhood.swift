@@ -150,13 +150,39 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             
             bleD.demoDevice!.pl = bleD.pl
             
-            // add it to the list of physics labs
-            blePeripheralsPhysicsLab.append(bleD)
-            bleD.deviceNumber = blePeripheralsPhysicsLab.count
             
-            bleD.demoDevice?.readDataFile(deviceName.1)
-            
-            NSTimer.scheduledTimerWithTimeInterval(bleD.demoDevice!.nextUpdate0, target: self, selector: "addDataDemoDevice0:", userInfo: bleD, repeats: false)
+            do {
+                try bleD.demoDevice?.loadDataFiles((deviceName.1.0), fileName1: (deviceName.1.1), fileName2: (deviceName.1.2))
+
+                // add it to the list of physics labs
+                
+                blePeripheralsPhysicsLab.append(bleD)
+                bleD.deviceNumber = blePeripheralsPhysicsLab.count
+                
+                
+                if deviceName.1.0 != nil && bleD.demoDevice!.nextUpdate0 != nil {
+                    NSTimer.scheduledTimerWithTimeInterval(bleD.demoDevice!.nextUpdate0!, target: self, selector: "addDataDemoDevice0:", userInfo: bleD, repeats: false)
+                }
+                
+                if deviceName.1.1 != nil && bleD.demoDevice!.nextUpdate1 != nil {
+                    NSTimer.scheduledTimerWithTimeInterval(bleD.demoDevice!.nextUpdate1!, target: self, selector: "addDataDemoDevice1:", userInfo: bleD, repeats: false)
+                }
+ 
+                
+                if deviceName.1.2 != nil && bleD.demoDevice!.nextUpdate2 != nil {
+                    NSTimer.scheduledTimerWithTimeInterval(bleD.demoDevice!.nextUpdate0!, target: self, selector: "addDataDemoDevice2:", userInfo: bleD, repeats: false)
+                }
+                
+            }
+            catch DemoDevice.FileTypeReadErrors.DataError(let errorMessage) {
+               print(errorMessage)
+                //assertionFailure()
+
+            }
+            catch {
+                print("Unhandeled")
+                //assertionFailure()
+            }
             
         }
         
@@ -171,13 +197,53 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     {
         let userInfo = timer.userInfo as! BleDevice
         
-        let out = userInfo.demoDevice!.getNextData0()
-        userInfo.demoDevice?.pl?.bleAdvInterface?.addPacket(out)
+        if let out = userInfo.demoDevice!.getNextData0()
+        {
+            userInfo.demoDevice?.pl?.bleAdvInterface?.addPacket(out)
+        }
        
-        NSTimer.scheduledTimerWithTimeInterval(userInfo.demoDevice!.nextUpdate0, target: self, selector: "addDataDemoDevice0:", userInfo: userInfo, repeats: false)
-    
+        if userInfo.demoDevice!.nextUpdate0 != nil
+        {
+            NSTimer.scheduledTimerWithTimeInterval((userInfo.demoDevice!.nextUpdate0!), target: self, selector: "addDataDemoDevice0:", userInfo: userInfo, repeats: false)
+        }
         
     }
+    
+    func addDataDemoDevice1(timer:NSTimer)
+    {
+        let userInfo = timer.userInfo as! BleDevice
+        
+        if let out = userInfo.demoDevice!.getNextData1()
+        {
+            userInfo.demoDevice?.pl?.bleAdvInterface?.addPacket(out)
+        }
+        if userInfo.demoDevice!.nextUpdate1 != nil
+        {
+            NSTimer.scheduledTimerWithTimeInterval(userInfo.demoDevice!.nextUpdate1!, target: self, selector: "addDataDemoDevice1:", userInfo: userInfo, repeats: false)
+        }
+        
+    }
+
+    func addDataDemoDevice2(timer:NSTimer)
+    {
+        let userInfo = timer.userInfo as! BleDevice
+        
+        if let out = userInfo.demoDevice!.getNextData2()
+        {
+            //print("PacketType = \(out[2])")
+            userInfo.demoDevice?.pl?.bleAdvInterface?.addPacket(out)
+        }
+        
+        if userInfo.demoDevice!.nextUpdate2 != nil
+        {
+            NSTimer.scheduledTimerWithTimeInterval(userInfo.demoDevice!.nextUpdate2!, target: self, selector: "addDataDemoDevice2:", userInfo: userInfo, repeats: false)
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+
+        
+    }
+
     
     @objc func centralManagerDidUpdateState(central: CBCentralManager) {
         switch (central.state) {

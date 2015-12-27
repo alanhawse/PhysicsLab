@@ -144,6 +144,7 @@ class PhysicsLabBarViewController: UITabBarController
     {
         bleD!.pl?.history.clearRecord()
         bleD!.pl?.history.arm(bleD!.pl!.pos.cartPosition)
+        bleD!.demoDevice?.arm0()
         updateHistory()
         bleLand!.discoverDevices()
         setupTopBarRecord()

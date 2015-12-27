@@ -72,6 +72,6 @@ var loggedIn : Bool = false
 var bleLand = BlueToothNeighborhood?()
 
 // An array of the names of all of the demo devices and the datafile
-var demoDevices : [String:String]  = ["Demo1":"template"]
+var demoDevices : [String:(String?,String?,String?)]  = ["Demo1":("packet0Template","packet1Template","packet2Template")]
 
 

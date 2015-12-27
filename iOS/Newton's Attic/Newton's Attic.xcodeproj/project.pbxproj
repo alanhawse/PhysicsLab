@@ -18,7 +18,9 @@
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
 		3E883B011C00B4F800BFC207 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E883B001C00B4F800BFC207 /* Clock.swift */; };
 		3EA6A08A1C2B58D2006FA3F0 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6A0891C2B58D2006FA3F0 /* CSV.swift */; };
-		3EA6A0921C2C0B7C006FA3F0 /* template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3EA6A0911C2C0B7C006FA3F0 /* template.csv */; };
+		3EA6A0941C2EE560006FA3F0 /* packet1Template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3EA6A0931C2EE560006FA3F0 /* packet1Template.csv */; };
+		3EA6A0961C301121006FA3F0 /* packet2Template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3EA6A0951C301121006FA3F0 /* packet2Template.csv */; };
+		3EA6A09A1C3016DF006FA3F0 /* packet0Template.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3EA6A0991C3016DF006FA3F0 /* packet0Template.csv */; };
 		3EB2C9F11B3371260032B574 /* AdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */; };
 		3EDD3F731B2CA661007010A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD3F721B2CA661007010A3 /* AppDelegate.swift */; };
 		3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EDD3F791B2CA661007010A3 /* Images.xcassets */; };
@@ -63,7 +65,9 @@
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
 		3E883B001C00B4F800BFC207 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		3EA6A0891C2B58D2006FA3F0 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
-		3EA6A0911C2C0B7C006FA3F0 /* template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.csv; sourceTree = "<group>"; };
+		3EA6A0931C2EE560006FA3F0 /* packet1Template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = packet1Template.csv; sourceTree = "<group>"; };
+		3EA6A0951C301121006FA3F0 /* packet2Template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = packet2Template.csv; sourceTree = "<group>"; };
+		3EA6A0991C3016DF006FA3F0 /* packet0Template.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = packet0Template.csv; sourceTree = "<group>"; };
 		3EB2C9F01B3371260032B574 /* AdminTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTableViewController.swift; sourceTree = "<group>"; };
 		3EDD3F6D1B2CA661007010A3 /* Newton's Attic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Newton's Attic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDD3F711B2CA661007010A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -181,7 +185,9 @@
 				3E68BDE71B49C070005F37A1 /* Views */,
 				3E68BDE61B49C049005F37A1 /* Model */,
 				3EDD3F791B2CA661007010A3 /* Images.xcassets */,
-				3EA6A0911C2C0B7C006FA3F0 /* template.csv */,
+				3EA6A0991C3016DF006FA3F0 /* packet0Template.csv */,
+				3EA6A0931C2EE560006FA3F0 /* packet1Template.csv */,
+				3EA6A0951C301121006FA3F0 /* packet2Template.csv */,
 				3EDD3F701B2CA661007010A3 /* Supporting Files */,
 			);
 			path = "Newton's Attic";
@@ -298,8 +304,10 @@
 			files = (
 				3EDD3FB11B2CA69C007010A3 /* Main.storyboard in Resources */,
 				3EDD3F7D1B2CA661007010A3 /* LaunchScreen.xib in Resources */,
-				3EA6A0921C2C0B7C006FA3F0 /* template.csv in Resources */,
+				3EA6A0941C2EE560006FA3F0 /* packet1Template.csv in Resources */,
 				3EDD3F7A1B2CA661007010A3 /* Images.xcassets in Resources */,
+				3EA6A0961C301121006FA3F0 /* packet2Template.csv in Resources */,
+				3EA6A09A1C3016DF006FA3F0 /* packet0Template.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
