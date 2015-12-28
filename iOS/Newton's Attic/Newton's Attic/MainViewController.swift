@@ -46,10 +46,12 @@ class MainViewController: UITableViewController {
         {
             if let tvc = sender as? UITableViewCell {
                 tbc.bleD = tagToId[tvc.tag]
+                /*
                 // can you do a popOver right here?
                 if tbc.bleD?.demoDevice != nil {
                     print("This is a demo device")
                 }
+                */
             }
         }
         NSNotificationCenter.defaultCenter().removeObserver(self)
