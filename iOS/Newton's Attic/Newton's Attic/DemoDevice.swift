@@ -5,6 +5,7 @@
 //  Created by Alan Hawse on 12/22/15.
 //  Copyright © 2015 Elkhorn Creek Engineering. All rights reserved.
 //
+
 import Foundation
 
 class DemoDevice {
@@ -676,6 +677,8 @@ class DemoDevice {
     
     private func readDataFile2(fileName : String) throws
     {
+        
+        
         let fileLocation = NSBundle.mainBundle().pathForResource(fileName, ofType: "csv")!
         
         let error: NSErrorPointer = nil
@@ -713,7 +716,8 @@ class DemoDevice {
                 if wheelDouble < 5.0 || wheelDouble > 100.0  {throw FileTypeReadErrors.DataError("5.0 < Wheel Circumference < 100.0 \"\(wheelString)\" in row \(i)")}
 
                 guard let zeroString = csv.rows[i][File2Format.ZeroPos] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.ZeroPos)\"")}
-                guard let zeroInt = UInt16(zeroString) else {throw FileTypeReadErrors.DataError("Zero Position Format  \"\(zeroString)\" in row \(i)")}
+                guard let zeroDouble = Double(zeroString) else {throw FileTypeReadErrors.DataError("Zero Position Format  \"\(zeroString)\" in row \(i)")}
+                let zeroInt = UInt16(zeroDouble * pl!.pos.cartPositionConvertRatio)
 
                 guard let ticksString = csv.rows[i][File2Format.TicksPerRotation] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.TicksPerRotation)\"")}
                 guard let ticksInt = UInt16(ticksString) else {throw FileTypeReadErrors.DataError("Ticks per rotation format  \"\(zeroString)\" in row \(i)")}
@@ -759,8 +763,6 @@ class DemoDevice {
             }
         }
         //print("Read rows 2=\(packet2.count)")
-
-
     }
     
 }
