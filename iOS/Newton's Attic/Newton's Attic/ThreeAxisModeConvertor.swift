@@ -13,7 +13,7 @@ class ThreeAxisModeConvertor
     
     var bits = 15 { didSet { setValPerCount() } }
     var range = 16.0 { didSet { setValPerCount() } }
-    var mode : Int = 0  {
+    var mode : Int = 1  {
         // this will crash if mode > number of things in array
         didSet { range = Double(modeMap[mode]) }
     }

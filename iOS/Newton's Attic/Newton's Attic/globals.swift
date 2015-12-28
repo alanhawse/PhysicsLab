@@ -47,6 +47,7 @@ struct GlobalHistoryConfig {
     static let directionThreshold = 0.05 // cms you have to go the other way to increment the passes
 }
 
+
 struct Global {
     // sets the x-axis on the graph screen... the units are meters
     static var trackLength = 45.0 { didSet {
@@ -69,3 +70,8 @@ struct UserDefaultsKeys {
 
 var loggedIn : Bool = false
 var bleLand = BlueToothNeighborhood?()
+
+// An array of the names of all of the demo devices and the datafile
+var demoDevices : [String:(String?,String?,String?)]  = ["Demo1":("packet0Template","packet1Template","packet2Template")]
+
+

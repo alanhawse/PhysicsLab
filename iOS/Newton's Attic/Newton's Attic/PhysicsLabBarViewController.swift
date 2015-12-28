@@ -108,6 +108,16 @@ class PhysicsLabBarViewController: UITabBarController
     // MARK: - GUI Action Functions
     func bleConnect() {
         
+        if bleD!.connectedState
+        {
+            bleLand?.disconnectDevice(bleD)
+        }
+        else
+        {
+            bleLand?.connectToDevice(bleD?.peripheral)
+        }
+        
+        /*
         switch bleD!.peripheral!.state
         {
         case .Connected:
@@ -116,6 +126,7 @@ class PhysicsLabBarViewController: UITabBarController
             bleLand?.connectToDevice(bleD?.peripheral)
         default: break
         }
+*/
     }
 
     func stopRecording()
@@ -133,6 +144,7 @@ class PhysicsLabBarViewController: UITabBarController
     {
         bleD!.pl?.history.clearRecord()
         bleD!.pl?.history.arm(bleD!.pl!.pos.cartPosition)
+        bleD!.demoDevice?.arm0()
         updateHistory()
         bleLand!.discoverDevices()
         setupTopBarRecord()
