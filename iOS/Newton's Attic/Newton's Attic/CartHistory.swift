@@ -278,9 +278,9 @@ class CartHistory {
     private func writeToFile(file: String)
     {
         
-        var heading = "time,position,velocity,accel x,accel y,accel z,mag x, mag y,mag z,gyro x,gyro y,gyro z\n"
+        var heading = "time,position,velocity,accel x,accel y,accel z,mag x,mag y,mag z,gyro x,gyro y,gyro z\n"
         
-        print("points = \(history!.count)")
+        //print("points = \(history!.count)")
         
         for i in 0..<history!.count {
             if let dp = history?[i] {

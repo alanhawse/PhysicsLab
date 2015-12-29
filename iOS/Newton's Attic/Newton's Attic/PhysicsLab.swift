@@ -70,7 +70,7 @@ class PhysicsLab {
     var relativeHumdity : Double = 0.0
     var pressure :  Int = 0
     var temperature :  Double = 0.0
-    var altitude :  Double = 0.0
+    var altitude :  Double = 0.0     
     
     // http://www.gribble.org/cycling/air_density.html
     var airDensity :  Double {

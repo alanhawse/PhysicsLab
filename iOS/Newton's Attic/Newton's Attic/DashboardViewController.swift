@@ -90,6 +90,7 @@ class DashboardViewController: UIViewController {
     
     @IBAction func resetMaxMin(sender: UIButton) {
         bleD!.pl?.resetMaxMin()
+        physicsLabDisplay()
     }
     /*
     func updateGraph1Display()

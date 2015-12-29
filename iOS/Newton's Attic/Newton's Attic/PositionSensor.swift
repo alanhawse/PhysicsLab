@@ -53,7 +53,7 @@ class PositionSensor {
                     velocity = (cartPosition - lastCartPosition!.position) / (clock.currentTime - lastCartPosition!.time)
                     if velocity > Double(velocityRange.max) {
                         
-                        print("Velocity error \(clock.currentTime) \(lastCartPosition!.time)")
+                        print("Velocity error \(velocity) = \(clock.currentTime) \(lastCartPosition!.time)")
                         print("Cart = \(cartPosition) \(lastCartPosition!.position)")
                         maxVelocity = velocity
                     }
@@ -78,7 +78,7 @@ class PositionSensor {
     }
 
     // meters/click = 1 rotation/200 counts * cmsPerRotation *  1m/100cm
-    private var cartPositionConvertRatio: Double {
+    var cartPositionConvertRatio: Double {
             return cmsPerRotation * (1.0/100.0) * (1.0/countsPerRotation)
     }
     
