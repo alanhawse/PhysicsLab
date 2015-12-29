@@ -104,6 +104,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         case 0:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
             graphView.yAxisLabel = "g"
+
         case 1:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
             graphView.yAxisLabel = "g"
@@ -115,6 +116,10 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         case 3:
             graphView.rangeY = (min:CGFloat(bleD!.pl!.pos.velocityRange.min), max:CGFloat(bleD!.pl!.pos.velocityRange.max))
             graphView.yAxisLabel = "m/s"
+            
+        case 4:
+            graphView.rangeY = (min:CGFloat(bleD!.pl!.pos.positionRange.min), max:CGFloat(bleD!.pl!.pos.positionRange.max))
+            graphView.yAxisLabel = "m"
 
         default:
             graphView.rangeY = (min:CGFloat(-1*bleD!.pl!.accelerometer.range),max:CGFloat(bleD!.pl!.accelerometer.range))
@@ -143,6 +148,8 @@ class GraphViewController: UIViewController, GraphViewDataSource {
                     rval[i] = dp.acceleration.z
                 case 3:
                     rval[i] = dp.velocity
+                case 4:
+                    rval[i] = dp.position
                 default: break
                 }
             }
@@ -165,6 +172,8 @@ class GraphViewController: UIViewController, GraphViewDataSource {
                 return y?.acceleration.z
             case 3:
                 return y?.velocity
+            case 4:
+                return y?.position
             default:
                 return nil
             }
