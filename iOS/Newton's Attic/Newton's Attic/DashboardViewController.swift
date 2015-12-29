@@ -20,6 +20,9 @@ class DashboardViewController: UIViewController {
         
         static let velocity = "Velocity"
         static let velocityUnits = "m/s"
+
+        static let position = "Position"
+        static let positionUnits = "m"
     }
     
     @IBOutlet weak var gaugeView: GaugeView!
@@ -32,6 +35,7 @@ class DashboardViewController: UIViewController {
         case accelY
         case accelZ
         case velocity
+        case position
     }
     
     private var graph1Mode : Graph1Modes = .accelZ
@@ -136,7 +140,6 @@ class DashboardViewController: UIViewController {
             gaugeView.name = DashboardText.accelZ
             gaugeView.gaugeUnits = DashboardText.gravityUnits
             gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.accelerometer.range), max:Double(bleD!.pl!.accelerometer.range))
-
         case 3:
             graph1Mode = .velocity
             gaugeView.name = DashboardText.velocity

@@ -24,6 +24,7 @@ class PositionSensor {
     var maxVelocity = 0.0
     var minVelocity = 0.0
     
+    var positionRange : (min:Double, max:Double) = (0.0,35.0)
     var velocityRange : (min:Double, max:Double) = (-10.0,10.0)
     var lastCartPosition : (time:Double,position:Double)?
     var maxCartPosition = 0.0
