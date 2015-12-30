@@ -108,6 +108,19 @@ class PhysicsLabBarViewController: UITabBarController
     // MARK: - GUI Action Functions
     func bleConnect() {
         
+        if bleD!.demoDevice != nil {
+            let alertController = UIAlertController(title: "Connection", message: "No bluetooth connection.  Can't connect to demo device", preferredStyle: UIAlertControllerStyle.Alert)
+
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+
+            
+            alertController.addAction(okAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
+            return
+        }
+        
         if bleD!.connectedState
         {
             bleLand?.disconnectDevice(bleD)
@@ -117,16 +130,6 @@ class PhysicsLabBarViewController: UITabBarController
             bleLand?.connectToDevice(bleD?.peripheral)
         }
         
-        /*
-        switch bleD!.peripheral!.state
-        {
-        case .Connected:
-            bleLand?.disconnectDevice(bleD)
-        case .Disconnected:
-            bleLand?.connectToDevice(bleD?.peripheral)
-        default: break
-        }
-*/
     }
 
     func stopRecording()
