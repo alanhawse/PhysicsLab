@@ -47,7 +47,6 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         
         // textFields need to have their editing delegates set
         cmsPerRotation.delegate = self
-        zeroPosTextField.delegate = self
         nameTextField.delegate = self
         actualPosition.delegate = self
       
@@ -82,7 +81,6 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     {
         nameTextField.resignFirstResponder()
         cmsPerRotation.resignFirstResponder()
-        zeroPosTextField.resignFirstResponder()
         actualPosition.resignFirstResponder()
     }
 
@@ -128,7 +126,7 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
             gyroRange.selectedSegmentIndex = pl.gyro.mode
             
             cmsPerRotation.text = "\(pl.pos.cmsPerRotation)"
-            zeroPosTextField.text = formatValNumDigits(pl.pos.cartZero, digits: 2)
+
             nameTextField.text = pl.name
         }
     }
@@ -145,8 +143,7 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         
         cmsPerRotation.userInteractionEnabled = action
         cmsPerRotation.enabled = action
-        zeroPosTextField.userInteractionEnabled = action
-        zeroPosTextField.enabled = action
+        
         nameTextField.userInteractionEnabled = action
         nameTextField.enabled = action
         actualPosition.userInteractionEnabled = action
@@ -197,31 +194,31 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     // This is essentially a calibrate function
     @IBAction func actualPositionEnd(sender: UITextField) {
        // println("actual position end")
-        let currentZero = bleD!.pl!.pos.cartZero
+        //let currentZero = bleD!.pl!.pos.cartZero
         let currentCmsPerRotation = bleD!.pl!.pos.cmsPerRotation
         
         // If you have not moved it very far (0.1Meter hardcoded)... ignore the user input
-        if bleD!.pl!.pos.cartPosition - currentZero < 0.1 {
+        if bleD!.pl!.pos.cartPosition < 0.1 {
             return
         }
         if let enteredActual = NSNumberFormatter().numberFromString(actualPosition.text!)
         {
             // you need to move forward
-            if enteredActual.doubleValue < currentZero {
+            if enteredActual.doubleValue < 0 {
                 return
             }
             
             // how much do you need to change the current wheelsize so that you would
             // end up with the right distance
-            let scale =  (enteredActual.doubleValue - currentZero) / (bleD!.pl!.pos.cartPosition - currentZero)
+            let scale =  (enteredActual.doubleValue ) / (bleD!.pl!.pos.cartPosition )
             
             let newCmsPerRotation = currentCmsPerRotation * scale
             
             bleD!.pl!.pos.cmsPerRotation = newCmsPerRotation
             bleD!.pl!.bleConnectionInterface?.writeCmsPerRotation()
 
-            bleD!.pl!.pos.cartZero = currentZero
-            bleD!.pl!.bleConnectionInterface?.writeResetPosition()
+            //bleD!.pl!.pos.cartZero = currentZero
+            //bleD!.pl!.bleConnectionInterface?.writeResetPosition()
 
             bleD!.pl!.pos.cartPosition = Double(enteredActual)
             currentPosition.text = actualPosition.text
@@ -239,9 +236,9 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func finishedCmPerRotation(sender: AnyObject) {
         if let rval = NSNumberFormatter().numberFromString(cmsPerRotation.text!)
         {
-            let currentZero = bleD!.pl!.pos.cartZero
+            //let currentZero = bleD!.pl!.pos.cartZero
             bleD!.pl!.pos.cmsPerRotation = rval.doubleValue
-            bleD!.pl!.pos.cartZero = currentZero
+            //bleD!.pl!.pos.cartZero = currentZero
             bleD!.pl!.bleConnectionInterface?.writeCmsPerRotation()
             
             
@@ -253,20 +250,7 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     }
    
     
-    @IBOutlet weak var zeroPosTextField: UITextField!
 
-    @IBAction func zeroPosTextFieldAction(sender: UITextField) {
-        if let rval = NSNumberFormatter().numberFromString(zeroPosTextField.text!)
-        {
-            bleD!.pl!.pos.cartZero = rval.doubleValue
-            bleD!.pl!.bleConnectionInterface?.writeResetPosition()
-        }
-        else
-        {
-            cmsPerRotation.text = "\(bleD!.pl!.pos.cartZero)"
-        }
-    }
-    
     
     @IBOutlet weak var accelerometerRange: UISegmentedControl!
     @IBAction func changeAccel(sender: UISegmentedControl) {

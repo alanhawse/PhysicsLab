@@ -24,20 +24,15 @@ class PositionSensor {
     var maxVelocity = 0.0
     var minVelocity = 0.0
     
-    var positionRange : (min:Double, max:Double) = (0.0,35.0)
+    var positionRange : (min:Double, max:Double) = (-5.0,35.0)
     var velocityRange : (min:Double, max:Double) = (-10.0,10.0)
     var lastCartPosition : (time:Double,position:Double)?
     var maxCartPosition = 0.0
     
-    var cartZero : Double = 0.0     
-    var cartZeroCounts : UInt16 {
-        get { return UInt16(cartZero / cartPositionConvertRatio) }
-        set { cartZero  =  Double(newValue) * cartPositionConvertRatio }
-    }
+    var cartZeroCounts : UInt16 = 0
     
-    var cartPositionCounts : UInt16 {
-        get { return UInt16( cartPosition / cartPositionConvertRatio)}
-        set {cartPosition = Double(newValue) * cartPositionConvertRatio}
+    var cartPositionCounts : UInt16 = 1000 {
+        didSet {cartPosition = Double(cartPositionCounts - cartZeroCounts) * cartPositionConvertRatio}
     }
     
     var cartPosition : Double = 0.0 {

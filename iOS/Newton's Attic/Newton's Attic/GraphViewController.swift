@@ -83,7 +83,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
            graphView.rangeX = (min:CGFloat(0.0),max:CGFloat(GlobalHistoryConfig.maxRecordingTime))
             graphView.xAxisLabel = "s"
         case 1: // position
-            graphView.rangeX = (min:CGFloat(0.0), max: CGFloat(Global.trackLength))
+            graphView.rangeX = (min:CGFloat(-5.0), max: CGFloat(Global.trackLength))
             graphView.xAxisLabel = "m"
 
         default: // time
