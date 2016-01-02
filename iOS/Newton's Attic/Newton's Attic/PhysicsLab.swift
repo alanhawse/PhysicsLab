@@ -14,6 +14,10 @@ struct LSM9DS0Params {
     static let modeMagMap = [2.0,4.0,8.0,12.0]
 }
 
+private struct PhysicsLabParameters {
+    static let maxNameLength = 14
+}
+
 class PhysicsLab {
     
     var bleAdvInterface : PLAdvPacketInterface?
@@ -35,7 +39,7 @@ class PhysicsLab {
     
     var name:String? {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedName, object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedName, object: self)
         }
     }
     
@@ -43,7 +47,7 @@ class PhysicsLab {
     func isNameLegal(name : String) -> Bool
     {
         let length = name.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-        if length>0 && length<14
+        if length>0 && length<PhysicsLabParameters.maxNameLength
         {
             return true
         }

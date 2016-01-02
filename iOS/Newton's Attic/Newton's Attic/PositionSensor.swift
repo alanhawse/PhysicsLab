@@ -17,27 +17,22 @@ class PositionSensor {
 
     var clock : Clock
     
-    var countsPerRotation = 200.0 // probably wants to be in the advertising packet
-    var wheelCircumfrence = 15.14
+    var countsPerRotation = 200.0 // gets reset by the advertising packet
+    var wheelCircumfrence = 15.14 // gets reset by the advertising packet
     
     var velocity = 0.0
     var maxVelocity = 0.0
     var minVelocity = 0.0
     
-    var positionRange : (min:Double, max:Double) = (0.0,35.0)
+    var positionRange : (min:Double, max:Double) = (-5.0,35.0)
     var velocityRange : (min:Double, max:Double) = (-10.0,10.0)
     var lastCartPosition : (time:Double,position:Double)?
     var maxCartPosition = 0.0
     
-    var cartZero : Double = 0.0     
-    var cartZeroCounts : UInt16 {
-        get { return UInt16(cartZero / cartPositionConvertRatio) }
-        set { cartZero  =  Double(newValue) * cartPositionConvertRatio }
-    }
+    var cartZeroCounts : UInt16 = 0
     
-    var cartPositionCounts : UInt16 {
-        get { return UInt16( cartPosition / cartPositionConvertRatio)}
-        set {cartPosition = Double(newValue) * cartPositionConvertRatio}
+    var cartPositionCounts : UInt16 = 1000 {
+        didSet {cartPosition = Double(cartPositionCounts - cartZeroCounts) * cartPositionConvertRatio}
     }
     
     var cartPosition : Double = 0.0 {
@@ -73,7 +68,7 @@ class PositionSensor {
 
     var cmsPerRotation = 10.0 * 2.54 {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedCmsPerRotation, object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedCmsPerRotation, object: self)
         }
     }
 

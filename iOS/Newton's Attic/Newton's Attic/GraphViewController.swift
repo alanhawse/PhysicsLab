@@ -9,7 +9,7 @@
 import UIKit
 
 class GraphViewController: UIViewController, GraphViewDataSource {
-      var bleD : BleDevice?
+    var bleD : BleDevice?
     
     // MARK: - Viewcontroller Lifecycle
     override func viewDidAppear(animated: Bool) {
@@ -19,7 +19,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
         setRangeX()
         updateRate()
         
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue())
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue())
             { _ in self.graphView.setNeedsDisplay()
                 self.updateRate()
         }
@@ -83,7 +83,7 @@ class GraphViewController: UIViewController, GraphViewDataSource {
            graphView.rangeX = (min:CGFloat(0.0),max:CGFloat(GlobalHistoryConfig.maxRecordingTime))
             graphView.xAxisLabel = "s"
         case 1: // position
-            graphView.rangeX = (min:CGFloat(0.0), max: CGFloat(Global.trackLength))
+            graphView.rangeX = (min:CGFloat(-5.0), max: CGFloat(Global.trackLength))
             graphView.xAxisLabel = "m"
 
         default: // time

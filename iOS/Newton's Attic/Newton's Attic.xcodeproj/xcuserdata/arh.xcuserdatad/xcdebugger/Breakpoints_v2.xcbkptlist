@@ -25,22 +25,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/GaugeView.swift"
-            timestampString = "458212701.81981"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "drawNeedle(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Newton&apos;s Attic/GraphViewController.swift"
             timestampString = "471635607.550849"
             startingColumnNumber = "9223372036854775807"
@@ -57,92 +41,74 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/PhysicsLabBarViewController.swift"
-            timestampString = "471352845.558259"
+            filePath = "Newton&apos;s Attic/GraphView.swift"
+            timestampString = "473266522.681612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "setupTopBarRecord()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/PLAdvPacketInterface.swift"
-            timestampString = "472217313.108038"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "packetType0(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/MainViewController.swift"
-            timestampString = "472478714.259109"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Newton&apos;s Attic/BlueToothNeighborhood.swift"
-            timestampString = "472858043.757606"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "createDemoDevices()"
-            landmarkType = "5">
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "GraphView"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Newton_s_Attic.BlueToothNeighborhood.createDemoDevices (Newton_s_Attic.BlueToothNeighborhood)() -&gt; ()"
+                  symbolName = "Newton_s_Attic.GraphView.rangeX.didset : (min : CoreGraphics.CGFloat, max : CoreGraphics.CGFloat)"
                   moduleName = "Newton&apos;s Attic"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/BlueToothNeighborhood.swift"
-                  timestampString = "472731147.55607"
+                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/GraphView.swift"
+                  timestampString = "473266522.701416"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "160"
-                  endingLineNumber = "160"
-                  offsetFromSymbolStart = "4976">
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "56">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Newton_s_Attic.BlueToothNeighborhood.createDemoDevices (Newton_s_Attic.BlueToothNeighborhood)() -&gt; ()"
+                  symbolName = "Newton_s_Attic.GraphView.rangeX.materializeForSet : (min : CoreGraphics.CGFloat, max : CoreGraphics.CGFloat)"
                   moduleName = "Newton&apos;s Attic"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/BlueToothNeighborhood.swift"
-                  timestampString = "472731147.556329"
+                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/GraphView.swift"
+                  timestampString = "473266522.701618"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "160"
-                  endingLineNumber = "160"
-                  offsetFromSymbolStart = "5352">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Newton_s_Attic.GraphView.init (Newton_s_Attic.GraphView.Type)(frame : __C.CGRect) -&gt; Newton_s_Attic.GraphView"
+                  moduleName = "Newton&apos;s Attic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/GraphView.swift"
+                  timestampString = "473266522.701723"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "248">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Newton_s_Attic.GraphView.init (Newton_s_Attic.GraphView.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Newton_s_Attic.GraphView&gt;"
+                  moduleName = "Newton&apos;s Attic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arh/Documents/PhysicsLab/iOS/Newton&apos;s%20Attic/Newton&apos;s%20Attic/GraphView.swift"
+                  timestampString = "473266522.701818"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "272">
                </Location>
             </Locations>
          </BreakpointContent>

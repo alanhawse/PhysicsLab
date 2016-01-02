@@ -22,7 +22,7 @@ class EnviroViewController: UIViewController {
     
     // MARK: - Viewcontroller life cycle
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedEnviroment, object: bleD!.pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.updateUI() }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedEnviroment, object: bleD!.pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.updateUI() }
         
         updateUI()
     }
@@ -34,7 +34,7 @@ class EnviroViewController: UIViewController {
     // MARK: - Display functions
 
     /* ARH need a consistent name for these */
-    func updateUI()
+    private func updateUI()
     {
         let x = NSNumberFormatter()
         x.numberStyle = .DecimalStyle

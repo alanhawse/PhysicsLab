@@ -13,6 +13,7 @@
 		3E0AA94C1B580B1A009A341D /* PositionSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0AA94B1B580B1A009A341D /* PositionSensor.swift */; };
 		3E2FB6311B56706900EB3163 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2FB6301B56706900EB3163 /* Accelerometer.swift */; };
 		3E57827A1C29A9B2006C1C92 /* DemoDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5782791C29A9B2006C1C92 /* DemoDevice.swift */; };
+		3E62207D1C37F9AE001D4BFD /* SegueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62207C1C37F9AE001D4BFD /* SegueExtension.swift */; };
 		3E68BDE41B496D5D005F37A1 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE31B496D5D005F37A1 /* globals.swift */; };
 		3E68BDE91B4BF18E005F37A1 /* PLAdvPacketInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */; };
 		3E7EAFE81B374EB700E2E59C /* PLBleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */; };
@@ -60,6 +61,7 @@
 		3E0AA94B1B580B1A009A341D /* PositionSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionSensor.swift; sourceTree = "<group>"; };
 		3E2FB6301B56706900EB3163 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
 		3E5782791C29A9B2006C1C92 /* DemoDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDevice.swift; sourceTree = "<group>"; };
+		3E62207C1C37F9AE001D4BFD /* SegueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueExtension.swift; sourceTree = "<group>"; };
 		3E68BDE31B496D5D005F37A1 /* globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		3E68BDE81B4BF18E005F37A1 /* PLAdvPacketInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLAdvPacketInterface.swift; sourceTree = "<group>"; };
 		3E7EAFE71B374EB700E2E59C /* PLBleInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLBleInterface.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				3EDD3F981B2CA67A007010A3 /* EnviroViewController.swift */,
 				3EDD3F991B2CA67A007010A3 /* PhysicsLabDataViewController.swift */,
 				3EDD3F9A1B2CA67A007010A3 /* PhysicsLabBarViewController.swift */,
+				3E62207C1C37F9AE001D4BFD /* SegueExtension.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				3EA6A08A1C2B58D2006FA3F0 /* CSV.swift in Sources */,
 				3EDD3FA91B2CA67A007010A3 /* PhysicsLabBarViewController.swift in Sources */,
 				3E0AA9481B57CD66009A341D /* Magnetometer.swift in Sources */,
+				3E62207D1C37F9AE001D4BFD /* SegueExtension.swift in Sources */,
 				3E0AA9461B57C9F5009A341D /* Gyro.swift in Sources */,
 				3EDD3FA61B2CA67A007010A3 /* MainViewController.swift in Sources */,
 				3E57827A1C29A9B2006C1C92 /* DemoDevice.swift in Sources */,

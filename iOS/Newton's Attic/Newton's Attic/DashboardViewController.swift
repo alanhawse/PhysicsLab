@@ -46,7 +46,7 @@ class DashboardViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.physicsLabDisplay() }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue() ) { _ in self.physicsLabDisplay() }
         
         //graph1MakeSelection()
     
@@ -71,16 +71,8 @@ class DashboardViewController: UIViewController {
     
     // MARK: - View Controller Display + Action Function
 
-    func physicsLabDisplay() {
-        
-        /*
-        if view.bounds.height < view.bounds.width {
-            graph1Selection?.selectedSegmentIndex = 3
-            graph1MakeSelection()
-        }
-*/
-        
-        //updateGraph1Display()
+    private func physicsLabDisplay() {
+
         gaugeView.needleValue = (current: bleD!.pl!.pos.velocity, min: bleD!.pl!.pos.minVelocity, max:bleD!.pl!.pos.maxVelocity)
         gaugeView2?.needleValue = (current: Double(bleD!.pl!.accelerometer.y), min: Double(bleD!.pl!.accelerometer.min.y), max: Double(bleD!.pl!.accelerometer.max.x))
         gaugeView3?.needleValue = (current: Double(bleD!.pl!.accelerometer.z), min: Double(bleD!.pl!.accelerometer.min.z), max: Double(bleD!.pl!.accelerometer.max.z))
@@ -92,66 +84,5 @@ class DashboardViewController: UIViewController {
         bleD!.pl?.resetMaxMin()
         physicsLabDisplay()
     }
-    /*
-    func updateGraph1Display()
-    {
-        if let pl = bleD?.pl
-        {
-            switch graph1Mode {
-            case .accelX:
-                gaugeView.needleValue = (current: pl.accelerometer.x, min: pl.accelerometer.min.x, max: pl.accelerometer.max.x)
-            case .accelY:
-                gaugeView.needleValue = (current: pl.accelerometer.y, min: pl.accelerometer.min.y, max: pl.accelerometer.max.y)
-
-            case .accelZ:
-                gaugeView.needleValue = (current: pl.accelerometer.z, min: pl.accelerometer.min.z, max:
-                    pl.accelerometer.max.z)
-
-            case .velocity:
-                gaugeView.needleValue = (current: pl.pos.velocity, min: pl.pos.minVelocity, max:pl.pos.maxVelocity)
-
-            }
-        }
-    }
-    
-    */
-    /*
-    @IBOutlet weak var graph1Selection: UISegmentedControl!
-    
-    @IBAction func graph1MakeSelection() {
-        // I dont think that this can happen
-        if graph1Selection == nil {
-            return
-        }
-        
-        switch graph1Selection!.selectedSegmentIndex {
-        case 0:
-            graph1Mode = .accelX
-            gaugeView.name = DashboardText.accelX
-            gaugeView.gaugeUnits = DashboardText.gravityUnits
-            gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.accelerometer.range), max:Double(bleD!.pl!.accelerometer.range))
-        case 1:
-            graph1Mode = .accelY
-            gaugeView.name = DashboardText.accelY
-            gaugeView.gaugeUnits = DashboardText.gravityUnits
-            gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.accelerometer.range), max:Double(bleD!.pl!.accelerometer.range))
-        case 2:
-            graph1Mode = .accelZ
-            gaugeView.name = DashboardText.accelZ
-            gaugeView.gaugeUnits = DashboardText.gravityUnits
-            gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.accelerometer.range), max:Double(bleD!.pl!.accelerometer.range))
-        case 3:
-            graph1Mode = .velocity
-            gaugeView.name = DashboardText.velocity
-            gaugeView.gaugeUnits = DashboardText.velocityUnits
-            gaugeView.gaugeValueRange = (min: bleD!.pl!.pos.velocityRange.min, max:bleD!.pl!.pos.velocityRange.max)
-        default:
-            graph1Mode = .accelZ
-            gaugeView.name = DashboardText.accelZ
-            gaugeView.gaugeUnits = DashboardText.gravityUnits
-            gaugeView.gaugeValueRange = (min: -1 * Double(bleD!.pl!.accelerometer.range), max:Double(bleD!.pl!.accelerometer.range))
-        }
-    }
-*/
     
 }

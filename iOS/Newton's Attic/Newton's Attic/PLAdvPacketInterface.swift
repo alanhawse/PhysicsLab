@@ -92,15 +92,15 @@ class PLAdvPacketInterface {
         switch packetType {
         case 0:
             packetType0(ar)
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedKinematicData, object: pl!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedKinematicData, object: pl!)
             
         case 1:
             packetType1(ar)
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedEnviroment, object: pl!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedEnviroment, object: pl!)
 
         case 2:
             packetType2(ar)
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedAdmin, object: pl!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedAdmin, object: pl!)
             
         default: break
         }

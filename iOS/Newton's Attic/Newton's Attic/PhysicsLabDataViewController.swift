@@ -33,7 +33,7 @@ class PhysicsLabDataViewController: UIViewController {
     // MARK: - Viewcontroller lifecycle functions
     
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.physicsLabUpdateDisplay() }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.physicsLabUpdateDisplay() }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -56,7 +56,7 @@ class PhysicsLabDataViewController: UIViewController {
     }
     
     // MARK: - Display function
-    func physicsLabUpdateDisplay() {
+    private func physicsLabUpdateDisplay() {
         let x = NSNumberFormatter()
         x.numberStyle = .DecimalStyle
         x.minimumFractionDigits = 2

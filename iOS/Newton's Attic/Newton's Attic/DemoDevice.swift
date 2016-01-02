@@ -48,11 +48,11 @@ class DemoDevice {
     private var time2 = [Double]()
 
     
-    var accelMode : UInt8 = 0
+    private var accelMode : UInt8 = 0
     
-    var magMode : UInt8 = 0
+    private var magMode : UInt8 = 0
     
-    var gyroMode : UInt8 = 0
+    private var gyroMode : UInt8 = 0
     
     private struct DemoConstants {
         static let accelRangeMax = 8.0
@@ -142,10 +142,6 @@ class DemoDevice {
     func getNextData0() -> [UInt8]?
     {
         
-        //print("Running get next data nextData0 = \(nextData0)")
-        
-        //print("Accel = \(accel)")
-        
         if armFlag0 {
             //currentTime0 = time0[0]
             
@@ -167,7 +163,7 @@ class DemoDevice {
         rval[4] = UInt8((UInt(currentTime0*1000) & 0xFF00)>>8) // timestamp 1
         rval[5] = UInt8((UInt(currentTime0*1000) & 0xFF0000)>>16) // timestamp 2
         
-        let cartClicks : UInt16 = UInt16(pos / pl!.pos.cartPositionConvertRatio)
+        let cartClicks : UInt16 = UInt16(pos / pl!.pos.cartPositionConvertRatio) + pl!.pos.cartZeroCounts
         
         
         rval[6] = lo8(cartClicks) // position 0
@@ -258,7 +254,6 @@ class DemoDevice {
         rval[24] = UInt8(array[0]) // mag z
         rval[25] = UInt8(array[1]) // mag z
         
-        //print("Current Time = \(currentTime0)")
         
         accel = (aX[nextData0], aY[nextData0], aZ[nextData0])
         mag = (magX[nextData0], magY[nextData0], magZ[nextData0])
@@ -266,14 +261,12 @@ class DemoDevice {
         pos = pos0[nextData0]
         
         
-        //print("Next data = \(nextData0) accel=\(accel) rows = \(time0.count)")
         
         nextData0 = nextData0 + 1
         
         if nextData0 == time0.count {
             nextData0 = 0
-            nextUpdate0 = 10.0 // 10 second delay... ARH this is hardcoded
-            //print("Delay Gap 10.0 systemTime = \(currentTime0) lastPacket = \(time0[time0.count-1]) pos=\(pos)")
+            nextUpdate0 = 5.0 // 5 second delay... ARH this is hardcoded
         }
         else
         {
@@ -302,7 +295,7 @@ class DemoDevice {
         if nextData1 == packet1.count
         {
             nextData1 = 0
-            nextUpdate1 = 10.0
+            nextUpdate1 = 10.0 // 10 seconds after the end restart the next loop
         }
         else
         {
@@ -359,35 +352,35 @@ class DemoDevice {
         case DataError(String)
     }
     
-    struct File0Format {
-        static let Time = "time"
-        static let Position = "position"
-        static let Ax = "accel x"
-        static let Ay = "accel y"
-        static let Az = "accel z"
-        static let GyroX = "gyro x"
-        static let GyroY = "gyro y"
-        static let GyroZ = "gyro z"
-        static let MagX = "mag x"
-        static let MagY = "mag y"
-        static let MagZ = "mag z"
+    private struct File0Format {
+        static let time = "time"
+        static let position = "position"
+        static let aX = "accel x"
+        static let aY = "accel y"
+        static let aZ = "accel z"
+        static let gyroX = "gyro x"
+        static let gyroY = "gyro y"
+        static let gyroZ = "gyro z"
+        static let magX = "mag x"
+        static let magY = "mag y"
+        static let magZ = "mag z"
     }
     
-    struct File1Format {
-        static let Time = "time"
-        static let Humidity = "humidity"
-        static let AirPressure = "air pressure"
-        static let Temperature = "temperature"
-        static let Altitude = "altitude"
+    private struct File1Format {
+        static let time = "time"
+        static let humidity = "humidity"
+        static let airPressure = "air pressure"
+        static let temperature = "temperature"
+        static let altitude = "altitude"
         
     }
     
-    struct File2Format {
-        static let Time = "time"
-        static let Name = "name"
-        static let WheelCircumfrence = "wheel cir"
-        static let ZeroPos = "zero pos"
-        static let TicksPerRotation = "ticks"
+    private struct File2Format {
+        static let time = "time"
+        static let name = "name"
+        static let wheelCircumfrence = "wheel cir"
+        static let zeroPos = "zero pos"
+        static let ticksPerRotation = "ticks"
     }
 
     
@@ -416,7 +409,7 @@ class DemoDevice {
             for var i=0 ; i<rows.count; i++ {
                 
                 
-                guard let timeString = csv.rows[i][File0Format.Time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.Time)\"")}
+                guard let timeString = csv.rows[i][File0Format.time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.time)\"")}
                 guard let time = Double(timeString) else {throw FileTypeReadErrors.DataError("Time format  \"\(timeString)\" in row \(i)")}
                 
                 if time < 0 {
@@ -432,46 +425,46 @@ class DemoDevice {
                 
                 time0.append(time)
             
-                guard let positionString = csv.rows[i][File0Format.Position] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.Position)\"")}
+                guard let positionString = csv.rows[i][File0Format.position] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.position)\"")}
                 guard let position = Double(positionString) else {throw FileTypeReadErrors.DataError("Position format  \"\(positionString)\" in row \(i)")}
                 pos0.append(position)
                 
-                guard let AxString = csv.rows[i][File0Format.Ax] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.Ax)\"")}
+                guard let AxString = csv.rows[i][File0Format.aX] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.aX)\"")}
                 guard let tempAx = Double(AxString) else {throw FileTypeReadErrors.DataError("Acceleration X format  \"\(AxString)\" in row \(i)")}
                 aX.append(tempAx)
                 
         
-                guard let AyString = csv.rows[i][File0Format.Ay] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.Ay)\"")}
+                guard let AyString = csv.rows[i][File0Format.aY] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.aY)\"")}
                 guard let tempAy = Double(AyString) else {throw FileTypeReadErrors.DataError("Acceleration Y format  \"\(AyString)\" in row \(i)")}
                 aY.append(tempAy)
                 
                 
-                guard let AzString = csv.rows[i][File0Format.Az] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.Az)\"")}
+                guard let AzString = csv.rows[i][File0Format.aZ] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.aZ)\"")}
                 guard let tempAz = Double(AzString) else {throw FileTypeReadErrors.DataError("Acceleration Z format  \"\(AzString)\" in row \(i)")}
                 aZ.append(tempAz)
 
                 
-                guard let gyroxString = csv.rows[i][File0Format.GyroX] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.GyroX)\"")}
+                guard let gyroxString = csv.rows[i][File0Format.gyroX] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.gyroX)\"")}
                 guard let tempgyrox = Double(gyroxString) else {throw FileTypeReadErrors.DataError("Gyro X format  \"\(gyroxString)\" in row \(i)")}
                 gyroX.append(tempgyrox)
                 
-                guard let gyroyString = csv.rows[i][File0Format.GyroY] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.GyroY)\"")}
+                guard let gyroyString = csv.rows[i][File0Format.gyroY] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.gyroY)\"")}
                 guard let tempgyroy = Double(gyroyString) else {throw FileTypeReadErrors.DataError("Gyro Y format  \"\(gyroyString)\" in row \(i)")}
                 gyroY.append(tempgyroy)
                 
-                guard let gyrozString = csv.rows[i][File0Format.GyroZ] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.GyroZ)\"")}
+                guard let gyrozString = csv.rows[i][File0Format.gyroZ] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.gyroZ)\"")}
                 guard let tempgyroz = Double(gyrozString) else {throw FileTypeReadErrors.DataError("Gyro Z format  \"\(gyrozString)\" in row \(i)")}
                 gyroZ.append(tempgyroz)
                 
-                guard let magxString = csv.rows[i][File0Format.MagX] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.MagX)\"")}
+                guard let magxString = csv.rows[i][File0Format.magX] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.magX)\"")}
                 guard let tempmagx = Double(magxString) else {throw FileTypeReadErrors.DataError("mag X format  \"\(magxString)\" in row \(i)")}
                 magX.append(tempmagx)
                 
-                guard let magyString = csv.rows[i][File0Format.MagY] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.MagY)\"")}
+                guard let magyString = csv.rows[i][File0Format.magY] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.magY)\"")}
                 guard let tempmagy = Double(magyString) else {throw FileTypeReadErrors.DataError("mag Y format  \"\(magyString)\" in row \(i)")}
                 magY.append(tempmagy)
                 
-                guard let magzString = csv.rows[i][File0Format.MagZ] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.MagZ)\"")}
+                guard let magzString = csv.rows[i][File0Format.magZ] else {throw FileTypeReadErrors.DataError("Missing column \"\(File0Format.magZ)\"")}
                 guard let tempmagz = Double(magzString) else {throw FileTypeReadErrors.DataError("mag Z format  \"\(magzString)\" in row \(i)")}
                 magZ.append(tempmagz)
                 
@@ -584,7 +577,7 @@ class DemoDevice {
             
             for var i=0 ; i<rows.count; i++ {
                 
-                guard let timeString = csv.rows[i][File1Format.Time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.Time)\"")}
+                guard let timeString = csv.rows[i][File1Format.time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.time)\"")}
                 guard let time = Double(timeString) else {throw FileTypeReadErrors.DataError("Time format  \"\(timeString)\" in row \(i)")}
                 
                 if time < 0 {
@@ -600,21 +593,21 @@ class DemoDevice {
                 
                 time1.append(time)
                 
-                guard let humidityString = csv.rows[i][File1Format.Humidity] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.Humidity)\"")}
+                guard let humidityString = csv.rows[i][File1Format.humidity] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.humidity)\"")}
                 guard let humidity = Double(humidityString) else {throw FileTypeReadErrors.DataError("Humidity format  \"\(humidityString)\" in row \(i)")}
                 if humidity < 0.0 || humidity > 100.0  {throw FileTypeReadErrors.DataError("0.0 < Humidity < 100.0 \"\(humidityString)\" in row \(i)")}
                 
-                guard let airPressureString = csv.rows[i][File1Format.AirPressure] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.AirPressure)\"")}
+                guard let airPressureString = csv.rows[i][File1Format.airPressure] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.airPressure)\"")}
                 guard let airPressure = Double(airPressureString) else {throw FileTypeReadErrors.DataError("airPressure format  \"\(airPressureString)\" in row \(i)")}
                 if airPressure < 50000.0 || airPressure > 200000.0  {throw FileTypeReadErrors.DataError("5000.0 < Humidity < 200000.0 \"\(airPressureString)\" in row \(i)")}
                 
                 
-                guard let temperatureString = csv.rows[i][File1Format.Temperature] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.Temperature)\"")}
+                guard let temperatureString = csv.rows[i][File1Format.temperature] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.temperature)\"")}
                 guard let temperature = Double(temperatureString) else {throw FileTypeReadErrors.DataError("temperature format  \"\(temperatureString)\" in row \(i)")}
                 if temperature < -10.0 || temperature > 50.0  {throw FileTypeReadErrors.DataError("-10.0 < Temperature < 50.0 \"\(temperatureString)\" in row \(i)")}
                 
                 
-                guard let altitudeString = csv.rows[i][File1Format.Altitude] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.Altitude)\"")}
+                guard let altitudeString = csv.rows[i][File1Format.altitude] else {throw FileTypeReadErrors.DataError("Missing column \"\(File1Format.altitude)\"")}
                 guard let altitude = Double(altitudeString) else {throw FileTypeReadErrors.DataError("altitude format  \"\(altitudeString)\" in row \(i)")}
                 if altitude < 0 || altitude > 5000.0  {throw FileTypeReadErrors.DataError("0.0 < Altitude < 5000.0 \"\(altitudeString)\" in row \(i)")}
 
@@ -691,7 +684,7 @@ class DemoDevice {
             
             for var i=0 ; i<rows.count; i++ {
                 
-                guard let timeString = csv.rows[i][File2Format.Time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.Time)\"")}
+                guard let timeString = csv.rows[i][File2Format.time] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.time)\"")}
                 guard let time = Double(timeString) else {throw FileTypeReadErrors.DataError("Time format  \"\(timeString)\" in row \(i)")}
                 
                 if time < 0 {
@@ -707,19 +700,19 @@ class DemoDevice {
                 
                 time2.append(time)
                 
-                guard let nameString  = csv.rows[i][File2Format.Name] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.Name)\"")}
+                guard let nameString  = csv.rows[i][File2Format.name] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.name)\"")}
                 if nameString.utf8.count > 13 || nameString.utf8.count < 1 {throw FileTypeReadErrors.DataError("Name must be 0 < length < 13 \"\(nameString)\" in row \(i)")}
                 
                 
-                guard let wheelString = csv.rows[i][File2Format.WheelCircumfrence] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.WheelCircumfrence)\"")}
+                guard let wheelString = csv.rows[i][File2Format.wheelCircumfrence] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.wheelCircumfrence)\"")}
                 guard let wheelDouble = Double(wheelString) else {throw FileTypeReadErrors.DataError("Wheel Circumference format  \"\(wheelString)\" in row \(i)")}
                 if wheelDouble < 5.0 || wheelDouble > 100.0  {throw FileTypeReadErrors.DataError("5.0 < Wheel Circumference < 100.0 \"\(wheelString)\" in row \(i)")}
 
-                guard let zeroString = csv.rows[i][File2Format.ZeroPos] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.ZeroPos)\"")}
+                guard let zeroString = csv.rows[i][File2Format.zeroPos] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.zeroPos)\"")}
                 guard let zeroDouble = Double(zeroString) else {throw FileTypeReadErrors.DataError("Zero Position Format  \"\(zeroString)\" in row \(i)")}
                 let zeroInt = UInt16(zeroDouble * pl!.pos.cartPositionConvertRatio)
 
-                guard let ticksString = csv.rows[i][File2Format.TicksPerRotation] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.TicksPerRotation)\"")}
+                guard let ticksString = csv.rows[i][File2Format.ticksPerRotation] else {throw FileTypeReadErrors.DataError("Missing column \"\(File2Format.ticksPerRotation)\"")}
                 guard let ticksInt = UInt16(ticksString) else {throw FileTypeReadErrors.DataError("Ticks per rotation format  \"\(zeroString)\" in row \(i)")}
                 
 
@@ -762,7 +755,6 @@ class DemoDevice {
                 
             }
         }
-        //print("Read rows 2=\(packet2.count)")
     }
     
 }
