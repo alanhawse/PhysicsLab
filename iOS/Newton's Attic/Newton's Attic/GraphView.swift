@@ -21,32 +21,32 @@ protocol GraphViewDataSource: class {
 @IBDesignable
 class GraphView: UIView {
     
-    struct GraphViewDefaults {
+    private struct GraphViewDefaults {
         
-        private static let graphLineWidth : CGFloat = 1
-        private static let graphLineColor = UIColor.blackColor()
+        static let graphLineWidth : CGFloat = 1
+        static let graphLineColor = UIColor.blackColor()
         
-        private static let axisColor = UIColor.redColor()
+        static let axisColor = UIColor.redColor()
         
-        private static let numOfYTicks = 4
-        private static let sizeOfYTick : CGFloat = 10
-        private static let yTickLabelOffset : CGFloat = 3 // how far left of the tickmark
-        private static let yTickColor = UIColor.redColor()
-
-        private static let numOfXTicks = 4
-        private static let sizeOfXTick : CGFloat = 5
-        private static let xTickLabelOffset : CGFloat = 10 // how far below the tickmark
-        private static let xTickColor = UIColor.redColor()
+        static let numOfYTicks = 4
+        static let sizeOfYTick : CGFloat = 10
+        static let yTickLabelOffset : CGFloat = 3 // how far left of the tickmark
+        static let yTickColor = UIColor.redColor()
         
-        private static let sizeOfCross : Double = 2.0
-        private static let crossColorArray  = [UIColor.blueColor(), UIColor.redColor(), UIColor.purpleColor(), UIColor.greenColor(), UIColor.brownColor(), UIColor.blackColor()]
+        static let numOfXTicks = 4
+        static let sizeOfXTick : CGFloat = 5
+        static let xTickLabelOffset : CGFloat = 10 // how far below the tickmark
+        static let xTickColor = UIColor.redColor()
+        
+        static let sizeOfCross : Double = 2.0
+        static let crossColorArray  = [UIColor.blueColor(), UIColor.redColor(), UIColor.purpleColor(), UIColor.greenColor(), UIColor.brownColor(), UIColor.blackColor()]
         
         
         // left right top and bottom "margin"
-        private static let graphPercentOfXMin : CGFloat = 0.1
-        private static let graphPercentOfXMax : CGFloat = 0.95
-        private static let graphPercentOfYMin : CGFloat = 0.05
-        private static let graphPercentOfYMax : CGFloat = 0.95
+        static let graphPercentOfXMin : CGFloat = 0.1
+        static let graphPercentOfXMax : CGFloat = 0.95
+        static let graphPercentOfYMin : CGFloat = 0.05
+        static let graphPercentOfYMax : CGFloat = 0.95
         
     }
     
@@ -118,7 +118,7 @@ class GraphView: UIView {
         drawXAxisLabel(x: xend, y: yaxis)
     }
     
-    func drawXTicksLabels(y  y: CGFloat)
+    private func drawXTicksLabels(y  y: CGFloat)
     {
         let bp = UIBezierPath()
         GraphViewDefaults.xTickColor.set()
@@ -185,7 +185,7 @@ class GraphView: UIView {
 
     // MARK: - Plotting Functions
     
-    func drawLineGraph()
+    private func drawLineGraph()
     {
         GraphViewDefaults.graphLineColor.set()
         
@@ -207,7 +207,7 @@ class GraphView: UIView {
         bp.stroke()
     }
     
-    func drawScatterGraph()
+    private func drawScatterGraph()
     {
         let num = Int(xend-xstart)
         
@@ -231,7 +231,7 @@ class GraphView: UIView {
     }
     
     // x + y are in the iPhone coordinates
-    func drawCross(x x: Double, y: Double)
+    private func drawCross(x x: Double, y: Double)
     {
         let bp = UIBezierPath()
         bp.moveToPoint(CGPoint(x:CGFloat(x),y:CGFloat(y+GraphViewDefaults.sizeOfCross)))

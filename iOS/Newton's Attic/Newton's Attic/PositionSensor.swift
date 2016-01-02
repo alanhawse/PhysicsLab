@@ -17,8 +17,8 @@ class PositionSensor {
 
     var clock : Clock
     
-    var countsPerRotation = 200.0 // probably wants to be in the advertising packet
-    var wheelCircumfrence = 15.14
+    var countsPerRotation = 200.0 // gets reset by the advertising packet
+    var wheelCircumfrence = 15.14 // gets reset by the advertising packet
     
     var velocity = 0.0
     var maxVelocity = 0.0
@@ -68,7 +68,7 @@ class PositionSensor {
 
     var cmsPerRotation = 10.0 * 2.54 {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedCmsPerRotation, object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedCmsPerRotation, object: self)
         }
     }
 

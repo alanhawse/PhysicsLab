@@ -37,7 +37,7 @@ class CartHistory {
         didSet {
             // send the message that the recording is over
             if oldValue != recording {
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedHistoryState, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedHistoryState, object: nil)
             }
         }
     }
@@ -45,7 +45,7 @@ class CartHistory {
         didSet {
             if oldValue != armed {
                 // send the message that the recording is over
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedHistoryState, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedHistoryState, object: nil)
             }
         }
     }
@@ -218,7 +218,7 @@ class CartHistory {
         
         // recording of data versus time
         
-     //   let num = roundedTime - startTime
+        //   let num = roundedTime - startTime
         
         if timeDps!.count < roundedTime-startTime {
             for i in timeDps!.count...(roundedTime-startTime) {
@@ -240,7 +240,7 @@ class CartHistory {
             posDps![pos] = t1
         }
 
-        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedHistory, object: pl!)
+        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedHistory, object: pl!)
     }
     
     // return a y-value ... based on an x time

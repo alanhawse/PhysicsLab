@@ -31,7 +31,7 @@ class MainViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEUpdatedDevices, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.devicesTable.reloadData() }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.bLEUpdatedDevices, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.devicesTable.reloadData() }
         
         // make it so that the tableviews dont go beneath the navigation bar
         navigationController?.navigationBar.translucent = false
@@ -46,12 +46,6 @@ class MainViewController: UITableViewController {
         {
             if let tvc = sender as? UITableViewCell {
                 tbc.bleD = tagToId[tvc.tag]
-                /*
-                // can you do a popOver right here?
-                if tbc.bleD?.demoDevice != nil {
-                    print("This is a demo device")
-                }
-                */
             }
         }
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -103,7 +97,7 @@ class MainViewController: UITableViewController {
     
     // MARK: - Other functions
     
-    func readDefaults()
+    private func readDefaults()
     {
        
         var rval = 0.0

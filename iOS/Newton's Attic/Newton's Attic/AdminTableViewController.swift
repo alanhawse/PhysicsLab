@@ -16,6 +16,8 @@ extension Double {
     }
 }
 
+
+
 class AdminTableViewController: UITableViewController, UITextFieldDelegate {
     
     
@@ -50,15 +52,15 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         nameTextField.delegate = self
         actualPosition.delegate = self
       
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.currentPosition.text = self.formatValNumDigits(self.bleD!.pl!.pos.cartPosition,digits:2) }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedKinematicData, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.currentPosition.text = self.formatValNumDigits(self.bleD!.pl!.pos.cartPosition,digits:2) }
         
         // can only happen if you are disconnected... when a advertising packet of type 2 arrives
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedAdmin, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateGui() }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedAdmin, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateGui() }
             
         // Either make the fields editable or not
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEConnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(true) }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.bLEConnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(true) }
         
-        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.BLEDisconnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(false) }
+        NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.bLEDisconnected, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.changeEditing(false) }
         
         
         
@@ -273,3 +275,6 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
 
     }
 }
+
+
+

@@ -139,7 +139,7 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
             connectionComplete = true
             peripheral.setNotifyValue(true, forCharacteristic: PLBleChar.charCartPosition)
             
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEConnected, object: pl!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEConnected, object: pl!)
             
         }
         
@@ -159,7 +159,7 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
                 
                 let cp :UInt16 = UInt16(ar[0]) | UInt16(ar[1])<<8
                 pl?.pos.cartPositionCounts = cp
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.PLUpdatedKinematicData, object: pl!)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedKinematicData, object: pl!)
             }
         }
     }

@@ -8,8 +8,15 @@
 
 import UIKit
 
-class PhysicsLabBarViewController: UITabBarController
+
+
+class PhysicsLabBarViewController: UITabBarController, SegueHandlerType
 {
+    
+    internal enum SegueIdentifier : String {
+        case FileViewController = "fileViewController"
+    }
+    
     var bleD : BleDevice?
 
     private var recordButton : UIBarButtonItem?
@@ -26,8 +33,6 @@ class PhysicsLabBarViewController: UITabBarController
         self.tabBar.translucent = false
         setupTopBarRecord()
         
-    //    let cnt = viewControllers!.count
-    
         for i in viewControllers! {
             if let pldvc = i as? PhysicsLabDataViewController
             {
@@ -52,8 +57,8 @@ class PhysicsLabBarViewController: UITabBarController
                 
             }
 
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedHistory, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateHistory() }
-            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.PLUpdatedHistoryState, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.setupTopBarRecord() }
+            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedHistory, object: bleD!.pl!, queue: NSOperationQueue.mainQueue()) { _ in self.updateHistory() }
+            NSNotificationCenter.defaultCenter().addObserverForName(PLNotifications.pLUpdatedHistoryState, object: nil, queue: NSOperationQueue.mainQueue()) { _ in self.setupTopBarRecord() }
 
         }
         
@@ -66,10 +71,11 @@ class PhysicsLabBarViewController: UITabBarController
     
     func setupTopBarConnect()
     {
-        let img1 = UIImage(named: "bluetoothconnected")
+        let img1 = UIImage(assetIdentifier: .BlueToothConnected)
+        
         bleConnectButton = UIBarButtonItem(image: img1, style: .Plain, target: self, action: "bleConnect")
         bleConnectButton?.enabled = loggedIn
-        let img2 = UIImage(named: "login")
+        let img2 = UIImage(assetIdentifier: .Login)
         loginButton = UIBarButtonItem(image: img2, style: .Plain, target: self, action: "login")
         
         self.navigationItem.setRightBarButtonItems([bleConnectButton!,loginButton!], animated: true)
@@ -79,15 +85,16 @@ class PhysicsLabBarViewController: UITabBarController
     {
         
         if bleD!.pl!.history.armed == false && bleD!.pl!.history.recording == false {
-            let img = UIImage(named: "recordbutton")
+            let img = UIImage(assetIdentifier: .Record)
+            
             recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
             actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "action")
             self.navigationItem.setRightBarButtonItems([recordButton!,actionButton!], animated: true)
         }
         
         if bleD!.pl!.history.armed == true && bleD!.pl!.history.recording == false {
+            let img = UIImage(assetIdentifier: .Record)
             
-            let img = UIImage(named: "recordbutton")
             recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
             startButton = UIBarButtonItem(barButtonSystemItem: .Play, target: self, action: "startRecording")
             self.navigationItem.setRightBarButtonItems([recordButton!,startButton!], animated: true)
@@ -95,7 +102,8 @@ class PhysicsLabBarViewController: UITabBarController
         
         
         if bleD!.pl!.history.armed == true && bleD!.pl!.history.recording == true {
-            let img = UIImage(named: "recordbutton")
+            let img = UIImage(assetIdentifier: .Record)
+
             recordButton = UIBarButtonItem(image: img, style: .Plain, target: self, action: "record")
             stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "stopRecording")
             self.navigationItem.setRightBarButtonItems([recordButton!,stopButton!], animated: true)
@@ -156,7 +164,8 @@ class PhysicsLabBarViewController: UITabBarController
  
     func action()
     {
-        performSegueWithIdentifier("fileViewController", sender: nil)
+        // ARH segue 
+        performSegueWithIdentifier(SegueIdentifier.FileViewController, sender: nil)
         
     }
     
@@ -198,7 +207,7 @@ class PhysicsLabBarViewController: UITabBarController
     // MARK: - Notification action
     
     // this function updates the text at the top of the navigation controller
-    func updateHistory()
+    private func updateHistory()
     {
         if bleD!.pl!.history.recording {
            /* let x = NSNumberFormatter()

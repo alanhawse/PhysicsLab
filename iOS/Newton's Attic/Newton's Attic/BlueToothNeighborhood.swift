@@ -11,7 +11,7 @@ import CoreBluetooth
 
 
 class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
-    var centralManager : CBCentralManager?
+    private var centralManager : CBCentralManager?
     var blePeripheralsPhysicsLab = [BleDevice]() // just the physics labs
     
     private var blueToothReady = false
@@ -52,7 +52,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         if let bleD = blePeripherals[peripheral.identifier]
         {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEDisconnected, object: bleD.pl!)
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEDisconnected, object: bleD.pl!)
         }
     }
     
@@ -95,7 +95,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             if bleD.pl != nil
             {
                 bleD.pl?.bleAdvInterface?.addPacket(ar)
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
             }
         }
         else // you have never seen the device
@@ -121,12 +121,12 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
                 bleD.deviceNumber = blePeripheralsPhysicsLab.count
                 
                 // cause the display to reload as we found a new physics lab
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
             }
         }
     }
     
-    func createDemoDevices()
+    private func createDemoDevices()
     {
         
         for deviceName in demoDevices {
@@ -187,7 +187,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         }
         
         // cause the display to reload as we found a new physics lab
-        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
       
     }
     
@@ -239,7 +239,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             NSTimer.scheduledTimerWithTimeInterval(userInfo.demoDevice!.nextUpdate2!, target: self, selector: "addDataDemoDevice2:", userInfo: userInfo, repeats: false)
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.BLEUpdatedDevices, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
 
         
     }
