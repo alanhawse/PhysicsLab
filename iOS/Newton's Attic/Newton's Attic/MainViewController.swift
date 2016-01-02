@@ -38,6 +38,10 @@ class MainViewController: UITableViewController {
         navigationController?.toolbar.translucent = false
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destination = segue.destinationViewController as UIViewController
 
@@ -48,7 +52,6 @@ class MainViewController: UITableViewController {
                 tbc.bleD = tagToId[tvc.tag]
             }
         }
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK: - Table delegate functions
