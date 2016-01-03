@@ -46,7 +46,7 @@ class BlueToothNeighborhood : NSObject {
         }
     }
 
-     private func createDemoDevices()
+    private func createDemoDevices()
     {
         
         for deviceName in demoDevices {
