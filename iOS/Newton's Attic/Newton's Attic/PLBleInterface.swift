@@ -10,12 +10,7 @@ import Foundation
 import CoreBluetooth
 
 class PLBleInterface: NSObject {
-    
-    
-    override init()
-    {
-        super.init()
-    }
+
     
     // MARK: - Public Interface
     var connectionComplete = false

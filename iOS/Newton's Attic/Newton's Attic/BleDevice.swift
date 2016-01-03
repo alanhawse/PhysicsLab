@@ -7,7 +7,8 @@
 //
 import CoreBluetooth
 
-class BleDevice:NSObject {
+
+class BleDevice {
     var peripheral : CBPeripheral?
     var lastSeen : NSDate?
     var pl : PhysicsLab?
