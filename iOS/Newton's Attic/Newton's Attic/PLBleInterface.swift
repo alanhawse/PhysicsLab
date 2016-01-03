@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-class PLBleInterface: NSObject, CBPeripheralDelegate {
+class PLBleInterface: NSObject {
     
     
     override init()
@@ -22,6 +22,8 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
     var peripheral : CBPeripheral?
     var pl : PhysicsLab?
     
+    private var characteristicCount = 0
+
     // MARK: - Private
     private struct PLBleInterfaceGlobals {
         
@@ -67,102 +69,6 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
         peripheral = nil
     }
     
-    // MARK: - BLE Discovery Delgate protocol interface
-
-    // This function is called one time for each service in the device
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
-        
-        //print("didDiscover Services \(peripheral)")
-        
-        self.peripheral = peripheral
-        characteristicCount = 0
-        
-        for service in peripheral.services! {
-            
-                if service.UUID == PLBleInterfaceGlobals.SettingsService {
-                    
-                    //print("Discover characteristic for \(service.UUID)")
-                    
-                    peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
-                }
-                if service.UUID == PLBleInterfaceGlobals.KinematicService {
-                    //print("Discover characteristic for \(service.UUID)")
-                    
-                    peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
-                }
-                
-            
-        }
-    }
-    
-    private var characteristicCount = 0
-    
-    // this function is called once for each characterisitic in during discovery
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
-        
-       // print("Did Discover Characteristics")
-        
-       // print("Service = \(service)")
-        
-        for i in service.characteristics! {
-            //let thisCharacteristic = i as! CBCharacteristic
-          //  print("Service = \(i)")
-            switch i.UUID
-            {
-            case PLBleInterfaceGlobals.CharacteristicAccelMode:
-                PLBleChar.charAccelMode = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicGyroMode:
-                PLBleChar.charGyroMode = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicMagMode:
-                PLBleChar.charMagMode = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicName:
-                PLBleChar.charName = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicWheelCircumfrence:
-                PLBleChar.charWheelCircumfrence = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicCartZero:
-                PLBleChar.charCartZero = i
-                characteristicCount += 1
-            case PLBleInterfaceGlobals.CharacteristicPosition:
-                PLBleChar.charCartPosition = i
-                characteristicCount += 1
-                
-            default: break
-            }
-        }
-        
-        if characteristicCount == PLBleInterfaceGlobals.numCharacteristics {
-            connectionComplete = true
-            peripheral.setNotifyValue(true, forCharacteristic: PLBleChar.charCartPosition)
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEConnected, object: pl!)
-            
-        }
-        
-    }
-    
-    // This function is called everytime a characteristic is updated and it is
-    // set for ble notify
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if characteristic == PLBleChar.charCartPosition {
-            var ar = [UInt8]()
-            
-            if let dat = characteristic.value  {
-                
-                ar  = [UInt8](count:dat.length, repeatedValue: 0)
-                // copy bytes into array
-                dat.getBytes(&ar, length:dat.length)
-                
-                let cp :UInt16 = UInt16(ar[0]) | UInt16(ar[1])<<8
-                pl?.pos.cartPositionCounts = cp
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedKinematicData, object: pl!)
-            }
-        }
-    }
     
     // MARK: - Write Characteristcs to connection
     func writeName()
@@ -246,5 +152,104 @@ class PLBleInterface: NSObject, CBPeripheralDelegate {
             peripheral?.writeValue(ns, forCharacteristic: char, type: CBCharacteristicWriteType.WithResponse)
         }
     }
+}
+
+extension PLBleInterface: CBPeripheralDelegate {
+    // MARK: - BLE Discovery Delgate protocol interface
+    
+    // This function is called one time for each service in the device
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+        
+        //print("didDiscover Services \(peripheral)")
+        
+        self.peripheral = peripheral
+        characteristicCount = 0
+        
+        for service in peripheral.services! {
+            
+            if service.UUID == PLBleInterfaceGlobals.SettingsService {
+                
+                //print("Discover characteristic for \(service.UUID)")
+                
+                peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
+            }
+            if service.UUID == PLBleInterfaceGlobals.KinematicService {
+                //print("Discover characteristic for \(service.UUID)")
+                
+                peripheral.discoverCharacteristics(nil, forService: service) // ARH probably should replace nil with the specific ones
+            }
+            
+            
+        }
+    }
+    
+    
+    // this function is called once for each characterisitic in during discovery
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+        
+        // print("Did Discover Characteristics")
+        
+        // print("Service = \(service)")
+        
+        for i in service.characteristics! {
+            //let thisCharacteristic = i as! CBCharacteristic
+            //  print("Service = \(i)")
+            switch i.UUID
+            {
+            case PLBleInterfaceGlobals.CharacteristicAccelMode:
+                PLBleChar.charAccelMode = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicGyroMode:
+                PLBleChar.charGyroMode = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicMagMode:
+                PLBleChar.charMagMode = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicName:
+                PLBleChar.charName = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicWheelCircumfrence:
+                PLBleChar.charWheelCircumfrence = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicCartZero:
+                PLBleChar.charCartZero = i
+                characteristicCount += 1
+            case PLBleInterfaceGlobals.CharacteristicPosition:
+                PLBleChar.charCartPosition = i
+                characteristicCount += 1
+                
+            default: break
+            }
+        }
+        
+        if characteristicCount == PLBleInterfaceGlobals.numCharacteristics {
+            connectionComplete = true
+            peripheral.setNotifyValue(true, forCharacteristic: PLBleChar.charCartPosition)
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEConnected, object: pl!)
+            
+        }
+        
+    }
+    
+    // This function is called everytime a characteristic is updated and it is
+    // set for ble notify
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        if characteristic == PLBleChar.charCartPosition {
+            var ar = [UInt8]()
+            
+            if let dat = characteristic.value  {
+                
+                ar  = [UInt8](count:dat.length, repeatedValue: 0)
+                // copy bytes into array
+                dat.getBytes(&ar, length:dat.length)
+                
+                let cp :UInt16 = UInt16(ar[0]) | UInt16(ar[1])<<8
+                pl?.pos.cartPositionCounts = cp
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.pLUpdatedKinematicData, object: pl!)
+            }
+        }
+    }
+
 }
 

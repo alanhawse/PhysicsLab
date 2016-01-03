@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GraphViewController: UIViewController, GraphViewDataSource {
+class GraphViewController: UIViewController {
     var bleD : BleDevice?
     
     // MARK: - Viewcontroller Lifecycle
@@ -127,8 +127,10 @@ class GraphViewController: UIViewController, GraphViewDataSource {
 
         }
     }
-    
-    // MARK: - Graph datasource delegate
+}
+
+// MARK: - Graph datasource delegate
+extension GraphViewController: GraphViewDataSource {
     
     // input x in CMs for range cms
     func getValYforXPosition(x: Int, range: Int) -> [Int : Double]? {

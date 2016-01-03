@@ -10,7 +10,7 @@
 import CoreBluetooth
 
 
-class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
+class BlueToothNeighborhood : NSObject {
     private var centralManager : CBCentralManager?
     var blePeripheralsPhysicsLab = [BleDevice]() // just the physics labs
     
@@ -46,87 +46,7 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
         }
     }
 
-    // MARK: - CBCentralManager Delegate Functions
-    
-    // disconnected a device
-    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        if let bleD = blePeripherals[peripheral.identifier]
-        {
-            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEDisconnected, object: bleD.pl!)
-        }
-    }
-    
-    // a device connection is complete
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        
-        if let bleD = blePeripherals[peripheral.identifier]
-        {
-            // ARH this should probably be setup in the bleConnectionInterface Object
-            peripheral.delegate = bleD.pl?.bleConnectionInterface
-        //    println("starting service discovery")
-            peripheral.discoverServices(nil)
-
-        }
-        
-     }
-    
-    // called when you see an advertising packet
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
-    {
-        
-        let packetData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
-        
-        if packetData == nil {
-            return
-        }
-        var ar = [UInt8]()
-        
-        ar  = [UInt8](count:packetData!.length, repeatedValue: 0)
-        // copy bytes into array
-        packetData!.getBytes(&ar, length:packetData!.length)
-        
-        
-        if let bleD = blePeripherals[peripheral.identifier]
-        {
-            bleD.lastSeen = NSDate()
-            
-            // if we have seen this device before and it is a physics lab then
-            // you need to add the new advertising packet information
-            if bleD.pl != nil
-            {
-                bleD.pl?.bleAdvInterface?.addPacket(ar)
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
-            }
-        }
-        else // you have never seen the device
-        {
-            // make a new ble device
-            let bleD = BleDevice(peripheral: peripheral, lastSeen: NSDate())
-            // add it to the table of device
-            blePeripherals[peripheral.identifier] = bleD
-            
-            let plInterface = PLAdvPacketInterface()
-            if plInterface.isValid(ar)
-            {
-                bleD.pl = PhysicsLab()
-                bleD.pl!.name = peripheral.identifier.UUIDString
-                bleD.pl!.bleAdvInterface = plInterface
-                plInterface.pl = bleD.pl
-                
-                bleD.pl!.bleConnectionInterface = PLBleInterface()
-                bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
-                
-                // add it to the list of physics labs
-                blePeripheralsPhysicsLab.append(bleD)
-                bleD.deviceNumber = blePeripheralsPhysicsLab.count
-                
-                // cause the display to reload as we found a new physics lab
-                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
-            }
-        }
-    }
-    
-    private func createDemoDevices()
+     private func createDemoDevices()
     {
         
         for deviceName in demoDevices {
@@ -245,6 +165,13 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
     }
 
     
+}
+
+extension BlueToothNeighborhood:  CBCentralManagerDelegate  {
+    // MARK: - CBCentralManager Delegate Functions
+    
+    
+    
     @objc func centralManagerDidUpdateState(central: CBCentralManager) {
         switch (central.state) {
         case .PoweredOff: break
@@ -259,5 +186,86 @@ class BlueToothNeighborhood: NSObject, CBCentralManagerDelegate  {
             discoverDevices()
         }
     }
+
+    
+    // disconnected a device
+    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        if let bleD = blePeripherals[peripheral.identifier]
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEDisconnected, object: bleD.pl!)
+        }
+    }
+    
+    // a device connection is complete
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        
+        if let bleD = blePeripherals[peripheral.identifier]
+        {
+            // ARH this should probably be setup in the bleConnectionInterface Object
+            peripheral.delegate = bleD.pl?.bleConnectionInterface
+            //    println("starting service discovery")
+            peripheral.discoverServices(nil)
+            
+        }
+        
+    }
+    
+    // called when you see an advertising packet
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
+    {
+        
+        let packetData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
+        
+        if packetData == nil {
+            return
+        }
+        var ar = [UInt8]()
+        
+        ar  = [UInt8](count:packetData!.length, repeatedValue: 0)
+        // copy bytes into array
+        packetData!.getBytes(&ar, length:packetData!.length)
+        
+        
+        if let bleD = blePeripherals[peripheral.identifier]
+        {
+            bleD.lastSeen = NSDate()
+            
+            // if we have seen this device before and it is a physics lab then
+            // you need to add the new advertising packet information
+            if bleD.pl != nil
+            {
+                bleD.pl?.bleAdvInterface?.addPacket(ar)
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
+            }
+        }
+        else // you have never seen the device
+        {
+            // make a new ble device
+            let bleD = BleDevice(peripheral: peripheral, lastSeen: NSDate())
+            // add it to the table of device
+            blePeripherals[peripheral.identifier] = bleD
+            
+            let plInterface = PLAdvPacketInterface()
+            if plInterface.isValid(ar)
+            {
+                bleD.pl = PhysicsLab()
+                bleD.pl!.name = peripheral.identifier.UUIDString
+                bleD.pl!.bleAdvInterface = plInterface
+                plInterface.pl = bleD.pl
+                
+                bleD.pl!.bleConnectionInterface = PLBleInterface()
+                bleD.pl!.bleConnectionInterface!.pl = bleD.pl!
+                
+                // add it to the list of physics labs
+                blePeripheralsPhysicsLab.append(bleD)
+                bleD.deviceNumber = blePeripheralsPhysicsLab.count
+                
+                // cause the display to reload as we found a new physics lab
+                NSNotificationCenter.defaultCenter().postNotificationName(PLNotifications.bLEUpdatedDevices, object: nil)
+            }
+        }
+    }
+    
+
 }
 

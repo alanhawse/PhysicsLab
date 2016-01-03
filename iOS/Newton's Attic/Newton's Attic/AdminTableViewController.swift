@@ -18,7 +18,7 @@ extension Double {
 
 
 
-class AdminTableViewController: UITableViewController, UITextFieldDelegate {
+class AdminTableViewController: UITableViewController {
     
     
     // this is setup by the parent navigation controller.
@@ -86,36 +86,6 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         actualPosition.resignFirstResponder()
     }
 
-    // if the user says he is done.. so be it.  The next call will
-    // be automatically to the end ibaction as registered in the storyboard
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        return true
-    }
-    
-    
-    // if the user says he is done.. so be it.  The next call will
-    // be automatically to the end ibaction as registered in the storyboard
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    
-    func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
-    {
-        
-        if textField == nameTextField {
-            let name : NSString = textField.text!
-            return bleD!.pl!.isNameLegal(String(name.stringByReplacingCharactersInRange(range, withString: string)))
-        }
-        
-        let countdots = textField.text!.componentsSeparatedByString(".").count - 1
-        if countdots > 0 && string == "."
-        {
-            return false
-        }
-        return true
-    }
 
     // MARK: - Configure GUI
     
@@ -274,6 +244,40 @@ class AdminTableViewController: UITableViewController, UITextFieldDelegate {
         bleD?.pl?.bleConnectionInterface?.writeGyroMode()
 
     }
+}
+
+extension AdminTableViewController : UITextFieldDelegate {
+    // if the user says he is done.. so be it.  The next call will
+    // be automatically to the end ibaction as registered in the storyboard
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return true
+    }
+    
+    
+    // if the user says he is done.. so be it.  The next call will
+    // be automatically to the end ibaction as registered in the storyboard
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
+    {
+        
+        if textField == nameTextField {
+            let name : NSString = textField.text!
+            return bleD!.pl!.isNameLegal(String(name.stringByReplacingCharactersInRange(range, withString: string)))
+        }
+        
+        let countdots = textField.text!.componentsSeparatedByString(".").count - 1
+        if countdots > 0 && string == "."
+        {
+            return false
+        }
+        return true
+    }
+  
 }
 
 

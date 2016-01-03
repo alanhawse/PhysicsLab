@@ -9,16 +9,10 @@
 import UIKit
 import MessageUI
 
-class EmailViewController: MFMailComposeViewController, MFMailComposeViewControllerDelegate {
+class EmailViewController: MFMailComposeViewController {
 
     override func viewWillAppear(animated: Bool) {
         mailComposeDelegate = self
-    }
-    
-    // if they send or cancel dismiss the view controller and go back
-    // to the file screen
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // create the attachments and attach them to the mail message
@@ -32,6 +26,14 @@ class EmailViewController: MFMailComposeViewController, MFMailComposeViewControl
             }
         }
     }
+}
+
+extension EmailViewController :  MFMailComposeViewControllerDelegate {
     
+    // if they send or cancel dismiss the view controller and go back
+    // to the file screen
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }

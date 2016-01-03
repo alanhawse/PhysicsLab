@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class FileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FileViewController: UIViewController {
     
     private var fileNames = [String]()
     private var docsDir : String {
@@ -101,39 +101,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
 
     
-    // MARK: - Tableview delegate functions
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fileNames.count
-    }
-    
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("fileName", forIndexPath: indexPath) 
-        
-        let ip = indexPath.row
-        cell.textLabel?.text = fileNames[ip]
-        cell.accessoryType = checkState[ip]
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        flipCellState(cell!)
-    }
-    
-    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        flipCellState(cell!)
-    }
-    
-    // MARK: - Helper functions
+       // MARK: - Helper functions
     
     // if the cell is checked then you need to flip the state
     // in the list as well.
@@ -155,7 +123,7 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    // makes a filter list of all of the files that have a checkmar\
+    // makes a filter list of all of the files that have a checkmark
     // used by trash and email
     private func getList() -> [String] {
         var rval = [String]()
@@ -202,4 +170,43 @@ class FileViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
     }
+}
+
+extension FileViewController: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fileNames.count
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("fileName", forIndexPath: indexPath)
+        
+        let ip = indexPath.row
+        cell.textLabel?.text = fileNames[ip]
+        cell.accessoryType = checkState[ip]
+        
+        return cell
+    }
+    
+}
+
+extension FileViewController:  UITableViewDelegate {
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        flipCellState(cell!)
+    }
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        flipCellState(cell!)
+    }
+    
+
 }

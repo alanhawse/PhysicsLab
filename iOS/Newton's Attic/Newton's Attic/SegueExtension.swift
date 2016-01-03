@@ -5,6 +5,8 @@
 //  Created by Alan Hawse on 1/2/16.
 //  Copyright © 2016 Elkhorn Creek Engineering. All rights reserved.
 //
+// This protocol extension came from the WWDC2015 
+// https://developer.apple.com/videos/play/wwdc2015-411/ 27:01
 
 import Foundation
 import UIKit
