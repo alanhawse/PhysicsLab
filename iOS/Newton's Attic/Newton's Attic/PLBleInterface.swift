@@ -110,7 +110,6 @@ class PLBleInterface: NSObject {
     
 
     // MARK: - BLE Write Functions
-    // ARH These should reall be done as extensions to Characertisitc?
     
     private func bleWriteUInt8(var val: UInt8, char: CBCharacteristic)
     {
